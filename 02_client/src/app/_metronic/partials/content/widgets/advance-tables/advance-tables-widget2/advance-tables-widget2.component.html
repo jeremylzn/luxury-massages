@@ -1,0 +1,86 @@
+<div class="card card-custom card-stretch gutter-b">
+  <!-- Header -->
+  <div class="card-header border-0 pt-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label font-weight-bolder text-dark">ההזמנות החדשות</span>
+      <span dir="rtl" class="text-muted mt-3 font-weight-bold font-size-sm"> {{bookingService.notCompletedStore.length}} הזמנות חדשות</span>
+    </h3>
+    <div class="card-toolbar">
+      <a class="btn btn-primary font-weight-bolder font-size-sm cursor-pointer" (click)="toScheduler()"><span *ngIf='!scheduler'>לוח שנה עם ההזמנות</span><span *ngIf='scheduler'>רשימת הזמנות</span></a>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="card-body pt-3 pb-0">
+    <!--begin::Table-->
+    <div class="table-responsive" *ngIf='!scheduler'>
+      <table class="table table-borderless table-vertical-center">
+        <thead>
+          <tr>
+            <th class="p-0" [style.min-width]="'50px'"></th>
+            <th class="p-0" [style.min-width]="'200px'"></th>
+            <th class="p-0" [style.min-width]="'100px'"></th>
+            <th class="p-0" [style.min-width]="'125px'"></th>
+            <th class="p-0" [style.min-width]="'110px'"></th>
+            <th class="p-0" [style.min-width]="'150px'"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let line of dataNotCompleted | async; let i = index">
+            <td class="pl-0 py-4">
+              <div class="symbol symbol-50 symbol-light mr-1">
+                <span class="symbol-label">
+                  <i class="badge-wrapper">
+                    <span class='badge badge-secondary'>{{i+1}}</span>
+                  </i>
+                </span>
+              </div>
+            </td>
+            <td class="pl-0">
+              <a class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{line.serviceDetails[0].name}}</a>
+              <div>
+                <a class="text-muted font-weight-bold text-hover-primary cursor-pointer">{{line.customerDetails.fullname}}</a>
+                <span class="font-weight-bolder"> : לקוח</span>&nbsp;
+              </div>
+            </td>
+            <td class="text-right">
+              <span
+                class="text-dark-75 font-weight-bolder d-block font-size-lg"
+              >
+              ₪{{line.price}}
+              </span>
+              <span class="text-muted font-weight-bold">
+                שולם
+              </span>
+            </td>
+            <td class="text-right">
+              <span class="text-muted font-weight-500">
+                {{line.dateStr}} : {{line.timeStr}}
+              </span>
+            </td>
+            <td class="text-right">
+              <span class="label label-lg label-light-primary label-inline" *ngIf="line.approved">אושר</span>
+              <span class="label label-lg label-light-primary label-inline" *ngIf="!line.approved">לא אושר</span>
+            </td>
+            <td class="text-right pr-0">
+              <a class="btn btn-icon btn-light btn-sm cursor-pointer" (click)="availableWorkers(line.date, line.serviceDetails[0].minutes, line._id)">
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Settings-1.svg'" class="svg-icon svg-icon-md svg-icon-primary"></span>
+              </a>
+              <a class="btn btn-icon btn-light btn-sm mx-3 cursor-pointer" (click)="viewAppointmentData(i)">
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" class="svg-icon svg-icon-md svg-icon-primary"></span>
+              </a>
+              <a class="btn btn-icon btn-light btn-sm cursor-pointer">
+                <span
+                  [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                  class="svg-icon svg-icon-md svg-icon-primary"
+                ></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--end::Table-->
+    <app-scheduler-widget3 *ngIf='scheduler'></app-scheduler-widget3>
+  </div>
+</div>
+

@@ -1,0 +1,43 @@
+<div class="card card-custom card-stretch gutter-b">
+  <!-- Header -->
+  <div class="card-header border-0">
+    <h3 class="card-title font-weight-bolder text-dark">עובדים שלי</h3>
+    <div class="card-toolbar">
+      <div
+        ngbDropdown
+        class="dropdown dropdown-inline"
+        data-toggle="tooltip"
+        title="Quick actions"
+        data-placement="bottom"
+      >
+      </div>
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="card-body pt-2">
+    <!--begin::Item-->
+    <div class="d-flex align-items-center mb-10" *ngFor = "let worker of allWorkers | async; let i = index">
+      <!--begin::Symbol-->
+      <div class="symbol symbol-50 symbol-light mr-5">
+        <span class="symbol-label">
+          <i class="badge-wrapper">
+            <span class='badge badge-secondary'>{{i+1}}</span>
+          </i>
+        </span>
+      </div>
+      <!--end::Symbol-->
+
+      <!--begin::Text-->
+      <div class="d-flex flex-column flex-grow-1 font-weight-bold">
+        <a href="#" class="text-dark text-hover-primary mb-1 font-size-lg"
+          >{{worker.fullname}}</a
+        >
+        <span class="text-muted">{{worker.email}}</span>
+      </div>
+      <!--end::Text-->
+      <a class="btn btn-icon btn-light btn-sm mx-3 cursor-pointer" (click)="viewWorkerData(i)">
+        <span [inlineSVG]="'./assets/media/svg/icons/General/Visible.svg'" class="svg-icon svg-icon-md svg-icon-primary"></span>
+      </a>
+    </div>
+    <!--end::Item-->
+</div>

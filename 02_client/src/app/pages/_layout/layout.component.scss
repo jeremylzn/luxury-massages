@@ -1,0 +1,23 @@
+app-layout {
+  opacity: 0;
+  height: 100%;
+
+  .grid-root {
+    height: 100%;
+  }
+}
+
+.page-loaded {
+  app-layout {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+}
+
+#kt_content {
+  height: 100vh;
+  // overflow: hidden;
+  // display: flex;
+  // align-items: center;
+  justify-content: center;
+}

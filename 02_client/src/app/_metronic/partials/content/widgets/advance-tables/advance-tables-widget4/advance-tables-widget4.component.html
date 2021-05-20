@@ -1,0 +1,83 @@
+<!--begin::Advance Table Widget 4-->
+<div class="card card-custom card-stretch gutter-b">
+  <!--begin::Header-->
+  <div class="card-header border-0 py-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label font-weight-bolder text-dark">רשימת טיפולים</span>
+      <span class="text-muted mt-3 font-weight-bold font-size-sm" dir="rtl"> {{allServices.length}} טיפולים כרגע </span>
+    </h3>
+    <div class="card-toolbar">
+      <a class="btn btn-danger font-weight-bolder font-size-sm cursor-pointer" (click)="onClickCreate()">טיפול חדש</a>
+    </div>
+  </div>
+  <!--end::Header-->
+
+  <!--begin::Body-->
+  <div class="card-body pt-0 pb-3">
+    <div class="tab-content">
+      <!--begin::Table-->
+      <div class="table-responsive">
+        <table
+          class="table table-head-custom table-head-bg table-borderless table-vertical-center"
+        >
+          <thead>
+            <tr class="text-left text-uppercase">
+              <th style="min-width: 250px;" class="pl-7">
+                <span class="text-dark-75">שם טיפול</span>
+              </th>
+              <th style="min-width: 100px;">הסבר</th>
+              <th style="min-width: 100px;">מחיר</th>
+              <th style="min-width: 100px;">זמן (דק)</th>
+              <th style="min-width: 130px;">פעיל</th>
+              <th style="min-width: 80px;">ערכה</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let service of allServices">
+              <td class="pl-0 py-8">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <a
+                      class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg cursor-pointer"
+                      >{{service.name}}</a
+                    >
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="text-dark-75 font-weight-bolder d-block font-size-lg" dir="rtl">
+                <p>{{service.description | limitTo: "20"}}<span ng-show="service.description.length > 20">...</span></p>
+                </span>
+              </td>
+              <td>
+                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                  ₪{{service.price}}
+                </span>
+              </td>
+              <td>
+                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                  {{service.minutes}}
+                </span>
+              </td>
+              <td>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" checked class="custom-control-input" id="customSwitch{{service._id}}" *ngIf='service.actif' (change)="onChangeActif($event, service._id)">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch{{service._id}}" *ngIf='!service.actif' (change)="onChangeActif($event, service._id)">
+                  <label class="custom-control-label" for="customSwitch{{service._id}}"></label>
+                </div>
+              </td>
+              <td class="pr-0">
+                <a class="btn btn-light-success font-weight-bolder font-size-sm cursor-pointer" (click)="onClickEdit(service, service._id)">
+                  <span [inlineSVG]="'./assets/media/svg/icons/General/Edit.svg'" class="svg-icon svg-icon-md svg-icon-primary"></span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--end::Table-->
+    </div>
+  </div>
+  <!--end::Body-->
+</div>
+<!--end::Advance Table Widget 4-->

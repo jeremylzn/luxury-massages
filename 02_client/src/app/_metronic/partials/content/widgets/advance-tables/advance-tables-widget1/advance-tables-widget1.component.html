@@ -1,0 +1,87 @@
+<div class="card card-custom" [ngClass]="cssClass">
+  <!-- Header -->
+  <div class="card-header border-0 py-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label font-weight-bolder text-dark">ניהול פרסומות</span>
+    </h3>
+    <div class="card-toolbar">
+      <a class="btn btn-success font-weight-bolder font-size-sm" (click)="onClickCreate()"><span [inlineSVG]="'./assets/media/svg/icons/Communication/Add-user.svg'" class="svg-icon svg-icon-md svg-icon-white"></span>
+        הוסף פרסום חדש
+      </a>
+    </div>
+  </div>
+  <!--begin::Body-->
+  <div class="card-body py-0">
+    <!--begin::Table-->
+    <div class="table-responsive">
+      <table
+        class="table table-head-custom table-vertical-center"
+        id="kt_advance_table_widget_1"
+      >
+        <thead>
+          <tr class="text-left">
+            <th>שם חברה</th>
+            <th style="min-width: 150px">תמונת פרסום</th>
+            <th>פעיל</th>
+            <th>מחיקה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ads of adsList | async; let i = index">
+            <td class="pl-0">
+              <span class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ads.nameSociety}}</span>
+            </td>
+
+            <td>
+              <label class="btn btn-default">
+                החלפה תמונת פירסום <input id="fileInput" type='file' (change)="onSelectFile($event, ads._id)" hidden>
+              </label>
+              <div>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#displayImage" (click)="displayAdsPicture(ads._id)">{{ads.nameFile}}</button>
+              </div>
+              
+            </td>
+
+            <td>
+              <div class="d-flex flex-column w-100 mr-2 custom-control custom-switch">
+                <input type="checkbox" checked class="custom-control-input" id="customSwitch{{ads._id}}" *ngIf='ads.actif' (change)="onChangeActif($event, ads._id)">
+                <input type="checkbox" class="custom-control-input" id="customSwitch{{ads._id}}" *ngIf='!ads.actif' (change)="onChangeActif($event, ads._id)">
+                <label class="custom-control-label" for="customSwitch{{ads._id}}"></label>
+              </div>
+            </td>
+
+            <td class="pr-0">
+              <a class="btn btn-icon btn-light btn-hover-primary btn-sm" (click)="onRemove(ads._id)">
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" class="svg-icon svg-icon-md svg-icon-primary"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--end::Table-->
+  </div>
+  <!--end::Body-->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="displayImage" tabindex="-1" role="dialog" aria-labelledby="displayImageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="displayImageLabel">תמונה הנוכחית</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div  *ngIf="currentDisplayUrl" class="d-flex flex-column align-items-center text-center mb-5">
+          <img style="height: 15%; width:50%;" [src]="currentDisplayUrl" alt="ads">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">סגור</button>
+      </div>
+    </div>
+  </div>
+</div>

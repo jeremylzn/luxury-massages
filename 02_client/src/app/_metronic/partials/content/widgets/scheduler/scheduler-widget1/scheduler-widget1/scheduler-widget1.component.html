@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Large modal</button> -->
+
+    <div class="col-md-8 mb-12 mt-12">
+      <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+    </div>
+
+    <div class="col-md-4" *ngIf="ads.length">
+      <div *ngFor="let ad of ads; let i = index" class="d-flex flex-column align-items-center text-center mb-5">
+        <img [src]="ad" alt="ad">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">? תור לתאריך {{current_event.dateStr}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group row" dir="rtl"> <label for="example-time-input" class="col-2 col-form-label">שעה</label>
+      <div class="col-10">
+        <div class="alert alert-danger" role="alert" *ngIf="alertMessage">
+          לא בחרת שעה
+        </div>
+        <input class="form-control" name="time" [(ngModel)]="selectedTime" type="time" value="13:45" id="swal-time">
+      </div>
+    </div>
+    <div class="card-body pt-0 pb-3">
+      <div class="tab-content">
+        <div class="table-responsive">
+          <table class="table table-head-custom table-vertical-center table-head-bg table-borderless">
+            <thead>
+              <tr class="text-left">
+                <th style="min-width: 50px"><span class="text-dark-75">תמונה</span></th>
+                <th style="min-width: 200px">שם מלא</th>
+                <th style="min-width: 200px">מין</th>
+                <th style="min-width: 200px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let worker of all_availables_workers; let i = index">
+                <td class="">
+                  <!-- <a class="btn btn-light-success font-weight-bolder font-size-sm">תמונת עובד</a> -->
+                  <img [src]="worker.img" class="imgProfile">
+                </td>
+                <td><span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{worker.fullname}}</span></td>
+                <td><span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{worker.gender}}</span></td>
+                <td class=""><a class="btn btn-light-success font-weight-bolder font-size-sm" (click)="ConfirmAppointment(worker)">לבחור את העובד הזה</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

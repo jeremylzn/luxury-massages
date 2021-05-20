@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <ul>
+        <div class="mb-5 cursor-pointer" *ngFor="let item of allData; let i = index" (click)="openSwal(item)">
+          <div class="folded-corner service_tab_1">
+            <div class="text">
+              <div class="symbol symbol-50 symbol-light mr-1">
+                <span class="symbol-label">
+                  <i class="badge-wrapper">
+                    <span class='badge badge-secondary'>{{i+1}}</span>
+                  </i>
+                </span>
+              </div>
+              <h3>{{item.name}}</h3>
+              <p dir="rtl">
+                {{item.description}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+    <div class="col-md-4" *ngIf="ads.length">
+      <div  *ngFor="let ad of ads; let i = index" class="d-flex flex-column align-items-center text-center mb-5">
+        <img [src]="ad" alt="ad">
+      </div>
+    </div>
+  </div>
+</div>

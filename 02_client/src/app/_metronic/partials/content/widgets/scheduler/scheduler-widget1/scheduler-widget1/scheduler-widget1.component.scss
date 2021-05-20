@@ -1,0 +1,23 @@
+#fullcalendar{
+    //* various CSS styles to make calendar
+    background-color: #A0A8A0;
+    cursor: pointer;
+}
+
+img {
+  height: 10%;
+  width: 80%;
+}
+
+.imgProfile {
+  height: 80px!important;
+  width: 70%!important;
+}
+@media only screen and (max-width: 600px) {
+  .imgProfile {
+    height: 40px!important;
+    width: 100%!important;
+  }
+}
+
+

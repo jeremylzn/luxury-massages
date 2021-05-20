@@ -1,0 +1,225 @@
+<!--begin::Signup-->
+<div class="login-form login-signup">
+  <!--begin::Form-->
+  <form class="form" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="registrationForm"
+    (ngSubmit)="submit()">
+    <!--begin::Title-->
+    <div class="pb-13 pt-lg-0 pt-5 title">
+      <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
+        {{ "AUTH.REGISTER.TITLE" | translate }}
+      </h3>
+      <p class="text-muted font-weight-bold font-size-h4">
+        {{ "AUTH.REGISTER.DESC" | translate }}
+      </p>
+    </div>
+    <!--end::Title-->
+
+    <!-- begin::Alert error-->
+    <ng-container *ngIf="hasError">
+      <div class="mb-10 alert alert-custom alert-light-danger alert-dismissible">
+        <div class="alert-text">The registration details are incorrect</div>
+      </div>
+    </ng-container>
+    <!-- end::Alert error-->
+
+    <!--begin::Form group-->
+    <div class="form-group">
+        <div class="col-lg-12 p-0 text-field">
+          <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="text" name="fullname" formControlName="fullname" autocomplete="off" required/>
+          <label class="text-dark">{{ 'AUTH.INPUT.FULLNAME' | translate }}</label>
+        </div>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED'| translate: {name: 'שם מלא'},
+          control: registrationForm.controls['fullname']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'AUTH.VALIDATION.MIN_LENGTH'| translate: {name: 'שם מלא', min: '3'},
+          control: registrationForm.controls['fullname']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxLength',
+          message: 'AUTH.VALIDATION.MAX_LENGTH'| translate: {name: 'שם מלא', max: '100'},
+          control: registrationForm.controls['fullname']
+        }"></ng-container>
+    </div>
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group">
+        <div class="col-lg-12 p-0 text-field">
+          <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="email" name="email" formControlName="email" autocomplete="off" required/>
+          <label class="text-dark">{{ "AUTH.INPUT.EMAIL" | translate }}</label>
+        </div>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED'| translate: {name: 'כתובת מייל'},
+          control: registrationForm.controls['email']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'email',
+          message: 'AUTH.VALIDATION.INVALID'| translate: {name: 'כתובת מייל'},
+          control: registrationForm.controls['email']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'AUTH.VALIDATION.MIN_LENGTH'| translate: {name: 'כתובת מייל', min:'3'},
+          control: registrationForm.controls['email']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxLength',
+          message: 'AUTH.VALIDATION.MAX_LENGTH'| translate: {name: 'כתובת מייל', max:'360'},
+          control: registrationForm.controls['email']
+        }"></ng-container>
+    </div>
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group">
+        <div class="col-lg-12 p-0 text-field">
+          <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="number" name="telephone" formControlName="telephone" autocomplete="off" required/>
+          <label class="text-dark">{{ "AUTH.INPUT.TEL" | translate }}</label>
+        </div>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'AUTH.VALIDATION.REQUIRED'| translate: {name: 'טלפון'},
+              control: registrationForm.controls['telephone']
+            }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'minlength',
+              message: 'AUTH.VALIDATION.MIN_LENGTH'| translate: {name: 'טלפון', min:'10'},
+              control: registrationForm.controls['telephone']
+            }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'maxLength',
+              message: 'AUTH.VALIDATION.MAX_LENGTH'| translate: {name: 'טלפון', max:'10'},
+              control: registrationForm.controls['telephone']
+            }"></ng-container>
+    </div>
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group">
+      <!-- <label class="font-size-h6 font-weight-bolder text-dark">{{ "AUTH.INPUT.ADDRESS" | translate }}</label> -->
+
+      <div class="col-lg-12 p-0 text-field">
+        <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="text" name="address" formControlName="address" autocomplete="off" required/>
+        <label class="text-dark">{{ "AUTH.INPUT.ADDRESS" | translate }}</label>
+      </div>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{validation: 'required', message:  'AUTH.VALIDATION.REQUIRED'| translate: {name: 'כתובת'}, control: registrationForm.controls['address']}"></ng-container>
+    </div>
+    <!--end::Form group-->
+
+
+    <!--begin::Form group-->
+    <div class="form-group">
+        <div class="col-lg-12 p-0 text-field">
+          <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="password"  name="password" formControlName="password" autocomplete="off" required/>
+          <label class="text-dark">{{ "AUTH.INPUT.PASSWORD" | translate }}</label>
+        </div>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED'| translate: {name: 'סיסמה'},
+          control: registrationForm.controls['password']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'AUTH.VALIDATION.MIN_LENGTH'| translate: {name: 'סיסמה', min: '3'},
+          control: registrationForm.controls['password']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxLength',
+          message: 'AUTH.VALIDATION.MAX_LENGTH'| translate: {name: 'סיסמה', max: '100'},
+          control: registrationForm.controls['password']
+        }"></ng-container>
+    </div>
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group">
+        <div class="col-lg-12 p-0 text-field">
+          <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="password"  name="cPassword" formControlName="cPassword" autocomplete="off" required/>
+          <label class="text-dark">{{ "AUTH.INPUT.CONFIRM_PASSWORD" | translate }}</label>
+        </div>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'AUTH.VALIDATION.REQUIRED'| translate: {name: 'סיסמה'},
+          control: registrationForm.controls['cPassword']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'minlength',
+          message: 'AUTH.VALIDATION.MIN_LENGTH'| translate: {name: 'סיסמה', min: '3'},
+          control: registrationForm.controls['cPassword']
+        }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'maxLength',
+          message: 'AUTH.VALIDATION.MAX_LENGTH'| translate: {name: 'סיסמה', max: '100'},
+          control: registrationForm.controls['cPassword']
+        }"></ng-container>
+      <ng-container *ngIf="
+          registrationForm.controls['cPassword'].errors &&
+          registrationForm.controls['cPassword'].errors.ConfirmPassword
+        ">
+        <div class="fv-plugins-message-container">
+          <div class="fv-help-block">
+              סיסמה ואשר סיסמה לא התאימו.
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <!--end::Form group-->
+
+     <!--begin::Form group-->
+     <div class="form-group">
+      <div class="col-lg-12 p-0 text-field">
+        <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="text"  name="distributor" formControlName="distributor" autocomplete="off" required/>
+        <label class="text-dark">{{ "AUTH.INPUT.DISTRIBUTOR" | translate }}</label>
+      </div>
+  </div>
+  <!--end::Form group-->
+
+
+    <!--begin::Form group-->
+    <!-- <div class="form-group">
+      <label class="checkbox mb-0">
+        <input type="checkbox" formControlName="agree" name="agree" />&nbsp;I
+        Agree the&nbsp;<a
+          href="https://keenthemes.com/metronic/?page=faq"
+          target="_blank"
+          >terms and conditions</a
+        >.&nbsp;
+        <span></span>
+      </label>
+    </div> -->
+    <!--end::Form group-->
+
+    <!--begin::Form group-->
+    <div class="form-group d-flex flex-wrap pb-lg-0 pb-3">
+      <button type="submit" id="kt_login_signup_submit" [disabled]="registrationForm.invalid" class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-4">
+        {{ "AUTH.GENERAL.SUBMIT_BUTTON" | translate }}
+      </button>
+      <a routerLink="/auth/login" type="button" id="kt_login_signup_cancel"
+        class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">
+        {{ "AUTH.GENERAL.CANCEL_BUTTON" | translate }}
+      </a>
+
+      <ng-container *ngIf="isLoading$ | async">
+        <span class="spinner spinner-primary ml-5"></span>
+      </ng-container>
+    </div>
+    <!--end::Form group-->
+  </form>
+  <!--end::Form-->
+</div>
+<!--end::Signup-->
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        {{ message }}
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

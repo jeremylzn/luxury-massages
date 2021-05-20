@@ -1,0 +1,60 @@
+:host {
+  width: 100%;
+  @media (min-width: 992px) {
+    .login-form {
+      width: 100%;
+      max-width: 450px;
+
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.title{
+  text-align: right
+
+}
+
+.text-field{
+  position: relative;
+  
+  input {
+    display: inline-block;
+  }
+
+  // input:focus {
+  //   border-bottom: 2px solid #5bc0de;
+  //   background-color:#fff;
+  // }
+
+  label {
+    position: absolute;
+    pointer-events: none;
+    left: 90%;
+    top: 10px;
+    transition: 0.2s;
+    color: #8e8e8e !important;
+    // width: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    label {
+      left: 80%;
+      top: 7px;
+    }
+  }
+
+  input:focus ~ label, input:valid ~ label, input:disabled ~ label {
+    top: -10px;
+    left: 80%;
+  }
+}
+
+
+
+
+
+
+

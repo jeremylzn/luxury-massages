@@ -1,0 +1,31 @@
+<!-- begin::Header Nav -->
+<ul class="menu-nav" [ngClass]="ulCSSClasses">
+  <!-- begin::1 Level -->
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active">
+    <a class="menu-link" routerLink="/dashboard" routerLinkActive="active">
+      <span class="menu-text" translate="MENU.HOME"></span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==2">
+    <a class="menu-link" routerLink="/dashboard/profile" routerLinkActive="active">
+      <span class="menu-text"></span>
+      <span [inlineSVG]="'./assets/media/svg/icons/General/User.svg'" class="menu-text svg-icon svg-icon-md svg-icon-primary"></span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==1">
+    <a class="menu-link" routerLink="/dashboard/admin/ads" routerLinkActive="active">
+      <span class="menu-text"></span>
+      <span class="menu-text svg-icon svg-icon-md svg-icon-primary">ניהול פרסומות</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+</ul>
+<!-- end::Header Nav -->
