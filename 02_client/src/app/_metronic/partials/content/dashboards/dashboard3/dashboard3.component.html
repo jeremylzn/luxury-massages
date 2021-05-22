@@ -1,6 +1,25 @@
 <!-- --------------------------------------------------------- -->
 <app-carousel></app-carousel>
-<app-massages-list></app-massages-list>
+
+<!-- <app-featured-carousel></app-featured-carousel> -->
+
+<div class="grid-wrapper m-md-5 mx-2">
+  <div class="ads">
+    <p>Here goes Ads. from server</p>
+  </div>
+  <div class="rtl">
+    <div class="mb-5" *ngFor="let article of featuredArticles">
+      <app-article-card [article]="article"></app-article-card>
+    </div>
+  </div>
+</div>
+
+<div class="m-md-5 mx-2 rtl">
+  <app-therapy></app-therapy>
+</div>
+
+
+<!-- <app-massages-list></app-massages-list> -->
 
 
 

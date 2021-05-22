@@ -1,0 +1,30 @@
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    padding-bottom: 6rem;
+    gap: 0px 15px;
+}
+.ads {
+    border: 1px dashed #7e7c7c;
+}
+.ads > p {
+    transform: rotate(90deg);
+    margin-top: 200px;
+}
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+
+@media screen and (max-width: 768px) {
+    .grid-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .articles-grid {
+        order: 1;
+    }
+    .ads {
+        order: 2;
+    }
+}

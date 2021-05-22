@@ -1,0 +1,95 @@
+
+$img-height: 235px;
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s ease;
+    width: 100%;
+    height: $img-height;
+    position: relative;
+}
+a:hover {
+    color: blue;
+    transition: all 0.8s ease;
+}
+img {
+    width: 100%;
+}
+.therapy-wrapper  {
+    padding-bottom: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+}
+.therapy-right-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: $img-height;
+    grid-auto-rows: $img-height;
+    gap: 5px;
+}
+
+.bg {
+    background-size: cover;
+    transition: all 0.4s ease-out;
+    height: $img-height;
+}
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: -webkit-fill-available;
+    transition: all 0.7s ease-in;
+}
+.bg-overlay:hover {
+    transition: all 1.2s ease-in;
+    background-color: rgba(0,0,0,.4);
+}
+.therapy-title {
+    position: absolute;
+    top: 80%;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+    background-color: #2121213d;
+    padding: 5px 0;
+}
+.bg-1 {
+    background-image: url(https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m5c.jpg);
+}
+.bg-2 {
+    background-image: url(https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m3.jpg);
+}
+.bg-3 {
+    background-image: url(https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m2.jpg);
+}
+.bg-4 {
+    background-image: url(https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m4c.jpg);
+}
+.bg-5 {
+    background-image: url("../../../../../assets/media/stock-600x400/img-1.jpg");
+    height: 70%;
+}
+.sale-wrapper {
+    padding: 20px 50px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .therapy-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .therapy-right-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .bg-5 {
+        height: 350px;
+    }
+    .sale-wrapper {
+        padding: 20px;
+    }
+}

@@ -16,9 +16,9 @@ import { AdvertisingGestionComponent } from '../general/advertising-gestion/adve
 import {TranslationModule} from '../../../../modules/i18n/translation.module';
 import { SendTokenInterceptorService } from 'src/app/modules/auth/_services/send-token-interceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
-
-
-
+import { FeaturedCarouselComponent } from 'src/app/pages/_layout/components/featured-carousel/featured-carousel.component';
+import { ArticleCardComponent } from 'src/app/pages/_layout/components/article-card/article-card.component';
+import { TherapyComponent } from 'src/app/pages/_layout/components/therapy/therapy.component';
 
 
 const routes: Routes = [
@@ -35,7 +35,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [Dashboard1Component, Dashboard2Component, DashboardWrapperComponent, Dashboard3Component, WorkerCardComponent],
+  declarations: [Dashboard1Component, Dashboard2Component, DashboardWrapperComponent, Dashboard3Component, WorkerCardComponent, 
+    FeaturedCarouselComponent, ArticleCardComponent, TherapyComponent],
   imports: [CommonModule, WidgetsModule, TranslationModule, RouterModule.forChild(routes)],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptorService, multi: true }],
   exports: [DashboardWrapperComponent, WorkerCardComponent],
