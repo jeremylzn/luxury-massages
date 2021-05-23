@@ -9,7 +9,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { AuthService } from './modules/auth/_services/auth.service';
+import {PathLocationStrategy, LocationStrategy} from "@angular/common";
 import { environment } from 'src/environments/environment';
 // import { SendTokenInterceptorService } from './modules/auth/_services/send-token-interceptor.service';
 
@@ -46,7 +46,7 @@ import { FakeAPIService } from './_fake/fake-api.service';
     NgbModule,
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptorService, multi: true },
+    {provide: LocationStrategy, useClass: PathLocationStrategy  },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

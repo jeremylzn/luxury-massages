@@ -13,8 +13,10 @@ import { WidgetsModule } from '../widgets/widgets.module';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkerCardComponent } from '../general/worker-card/worker-card.component';
 import { AdvertisingGestionComponent } from '../general/advertising-gestion/advertising-gestion.component';
+import { WorkerGestionComponent } from '../general/worker-gestion/worker-gestion.component';
 import {TranslationModule} from '../../../../modules/i18n/translation.module';
 import { SendTokenInterceptorService } from 'src/app/modules/auth/_services/send-token-interceptor.service';
+import { SchedulerWidgetWeekComponent } from '../widgets/scheduler/scheduler-widget-week/scheduler-widget-week.component';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 
 
@@ -29,7 +31,10 @@ const routes: Routes = [
   { path: 'booking', component: SchedulerWidget1Component },
   { path: 'profile', component: WorkerCardComponent},
   { path: 'admin/ads', component: AdvertisingGestionComponent},
-  { path: 'admin/scheduler', component: SchedulerWidget3Component}
+  { path: 'admin/scheduler', component: SchedulerWidget3Component},
+  { path: 'availabilities', component: SchedulerWidgetWeekComponent},
+  { path: 'admin/worker', component: WorkerGestionComponent}
+
 
 
 ];

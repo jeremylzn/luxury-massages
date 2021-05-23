@@ -33,7 +33,6 @@ export class ShedulerWidget2Component implements OnInit {
       eventBackgroundColor: "rgb(180, 180, 180)",
       eventBorderColor: "rgb(180, 180, 180)",
       eventColor: "rgb(0, 0, 0)",
-      eventClassNames: "event-data",
       events: JSON.parse(localStorage.getItem('Events')),
       eventContent : this.eventContent.bind(this)
     };

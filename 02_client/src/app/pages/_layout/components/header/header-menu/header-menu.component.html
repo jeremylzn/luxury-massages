@@ -11,8 +11,7 @@
   </li>
   <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==2">
     <a class="menu-link" routerLink="/dashboard/profile" routerLinkActive="active">
-      <span class="menu-text"></span>
-      <span [inlineSVG]="'./assets/media/svg/icons/General/User.svg'" class="menu-text svg-icon svg-icon-md svg-icon-primary"></span>
+      <span class="menu-text">פרופיל</span>
       <ng-container *ngIf="rootArrowEnabled">
         <i class="menu-arrow"></i>
       </ng-container>
@@ -20,8 +19,25 @@
   </li>
   <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==1">
     <a class="menu-link" routerLink="/dashboard/admin/ads" routerLinkActive="active">
-      <span class="menu-text"></span>
       <span class="menu-text svg-icon svg-icon-md svg-icon-primary">ניהול פרסומות</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==1">
+    <a class="menu-link" routerLink="/dashboard/admin/worker" routerLinkActive="active">
+      <span class="menu-text svg-icon svg-icon-md svg-icon-primary">ניהול עובדים</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==2">
+    <a class="menu-link" routerLink="/dashboard/availabilities" routerLinkActive="active">
+      <span class="menu-text">שליחת אילוצים</span>
       <ng-container *ngIf="rootArrowEnabled">
         <i class="menu-arrow"></i>
       </ng-container>

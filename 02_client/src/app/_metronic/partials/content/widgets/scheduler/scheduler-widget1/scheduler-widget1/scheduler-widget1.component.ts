@@ -122,34 +122,6 @@ export class SchedulerWidget1Component implements OnInit {
     } else this.alertMessage = true
 
   }
-  
-  // dateClick(event) {
-  //   var data = JSON.parse(localStorage.getItem(this.authLocalStorageToken))
-  //   const customerDetails = { customerID: data.user._id, fullname: data.user.fullname, telephone: data.user.telephone, address: data.user.address, email: data.user.email, distributor: data.user.distributor }
-  //   const serviceDetails = JSON.parse(localStorage.getItem('_id_service'))
-  //   var req = { date: event.date, dateStr: event.dateStr, customerDetails: customerDetails, serviceDetails: serviceDetails }
-  //   Swal.fire({
-  //     title: `? תור לתאריך ${req.dateStr}`,
-  //     html: '<div class="form-group row"> <label for="example-time-input" class="col-2 col-form-label">שעה</label>' +
-  //       '<div class="col-10">' +
-  //       '<input class="form-control" name="time" type="time" value="13:45" id="swal-time">' +
-  //       '</div> </div>' + this.test(),
-  //     showCancelButton: true,
-  //     confirmButtonText: `שלח`,
-  //     cancelButtonText: 'ביטול',
-  //     preConfirm: function () {
-  //       return (<HTMLInputElement>document.getElementById('swal-time')).value;
-  //     }
-  //   })
-  //     .then((result) => {
-  //       if (result.isConfirmed) {
-  //         req.date = new Date(req.dateStr + ' ' + result.value);
-  //         req['timeStr'] = result.value
-  //         this.bookingService.addAppoitment(req).subscribe((res) => { })
-  //         Swal.fire('Saved!', '', 'success')
-  //       }
-  //     })
-  // }
 
 
   test() {
@@ -181,14 +153,3 @@ export class SchedulerWidget1Component implements OnInit {
   }
 
 }
-
-
-// '<div class="card-body pt-4">' +
-//           '<div class="timeline timeline-6 mt-3">' +
-//             '<div class="timeline-item align-items-start">' +
-//               '<div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">08:42</div>' +
-//               '<div class="timeline-badge"><i class="fa fa-genderless text-warning icon-xl"></i></div>' +
-//               '<div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3"></div>'+
-//             '</div>'+
-//           '</div>'+
-//         '</div>'
