@@ -1,0 +1,39 @@
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s ease;
+}
+a:hover {
+    color: blue;
+    transition: all 0.8s ease;
+}
+.card {
+    border: none;
+}
+.card-title {
+    font-size: 1.5rem;
+    color: red;
+    font-weight: 600;
+}
+// .card-text {
+//     font-size: 18px;
+// }
+img {
+    box-shadow: 0px 0px 5px 1px #757575;
+}
+
+@media screen and (max-width: 768px) {
+    .img-card-wrapper{
+        width: 65%;
+    }
+    .card-wrapper {
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+    .card-text {
+        font-size: 1.3rem;
+    }
+}
