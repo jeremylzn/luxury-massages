@@ -2,25 +2,15 @@
 <app-carousel></app-carousel>
 
 <!-- <app-featured-carousel></app-featured-carousel> -->
-
-<div class="grid-wrapper m-md-5 mx-2">
+<div class="left-side ml-md-3">
   <div class="ads">
-    <!-- <div class="ads-item" *ngFor="let ad of adsList | async; let i = index">
-      <img src="https://luxury-massages.com/ads/{{ad._id}}" alt="ad">
-    </div> -->
-    <div class="ads-item">
-      <p>Here goes Ads. from server</p>
-    </div>
-    <div class="ads-item">
-      <p>Here goes Ads. from server</p>
-    </div>
-    <div class="ads-item">
-      <p>Here goes Ads. from server</p>
-    </div>
-    <div class="ads-item">
-      <p>Here goes Ads. from server</p>
+    <div class="ads-item" *ngFor="let ad of featuredAds">
+      <img src={{ad.img}}>
+      <p>{{ad.title}}</p>
     </div>
   </div>
+</div>
+<div class="right-side">
   <div class="rtl">
     <div class="mb-5" *ngFor="let article of featuredArticles">
       <app-article-card [article]="article"></app-article-card>
@@ -28,7 +18,7 @@
   </div>
 </div>
 
-<div class="m-md-5 mx-2 rtl">
+<div class="m-md-5 mx-2 rtl clear-both">
   <app-therapy></app-therapy>
 </div>
 
