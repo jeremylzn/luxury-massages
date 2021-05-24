@@ -13,32 +13,35 @@ import { ItemServiceService } from '../../../../core/services/item-service.servi
   styleUrls: ['./dashboard3.component.scss'],
 })
 export class Dashboard3Component implements OnInit {
-  allData:any = []
+  allData: any = []
   isList: boolean = false;
   adsList: Observable<Advertising[]>;
   featuredArticles: IFeaturedArticle[] = [];
-  constructor(private itemServiceService:ItemServiceService, private cd: ChangeDetectorRef, private advertisingService:AdvertisingService) { }
+  featuredAds: IAds[] = [];
+  constructor(private itemServiceService: ItemServiceService, private cd: ChangeDetectorRef, private advertisingService: AdvertisingService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.itemServiceService.getAllServicesActif().subscribe((res) => {
       this.allData = res
       this.isList = true;
-      this.refresh();
+      // this.refresh();
     });
     this.adsList = this.advertisingService.adsList; // subscribe to entire collection
-    this.advertisingService.getAdsList();
-    // this.advertisingService.getAdsIds().subscribe((res:string[])=>{
-    //   this.adsList = res
-    //   console.log(this.adsList)
-    // })
+
+    this.advertisingService.getAdsIds().subscribe((res: string[]) => {
+      res.forEach(el => {
+        this.featuredAds.push({
+          title: '',
+          img: `https://luxury-massages.com/ads/${el}`
+        })
+      })
+      // this.populateAds();
+      this.refresh();
+    })
 
     this.populateFeaturedArticles();
   }
 
-
-  // private populateFeaturedArticles(){
-
-  // }
   // use this to populate article details from server
   private populateFeaturedArticles() {
     this.featuredArticles.push({
@@ -73,15 +76,47 @@ export class Dashboard3Component implements OnInit {
     });
   }
 
+  private populateAds() {
+    this.featuredAds.push({
+      title: 'Ad 1 from the server...',
+      img: '../../../../../assets/media/stock-600x400/img-25.jpg'
+    });
+    this.featuredAds.push({
+      title: 'Ad 2 from the server...',
+      img: '../../../../../assets/media/stock-600x400/img-26.jpg'
+    });
+    this.featuredAds.push({
+      title: 'Ad 3 from the server...',
+      img: '../../../../../assets/media/stock-600x400/img-27.jpg'
+    });
+    this.featuredAds.push({
+      title: 'Ad 4 from the server...',
+      img: '../../../../../assets/media/stock-600x400/img-28.jpg'
+    });
+    this.featuredAds.push({
+      title: 'Ad 5 from the server...',
+      img: '../../../../../assets/media/stock-600x400/img-29.jpg'
+    });
+    this.featuredAds.push({
+      title: 'Ad 6 from the server...',
+      img: '../../../../../assets/media/stock-600x400/img-30.jpg'
+    });
+
+  }
+
 
   refresh() {
     this.cd.detectChanges();
   }
-  
+
 }
 
 export interface IFeaturedArticle {
   title: string;
   body: string;
+  img: string;
+}
+export interface IAds {
+  title: string;
   img: string;
 }
