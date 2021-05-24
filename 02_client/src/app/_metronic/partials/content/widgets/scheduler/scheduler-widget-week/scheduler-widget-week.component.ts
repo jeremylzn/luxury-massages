@@ -4,6 +4,7 @@ import heLocale from '@fullcalendar/core/locales/he'; //Hebrew language
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; 
 import { UsersService } from 'src/app/_metronic/core/services/users.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-scheduler-widget-week',
@@ -14,9 +15,11 @@ export class SchedulerWidgetWeekComponent implements OnInit {
   calendarOptions: CalendarOptions;
   title = 'luxury-massage';
   Events = []
+  interval;
+  saved = false;
   @ViewChild('fullcalendar') calendarComponent: FullCalendarComponent;
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
-  constructor(private cd: ChangeDetectorRef, private usersService:UsersService) { }
+  constructor(private cd: ChangeDetectorRef, private usersService:UsersService,  private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.usersService.getAvailability(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id).subscribe((res:any[]) => {
@@ -74,9 +77,8 @@ export class SchedulerWidgetWeekComponent implements OnInit {
 
   send_availibility(events){
     this.usersService.sendAvailability(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id, events).subscribe(res => {
-      console.log(res)
+      this.router.navigate(['/dashboard']);  
     })
-    console.log(events)
   }
 
 }

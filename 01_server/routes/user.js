@@ -7,6 +7,7 @@ const uploadImage = require('../middleware/upload')
 var multer  = require('multer')
 const User = require('../../00_db/models/user');
 const Appointment = require('../../00_db/models/appointment');
+const Distributor = require('../../00_db/models/distributor');
 const momentTz = require('moment-timezone');
 const moment = require("moment");
 var fs = require('fs');
@@ -120,6 +121,22 @@ router.get('/profile/:id', async(req, res) => {
     });
 })
 
+// WORKER - get availiblity by worker
+router.get('/availability/:id', async(req, res) => {
+    user = await User.findById({_id: req.params.id},  {_id:false, availability:true})
+    res.send(user.availability)
+})
+
+// WORKER - Add availiblity
+router.post('/availability/:id', async(req, res) => {
+    console.log(req.body.events)
+    for (let event of req.body.events) {
+        var mydate = new Date(event.dateStr);
+        event.date = mydate.toISOString()
+    }
+    user = await User.findByIdAndUpdate({_id: req.params.id},  { $set: {availability:req.body.events} })
+    res.send(user)
+})
 // WORKER - Upload profile picture
 router.post('/worker/profile/:id', upload.single('newPhotoProfile'), async(req, res, next) => {
     console.log('BEFORE IF')
@@ -143,6 +160,21 @@ router.get('/tkn/workers', auth, async(req, res) => {
         const users = await User.find({role: 2})
         res.send(users)
     } catch (err) {
+        res.status(500).send()
+    }
+})
+
+
+// Add distributor
+router.post('/distributor/:name', async(req, res) => {
+    try {
+        console.log(req.params.name)
+        const userData = {userID: req.body.id, fullname: req.body.fullname, email:req.body.email, telephone:req.body.telephone, address:req.body.address}
+        const distributor = await Distributor.findOneAndUpdate({name: req.params.name}, {$push: {usersList : userData } }, {upsert: true})
+        console.log(distributor)
+        res.send(distributor)
+    } catch (err) {
+        console.log(err)
         res.status(500).send()
     }
 })

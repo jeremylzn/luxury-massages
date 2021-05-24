@@ -1,4 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Advertising } from 'src/app/_metronic/core/models/advertising.model';
+import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
 import { LayoutService } from '../../../../core';
 import { ItemServiceService } from '../../../../core/services/item-service.service';
 
@@ -12,19 +15,30 @@ import { ItemServiceService } from '../../../../core/services/item-service.servi
 export class Dashboard3Component implements OnInit {
   allData:any = []
   isList: boolean = false;
+  adsList: Observable<Advertising[]>;
   featuredArticles: IFeaturedArticle[] = [];
-  constructor(private itemServiceService:ItemServiceService, private cd: ChangeDetectorRef) { }
+  constructor(private itemServiceService:ItemServiceService, private cd: ChangeDetectorRef, private advertisingService:AdvertisingService) { }
 
   ngOnInit(): void { 
-    console.log('HERE')
     this.itemServiceService.getAllServicesActif().subscribe((res) => {
       this.allData = res
       this.isList = true;
       this.refresh();
     });
+    this.adsList = this.advertisingService.adsList; // subscribe to entire collection
+    this.advertisingService.getAdsList();
+    // this.advertisingService.getAdsIds().subscribe((res:string[])=>{
+    //   this.adsList = res
+    //   console.log(this.adsList)
+    // })
+
     this.populateFeaturedArticles();
   }
 
+
+  // private populateFeaturedArticles(){
+
+  // }
   // use this to populate article details from server
   private populateFeaturedArticles() {
     this.featuredArticles.push({

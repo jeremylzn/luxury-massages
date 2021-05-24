@@ -1,1 +1,136 @@
-<p>worker-gestion works!</p>
+<div class="container m-md-5 mx-2 pb-5">
+  <div class="form-group">
+    <label for="exampleFormControlSelect1" dir="rtl">תבחר עובד</label>
+    <select class="form-control" id="exampleFormControlSelect1" *ngFor="let worker of allWorkers | async; let i = index"
+      (change)="onChangeCurrentWorker(worker)">
+      <option>עובדים</option>
+      <option>{{worker.fullname}}</option>
+    </select>
+  </div>
+
+  <div class="main-body" *ngIf="currentWorker">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img [src]="urlProfile" alt="profile" width="150">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-3 ">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">שם מלא</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{currentWorker.fullname}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">דוא"ל</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{currentWorker.email}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">טלפון</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{currentWorker.telephone}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">כתובת</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{currentWorker.address}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row gutters-sm">
+        <div class="col-md-12 mb-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>רשימת
+                טיפולים הקרובים</h6>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">שם מלא</th>
+                    <th scope="col">דוא"ל</th>
+                    <th scope="col">טלפון</th>
+                    <th scope="col">כתובת</th>
+                    <th scope="col">שם טיפול</th>
+                    <th scope="col">זמן טיפול (דק)</th>
+                    <th scope="col">תאריך טיפול</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ncompleted of dataNotCompleted | async">
+                    <th>{{ncompleted.customerDetails.fullname}}</th>
+                    <td>{{ncompleted.customerDetails.email}}</td>
+                    <td>{{ncompleted.customerDetails.telephone}}</td>
+                    <td>{{ncompleted.customerDetails.address}}</td>
+                    <td>{{ncompleted.serviceDetails[0].name}}</td>
+                    <td>{{ncompleted.serviceDetails[0].minutes}}</td>
+                    <td>{{ncompleted.dateStr}} - {{ncompleted.timeStr}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mb-5">
+          <div class="card h-100">
+            <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">done</i>רשימת טיפולים
+                שעברו</h6>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">שם מלא</th>
+                    <th scope="col">דוא"ל</th>
+                    <th scope="col">טלפון</th>
+                    <th scope="col">כתובת</th>
+                    <th scope="col">שם טיפול</th>
+                    <th scope="col">זמן טיפול (דק)</th>
+                    <th scope="col">תאריך טיפול</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let completed of dataCompleted | async">
+                    <th>{{completed.customerDetails.fullname}}</th>
+                    <td>{{completed.customerDetails.email}}</td>
+                    <td>{{completed.customerDetails.telephone}}</td>
+                    <td>{{completed.customerDetails.address}}</td>
+                    <td>{{completed.serviceDetails[0].name}}</td>
+                    <td>{{completed.serviceDetails[0].minutes}}</td>
+                    <td>{{completed.dateStr}} - {{completed.timeStr}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-5">
+    <h1>אילוצים</h1>
+    <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
+  </div>
+  </div>
+</div>

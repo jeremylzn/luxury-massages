@@ -5,7 +5,7 @@
     gap: 0px 15px;
 }
 .ads {
-    border: 1px dashed #7e7c7c;
+    // border: 1px dashed #7e7c7c;
     display: grid;
     grid-template-columns: 1fr;
 }
@@ -40,4 +40,9 @@
     .ads {
         order: 2;
     }
+}
+
+img {
+	height: 60%;
+	width: 100%;
 }

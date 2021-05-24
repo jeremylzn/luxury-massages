@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../_models/user.model';
 import { first } from 'rxjs/operators';
+import { UsersService } from 'src/app/_metronic/core/services/users.service';
 
 @Component({
   selector: 'app-registration',
@@ -23,7 +24,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router, private usersService:UsersService
   ) {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
@@ -106,16 +107,24 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.hasError = false;
     const result = {};
     Object.keys(this.f).forEach(key => {
-      result[key] = this.f[key].value;
+      if (key == 'distributor')
+        result[key] = (this.f[key].value).toLowerCase();
+      else
+        result[key] = this.f[key].value;
     });
     const newUser = new UserModel();
     newUser.setUser(result);
     const registrationSubscr = this.authService
       .signup(newUser)
       .pipe(first())
-      .subscribe((user: UserModel) => {
+      .subscribe((user: any) => {
         if (user) {
           console.log(user)
+          if (user.user.distributor != ''){
+            this.usersService.addDistributor({id:user.user._id, fullname:user.user.fullname, email:user.user.email, telephone:user.user.telephone, address:user.user.address}, user.user.distributor).subscribe((res) =>{
+              console.log(res)
+            })
+          }
           this.router.navigate(['/']);
         } else {
           this.hasError = true;

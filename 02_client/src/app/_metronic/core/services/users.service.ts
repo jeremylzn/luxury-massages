@@ -53,15 +53,21 @@ export class UsersService {
   }
 
   public updateProfilePhoto(image:any, id:string){
-    return this.http.post(ROOT_URL + `worker/profile/${id}`, image)
+    return this.http.post(ROOT_URL + `worker/profile/${id}`, image);
   }
 
   public sendAvailability(id:string, event:string[]){
-    return this.http.post(ROOT_URL + `availability/${id}`, {events: event})
+    return this.http.post(ROOT_URL + `availability/${id}`, {events: event});
   }
 
   public getAvailability(id:string){
-    return this.http.get(ROOT_URL + `availability/${id}`)
+    return this.http.get(ROOT_URL + `availability/${id}`);
+  }
+
+  public addDistributor(user, name){
+    console.log(user)
+    console.log(name)
+    return this.http.post(ROOT_URL + `distributor/${name}`, user);
   }
   
 }

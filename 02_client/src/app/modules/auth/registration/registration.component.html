@@ -26,7 +26,7 @@
     <div class="form-group">
         <div class="col-lg-12 p-0 text-field">
           <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="text" name="fullname" formControlName="fullname" autocomplete="off" required/>
-          <label class="text-dark">{{ 'AUTH.INPUT.FULLNAME' | translate }}</label>
+          <label class="text-dark">{{ 'AUTH.INPUT.FULLNAME' | translate }}<b style="color: red;">*</b></label>
         </div>
       <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
@@ -50,7 +50,7 @@
     <div class="form-group">
         <div class="col-lg-12 p-0 text-field">
           <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="email" name="email" formControlName="email" autocomplete="off" required/>
-          <label class="text-dark">{{ "AUTH.INPUT.EMAIL" | translate }}</label>
+          <label class="text-dark">{{ "AUTH.INPUT.EMAIL" | translate }}<b style="color: red;">*</b></label>
         </div>
       <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
@@ -79,7 +79,7 @@
     <div class="form-group">
         <div class="col-lg-12 p-0 text-field">
           <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="number" name="telephone" formControlName="telephone" autocomplete="off" required/>
-          <label class="text-dark">{{ "AUTH.INPUT.TEL" | translate }}</label>
+          <label class="text-dark">{{ "AUTH.INPUT.TEL" | translate }}<b style="color: red;">*</b></label>
         </div>
       <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
               validation: 'required',
@@ -105,7 +105,7 @@
 
       <div class="col-lg-12 p-0 text-field">
         <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="text" name="address" formControlName="address" autocomplete="off" required/>
-        <label class="text-dark">{{ "AUTH.INPUT.ADDRESS" | translate }}</label>
+        <label class="text-dark">{{ "AUTH.INPUT.ADDRESS" | translate }}<b style="color: red;">*</b></label>
       </div>
       <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{validation: 'required', message:  'AUTH.VALIDATION.REQUIRED'| translate: {name: 'כתובת'}, control: registrationForm.controls['address']}"></ng-container>
     </div>
@@ -116,7 +116,7 @@
     <div class="form-group">
         <div class="col-lg-12 p-0 text-field">
           <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="password"  name="password" formControlName="password" autocomplete="off" required/>
-          <label class="text-dark">{{ "AUTH.INPUT.PASSWORD" | translate }}</label>
+          <label class="text-dark">{{ "AUTH.INPUT.PASSWORD" | translate }}<b style="color: red;">*</b></label>
         </div>
       <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',
@@ -140,7 +140,7 @@
     <div class="form-group">
         <div class="col-lg-12 p-0 text-field">
           <input class="form-control form-control-solid h-auto py-3 px-6 rounded-sm font-size-h6" type="password"  name="cPassword" formControlName="cPassword" autocomplete="off" required/>
-          <label class="text-dark">{{ "AUTH.INPUT.CONFIRM_PASSWORD" | translate }}</label>
+          <label class="text-dark">{{ "AUTH.INPUT.CONFIRM_PASSWORD" | translate }}<b style="color: red;">*</b></label>
         </div>
       <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
           validation: 'required',

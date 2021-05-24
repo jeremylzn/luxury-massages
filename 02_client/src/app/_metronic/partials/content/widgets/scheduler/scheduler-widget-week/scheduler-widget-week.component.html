@@ -1,9 +1,12 @@
 <div class="container">
   <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
   <br>
+  <div class="alert alert-success" role="alert" *ngIf='saved'><!--  -->
+    אילוצים נשמרו בהצלחה
+  </div>
   <div class="wrapper cursor-pointer" (click)="send_availibility(Events)">
     <a class="effect1">
-      Let's Go!
+      שמירת אילוצים
       <span class="bg"></span>
     </a>
   </div>

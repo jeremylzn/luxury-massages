@@ -9,6 +9,8 @@ const User = require('../00_db/models/user')
 const Appointment = require('../00_db/models/appointment')
 const Service = require('../00_db/models/service')
 const Advertising = require('../00_db/models/advertising')
+const Distributor = require('../00_db/models/distributor')
+
 
 
 // Import routes
@@ -35,8 +37,13 @@ app.use(appointmentRouter)
 app.use(serviceRouter)
 app.use(advertisingRouter)
 
-app.get('/', (req, res) => {
-    res.sendFile('index.html',{root:__dirname})
+
+// serve angular front end files from root path
+app.use('/', express.static(process.cwd() + "/dist"));
+
+// rewrite virtual urls to angular app to enable refreshing of internal pages
+app.get('*', function (req, res, next) {
+    res.sendFile(process.cwd() + "/dist/index.html");
 });
 
 // Listening for incoming connections

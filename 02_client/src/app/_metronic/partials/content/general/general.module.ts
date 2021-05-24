@@ -12,6 +12,7 @@ import {TranslationModule} from '../../../../modules/i18n/translation.module';
 import { AdvertisingGestionComponent } from './advertising-gestion/advertising-gestion.component';
 import {AdvanceTablesWidget1Component} from '../widgets/advance-tables/advance-tables-widget1/advance-tables-widget1.component';
 import { WorkerGestionComponent } from './worker-gestion/worker-gestion.component'
+import { FullCalendarModule } from '@fullcalendar/angular'; 
 
 
 // import { WorkerCardComponent } from './worker-card/worker-card.component';
@@ -28,7 +29,8 @@ import { WorkerGestionComponent } from './worker-gestion/worker-gestion.componen
     NgbNavModule,
     NgbTooltipModule,
     InlineSVGModule,
-    BrowserModule
+    BrowserModule,
+    FullCalendarModule,
   ],
   exports: [NoticeComponent, CodePreviewComponent, AdvertisingGestionComponent, AdvanceTablesWidget1Component],
 })

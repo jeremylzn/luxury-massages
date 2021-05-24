@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  availability: {
+    type: Array,
+    default: [Date],
+  }
 });
 
 // Create a virtual property (a link between task.owner -> user._id)
