@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TherapyComponent } from 'src/app/pages/_layout/components/therapy/therapy.component';
 import { Advertising } from 'src/app/_metronic/core/models/advertising.model';
 import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
 import { LayoutService } from '../../../../core';
@@ -13,6 +14,10 @@ import { ItemServiceService } from '../../../../core/services/item-service.servi
   styleUrls: ['./dashboard3.component.scss'],
 })
 export class Dashboard3Component implements OnInit {
+  
+  @ViewChild('backdrop') pageBackdrop: ElementRef;
+  @ViewChild(TherapyComponent) therapyComponent: TherapyComponent;
+
   allData: any = []
   isList: boolean = false;
   adsList: Observable<Advertising[]>;
@@ -24,6 +29,7 @@ export class Dashboard3Component implements OnInit {
     this.itemServiceService.getAllServicesActif().subscribe((res) => {
       this.allData = res
       this.isList = true;
+      this.therapyComponent.pageBackdrop = this.pageBackdrop;
       // this.refresh();
     });
     this.adsList = this.advertisingService.adsList; // subscribe to entire collection
@@ -40,6 +46,11 @@ export class Dashboard3Component implements OnInit {
     })
 
     this.populateFeaturedArticles();
+  }
+
+  // close Modal
+  public closeModal() {
+    this.therapyComponent.closeModal();
   }
 
   // use this to populate article details from server
