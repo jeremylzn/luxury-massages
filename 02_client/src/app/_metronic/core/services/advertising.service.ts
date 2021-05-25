@@ -4,6 +4,8 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Advertising } from '../models/advertising.model';
+import { Article } from '../models/article.model';
+
 
 // const ROOT_URL = 'http://161.97.157.17:3000/';
 const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
@@ -22,6 +24,13 @@ export class AdvertisingService {
   adsListChanged = new BehaviorSubject<Advertising[]>([]);
   readonly adsList = this.adsListChanged.asObservable();
 
+  articlesStore:Article[] = [];
+  articlesChanged = new BehaviorSubject<Article[]>([]);
+  readonly articles = this.articlesChanged.asObservable();
+
+  articlesActifStore:Article[] = [];
+  articlesActifChanged = new BehaviorSubject<Article[]>([]);
+  readonly articlesActif = this.articlesActifChanged.asObservable();
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
@@ -62,6 +71,35 @@ export class AdvertisingService {
 
   public removeAds(id){
     return this.http.delete(ROOT_URL + `ads/${id}`)
+  }
+
+  public addArticle(item){
+    console.log(item)
+    return this.http.post(ROOT_URL + `admin/article`, item)
+  }
+
+  public addArticleImage(image:any, id:string, nameFile:string){
+    return this.http.post(ROOT_URL + `admin/article/${id}/${nameFile}`, image)
+  }
+
+  public getAllArticle(){
+    return this.http.get(ROOT_URL + `admin/article`).subscribe((articles:Article[]) => 
+    {   this.articlesStore = articles;
+        this.articlesChanged.next(this.articlesStore);
+    });
+  }
+
+  public getAllArticleActif(){ 
+    console.log('HERE____________________________________________')
+    return this.http.get(ROOT_URL + `articles/actif`).subscribe((articles:Article[]) => 
+    {
+      this.articlesActifStore = articles;
+        this.articlesActifChanged.next(this.articlesActifStore);
+    });
+  }
+
+  public updateActifArticle(id, actif){
+    return this.http.put(ROOT_URL + `admin/article/actif/${id}`, {actif:actif})
   }
 
 }

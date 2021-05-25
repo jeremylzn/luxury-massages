@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@an
 import { Observable } from 'rxjs';
 import { TherapyComponent } from 'src/app/pages/_layout/components/therapy/therapy.component';
 import { Advertising } from 'src/app/_metronic/core/models/advertising.model';
+import { Article } from 'src/app/_metronic/core/models/article.model';
 import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
 import { LayoutService } from '../../../../core';
 import { ItemServiceService } from '../../../../core/services/item-service.service';
@@ -21,11 +22,15 @@ export class Dashboard3Component implements OnInit {
   allData: any = []
   isList: boolean = false;
   adsList: Observable<Advertising[]>;
+  public allArticles:Observable<Article[]>;
   featuredArticles: IFeaturedArticle[] = [];
   featuredAds: IAds[] = [];
   constructor(private itemServiceService: ItemServiceService, private cd: ChangeDetectorRef, private advertisingService: AdvertisingService) { }
 
   ngOnInit(): void {
+    this.allArticles = this.advertisingService.articlesActif; // subscribe to entire collection
+    this.advertisingService.getAllArticleActif();
+
     this.itemServiceService.getAllServicesActif().subscribe((res) => {
       this.allData = res
       this.isList = true;

@@ -15,6 +15,10 @@ const articleSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    actif: {
+        type: Boolean,
+        default: false
+    },
     createAt: {
         type: String,
         default: new Date()

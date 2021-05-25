@@ -17,6 +17,8 @@ import { DistributorGestionComponent } from './distributor-gestion/distributor-g
 import {ListsWidget1Component} from '../widgets/lists/lists-widget1/lists-widget1.component';
 import { AdvanceTablesWidget7Component } from '../widgets/advance-tables/advance-tables-widget7/advance-tables-widget7.component';
 import { ArticleGestionComponent } from './article-gestion/article-gestion.component';
+import { SendTokenInterceptorService } from 'src/app/modules/auth/_services/send-token-interceptor.service';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 
 
 // import { WorkerCardComponent } from './worker-card/worker-card.component';
@@ -36,7 +38,7 @@ import { ArticleGestionComponent } from './article-gestion/article-gestion.compo
     BrowserModule,
     FullCalendarModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptorService, multi: true }],
   exports: [NoticeComponent, CodePreviewComponent, AdvertisingGestionComponent, AdvanceTablesWidget1Component,ListsWidget1Component, AdvanceTablesWidget7Component],
 })
 export class GeneralModule {}

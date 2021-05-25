@@ -6,6 +6,7 @@ const worker = require('../middleware/worker')
 const uploadImage = require('../middleware/upload')
 var multer  = require('multer')
 const Advertising = require('../../00_db/models/advertising');
+const Article = require('../../00_db/models/articles');
 const momentTz = require('moment-timezone');
 const moment = require("moment");
 var fs = require('fs');
@@ -21,6 +22,19 @@ const storage = multer.diskStorage({
 })
 const upload = multer({
     storage: storage
+})
+
+
+const storageArticle = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "../article"))
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname.toLowerCase())
+    }
+})
+const uploadArticle = multer({
+    storage: storageArticle
 })
 
 // Get ids of ads files 
@@ -90,10 +104,71 @@ router.delete('/ads/:id', async(req, res) => {
     const last_image = await Advertising.findByIdAndRemove(req.params.id)
     if (!last_image.nameFile.includes('default-ads')){
         var lastFilePath = path.join(__dirname, "../ads", (last_image.nameFile).toString())
-        console.log(lastFilePath)
         fs.unlinkSync(lastFilePath);
     }
     res.status(200).send(last_image)
+})
+
+// Add article
+router.post('/admin/article', async(req, res) => {
+    console.log(req.body)
+    const article = new Article(req.body)
+    try {
+        await article.save()
+        res.status(201).send(article)
+    } catch (err) {
+        console.log(err)
+        res.status(400).send(err)
+    }
+})
+
+// Add article Image
+router.post('/admin/article/:id/:name', uploadArticle.single('newArticlePicture'), async(req, res, next) => {
+    const article = await Article.findByIdAndUpdate({_id: req.params.id},  { $set: {img: req.params.name} })
+    res.send(article)
+})
+
+// Get all articles
+router.get('/admin/article', async(req, res) => {
+    try {
+        const articles = await Article.find()
+        res.send(articles)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// Get article image
+router.get('/article/:id', async(req, res) => {
+    const article = await Article.findById({_id: req.params.id},  {_id:false, img:true})
+    const imageName = article.img.toString()
+    const imagePath = path.join(__dirname, "../article", imageName);
+    fs.exists(imagePath, exists => {
+        if (exists) res.sendFile(imagePath);
+        else res.status(400).send('Error: Image does not exists');
+    });
+})
+
+// Update actif articles
+router.put('/admin/article/actif/:id', async(req, res) => {
+    try {
+        const articles = await Article.findByIdAndUpdate({_id: req.params.id},  { $set: {actif: req.body.actif} })
+        res.send(articles)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// Get all article actif
+router.get('/articles/actif', async(req, res) => {
+    try {
+        console.log('IN TRY')
+        const articles = await Article.find({ actif: true })
+        console.log(articles)
+        res.send(articles)
+    } catch (err) {
+        res.status(500).send()
+    }
 })
 
 module.exports = router
