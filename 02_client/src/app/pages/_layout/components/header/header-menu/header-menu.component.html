@@ -35,6 +35,24 @@
     </a>
   </li>
 
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==1">
+    <a class="menu-link" routerLink="/dashboard/admin/distributor" routerLinkActive="active">
+      <span class="menu-text svg-icon svg-icon-md svg-icon-primary">ניהול מפיצים</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==1">
+    <a class="menu-link" routerLink="/dashboard/admin/article" routerLinkActive="active">
+      <span class="menu-text svg-icon svg-icon-md svg-icon-primary">ניהול מאמרים</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+
   <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==2">
     <a class="menu-link" routerLink="/dashboard/availabilities" routerLinkActive="active">
       <span class="menu-text">שליחת אילוצים</span>

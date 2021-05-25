@@ -10,6 +10,7 @@ const Appointment = require('../00_db/models/appointment')
 const Service = require('../00_db/models/service')
 const Advertising = require('../00_db/models/advertising')
 const Distributor = require('../00_db/models/distributor')
+const Article = require('../00_db/models/articles')
 
 
 

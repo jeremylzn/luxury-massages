@@ -20,6 +20,15 @@ export class UsersService {
   workersListChanged = new BehaviorSubject<customerDetails[]>([]);
   readonly workers = this.workersListChanged.asObservable();
   workerStore:customerDetails[] = [];
+
+  userFromDistListChanged = new BehaviorSubject<customerDetails[]>([]);
+  readonly userFromDist = this.userFromDistListChanged.asObservable();
+  userFromDistStore:customerDetails[] = [];
+
+  nameCurrentDistributorChanged = new BehaviorSubject<string>(null);
+  readonly nameCurrentDistributor = this.nameCurrentDistributorChanged.asObservable();
+  nameCurrentDistributorStore:string = '';
+
   public url: SafeResourceUrl;
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
@@ -65,9 +74,18 @@ export class UsersService {
   }
 
   public addDistributor(user, name){
-    console.log(user)
-    console.log(name)
     return this.http.post(ROOT_URL + `distributor/${name}`, user);
+  }
+
+  public getAllDistributor(){
+    return this.http.get(ROOT_URL + `admin/distributor`);
+  }
+
+  public usersFromDistributor(users, name){
+    this.userFromDistStore = users;
+    this.userFromDistListChanged.next(this.userFromDistStore);
+    this.nameCurrentDistributorStore=name;
+    this.nameCurrentDistributorChanged.next(this.nameCurrentDistributorStore)
   }
   
 }

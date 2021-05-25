@@ -8,14 +8,14 @@ import { FormsModule } from '@angular/forms';
 // import { AdvanceTablesWidget1Component } from './advance-tables/advance-tables-widget1/advance-tables-widget1.component';
 import { AdvanceTablesWidget2Component } from './advance-tables/advance-tables-widget2/advance-tables-widget2.component';
 import { AdvanceTablesWidget4Component } from './advance-tables/advance-tables-widget4/advance-tables-widget4.component';
-import { AdvanceTablesWidget7Component } from './advance-tables/advance-tables-widget7/advance-tables-widget7.component';
+// import { AdvanceTablesWidget7Component } from './advance-tables/advance-tables-widget7/advance-tables-widget7.component';
 import { AdvanceTablesWidget9Component } from './advance-tables/advance-tables-widget9/advance-tables-widget9.component';
 // Base Tables
 import { BaseTablesWidget1Component } from './base-tables/base-tables-widget1/base-tables-widget1.component';
 import { BaseTablesWidget2Component } from './base-tables/base-tables-widget2/base-tables-widget2.component';
 import { BaseTablesWidget6Component } from './base-tables/base-tables-widget6/base-tables-widget6.component';
 // Lists
-import { ListsWidget1Component } from './lists/lists-widget1/lists-widget1.component';
+// import { ListsWidget1Component } from './lists/lists-widget1/lists-widget1.component';
 import { ListsWidget3Component } from './lists/lists-widget3/lists-widget3.component';
 import { ListsWidget4Component } from './lists/lists-widget4/lists-widget4.component';
 import { ListsWidget8Component } from './lists/lists-widget8/lists-widget8.component';
@@ -79,14 +79,14 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     // AdvanceTablesWidget1Component,
     AdvanceTablesWidget2Component,
     AdvanceTablesWidget4Component,
-    AdvanceTablesWidget7Component,
+    // AdvanceTablesWidget7Component,
     AdvanceTablesWidget9Component,
     // Base Tables
     BaseTablesWidget1Component,
     BaseTablesWidget2Component,
     BaseTablesWidget6Component,
     // Lists
-    ListsWidget1Component,
+    // ListsWidget1Component,
     ListsWidget3Component,
     ListsWidget4Component,
     ListsWidget8Component,
@@ -143,14 +143,14 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     // AdvanceTablesWidget1Component,
     AdvanceTablesWidget2Component,
     AdvanceTablesWidget4Component,
-    AdvanceTablesWidget7Component,
+    // AdvanceTablesWidget7Component,
     AdvanceTablesWidget9Component,
     // Base Tables
     BaseTablesWidget1Component,
     BaseTablesWidget2Component,
     BaseTablesWidget6Component,
     // Lists
-    ListsWidget1Component,
+    // ListsWidget1Component,
     ListsWidget3Component,
     ListsWidget4Component,
     ListsWidget8Component,
