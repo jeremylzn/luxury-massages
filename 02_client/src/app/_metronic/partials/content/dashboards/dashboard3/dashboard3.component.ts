@@ -1,10 +1,8 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TherapyComponent } from 'src/app/pages/_layout/components/therapy/therapy.component';
 import { Advertising } from 'src/app/_metronic/core/models/advertising.model';
 import { Article } from 'src/app/_metronic/core/models/article.model';
 import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
-import { LayoutService } from '../../../../core';
 import { ItemServiceService } from '../../../../core/services/item-service.service';
 
 
@@ -15,10 +13,6 @@ import { ItemServiceService } from '../../../../core/services/item-service.servi
   styleUrls: ['./dashboard3.component.scss'],
 })
 export class Dashboard3Component implements OnInit {
-  
-  @ViewChild('backdrop') pageBackdrop: ElementRef;
-  @ViewChild(TherapyComponent) therapyComponent: TherapyComponent;
-
   allData: any = []
   isList: boolean = false;
   adsList: Observable<Advertising[]>;
@@ -29,12 +23,12 @@ export class Dashboard3Component implements OnInit {
 
   ngOnInit(): void {
     this.allArticles = this.advertisingService.articlesActif; // subscribe to entire collection
-    this.advertisingService.getAllArticleActif();
+    this.advertisingService.getAllArticleActif;
+    // this.populateFeaturedArticles();
 
     this.itemServiceService.getAllServicesActif().subscribe((res) => {
       this.allData = res
       this.isList = true;
-      this.therapyComponent.pageBackdrop = this.pageBackdrop;
       // this.refresh();
     });
     this.adsList = this.advertisingService.adsList; // subscribe to entire collection
@@ -46,16 +40,8 @@ export class Dashboard3Component implements OnInit {
           img: `https://luxury-massages.com/ads/${el}`
         })
       })
-      // this.populateAds();
-      this.refresh();
+      // this.refresh();
     })
-
-    this.populateFeaturedArticles();
-  }
-
-  // close Modal
-  public closeModal() {
-    this.therapyComponent.closeModal();
   }
 
   // use this to populate article details from server
