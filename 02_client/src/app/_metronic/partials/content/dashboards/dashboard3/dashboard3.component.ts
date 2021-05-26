@@ -24,14 +24,7 @@ export class Dashboard3Component implements OnInit {
   ngOnInit(): void {
     this.allArticles = this.advertisingService.articlesActif; // subscribe to entire collection
     this.advertisingService.getAllArticleActif();
-    console.log(this.allArticles)
     // this.populateFeaturedArticles();
-
-    this.itemServiceService.getAllServicesActif().subscribe((res) => {
-      this.allData = res
-      this.isList = true;
-      // this.refresh();
-    });
     this.adsList = this.advertisingService.adsList; // subscribe to entire collection
 
     this.advertisingService.getAdsIds().subscribe((res: string[]) => {

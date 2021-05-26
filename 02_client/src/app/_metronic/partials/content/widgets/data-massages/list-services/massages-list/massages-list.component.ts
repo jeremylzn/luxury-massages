@@ -34,10 +34,10 @@ export class MassagesListComponent implements OnInit {
     })
 
 
-    this.itemServiceService.getAllServicesActif().subscribe((res) => {
-      this.allData = res
-      this.refresh()
-    })
+    // this.itemServiceService.getAllServicesActif().subscribe((res) => {
+    //   this.allData = res
+    //   this.refresh()
+    // })
     if (localStorage.getItem(this.authLocalStorageToken)){
       this.bookingService.getAppointmentByCustomerID(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id).subscribe((res:any) => {
         console.log(res)

@@ -90,7 +90,6 @@ export class AdvertisingService {
   }
 
   public getAllArticleActif(){ 
-    console.log('HERE____________________________________________')
     return this.http.get(ROOT_URL + `articles/actif`).subscribe((articles:Article[]) => 
     {
       this.articlesActifStore = articles;

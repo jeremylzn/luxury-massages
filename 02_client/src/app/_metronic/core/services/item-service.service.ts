@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Service } from '../models/service.model'
 
 const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://161.97.157.17:3000/';
-// const ROOT_URL = 'http://localhost:3000/';
-// const ROOT_URL = 'http://127.0.0.1:3000/';
-// const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
 
 
 @Injectable({
@@ -20,15 +16,17 @@ export class ItemServiceService {
   serviceChanged = new Subject<Service[]>();
   allserviceChanged = new Subject<Service[]>();
 
+  serviceActifStore:Service[] = [];
+  serviceActifChanged = new BehaviorSubject<Service[]>([]);
+  readonly serviceActif = this.serviceActifChanged.asObservable();
 
 
   getAllServicesActif(){
-    return this.http.get(ROOT_URL + 'services/actif').pipe(
-      tap((res:Service[]) => {
-        // for(var key in res) this.orderService.menu[key]=res[key];
-        this.serviceChanged.next(res);
-      })
-    );
+    return this.http.get(ROOT_URL + 'services/actif').subscribe((services:Service[]) => 
+    {
+      this.serviceActifStore = services;
+        this.serviceActifChanged.next(this.serviceActifStore);
+    });
   }
 
   getAllServices(){

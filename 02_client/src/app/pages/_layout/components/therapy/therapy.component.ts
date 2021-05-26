@@ -1,5 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Service } from 'src/app/_metronic/core/models/service.model';
+import { ItemServiceService } from 'src/app/_metronic/core/services/item-service.service';
 
 @Component({
   selector: 'app-therapy',
@@ -9,9 +12,10 @@ import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChil
 export class TherapyComponent implements OnInit {
 
   constructor(
-    private renderer: Renderer2
+    private renderer: Renderer2, private itemServiceService: ItemServiceService
   ) { }
-
+  
+  public allServices:Observable<Service[]>;
   therapies: ITherapy[] = [];
   therapyGridHeight = 850;  // therapy grid height in px
   therapyImgHeight = 250;   // init value. changes dynamically. in px
@@ -19,8 +23,12 @@ export class TherapyComponent implements OnInit {
   gridGap = 10; // grid gap in px
   therapyCount = 6;
   effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
+  allData: any = []
 
   ngOnInit(): void {
+    this.allServices = this.itemServiceService.serviceActif; // subscribe to entire collection
+    this.itemServiceService.getAllServicesActif();
+
     this.populateTherapyList();
     this.setImgHeight();
   }
@@ -43,6 +51,7 @@ export class TherapyComponent implements OnInit {
     this.therapyImgHeight = (this.effectiveSize / rowCount) - gapToRemove;
   }
 
+  
   private populateTherapyList() {
     this.therapies.push({
       url: '#',

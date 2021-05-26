@@ -1,12 +1,12 @@
 <div class="therapy-wrapper">
     <div class="therapy-right-wrapper"
         [ngStyle]="{'grid-template-rows.px': therapyImgHeight, 'grid-auto-rows.px': therapyImgHeight, 'height.px': therapyGridHeight, 'gap.px': gridGap}">
-        <div class="d-flex justify-content-center align-items-end" *ngFor="let therapy of therapies; let i = index"
+        <div class="d-flex justify-content-center align-items-end" *ngFor="let therapy of allServices | async; let i = index"
             (mouseenter)="mouseEnter(i, therapyEl)" (mouseleave)="mouseLeave(therapy, therapyEl)">
             <a href="#" [ngStyle]="{'height.px': therapyImgHeight}" #therapyEl>
-                <div class="bg" [ngStyle]="{'background-image': 'url(' + therapy.bgImage + ')'}"></div>
+                <div class="bg" [ngStyle]="{'background-image': 'url(https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m5c.jpg)'}"></div>
                 <div class="bg-overlay"></div>
-                <p class="therapy-title">{{therapy.title}}</p>
+                <p class="therapy-title">{{therapy.name}}</p>
             </a>
         </div>
     </div>
