@@ -45,6 +45,6 @@ const routes: Routes = [
     FeaturedCarouselComponent, ArticleCardComponent, TherapyComponent],
   imports: [CommonModule, WidgetsModule, TranslationModule, RouterModule.forChild(routes)],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptorService, multi: true }],
-  exports: [DashboardWrapperComponent, WorkerCardComponent],
+  exports: [DashboardWrapperComponent, WorkerCardComponent, Dashboard3Component],
 })
 export class DashboardsModule { }

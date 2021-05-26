@@ -21,6 +21,7 @@ import { SendTokenInterceptorService } from 'src/app/modules/auth/_services/send
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 
 
+
 // import { WorkerCardComponent } from './worker-card/worker-card.component';
 
 @NgModule({
