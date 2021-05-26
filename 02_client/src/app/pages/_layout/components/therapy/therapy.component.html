@@ -10,7 +10,7 @@
             </a>
         </div>
     </div>
-    <div [ngStyle]="{'height.px': therapyGridHeight}">
+    <div [ngStyle]="{'height.px': therapyGridHeight}" *ngIf="screenWidth > mobileBreakpoint">
         <div class="bg bg-5" [ngStyle]="{'height.%': leftImgSize}">
 
         </div>
