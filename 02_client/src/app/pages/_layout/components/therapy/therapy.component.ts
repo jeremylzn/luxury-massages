@@ -1,21 +1,10 @@
-import { animate, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-therapy',
   templateUrl: './therapy.component.html',
   styleUrls: ['./therapy.component.scss'],
-  animations: [
-    trigger('dialog', [
-      transition('void => *', [
-        style({ opacity: 0}),
-        animate(100, style({opacity: 1}))
-      ]),
-      transition('* => void', [
-        animate(200, style({ opacity: 0 }))
-      ])
-    ])
-  ]
 })
 export class TherapyComponent implements OnInit {
 
@@ -23,41 +12,35 @@ export class TherapyComponent implements OnInit {
     private renderer: Renderer2
   ) { }
 
-  showTherapyHero = 'hide';
   therapies: ITherapy[] = [];
   therapyGridHeight = 850;  // therapy grid height in px
   therapyImgHeight = 250;   // init value. changes dynamically. in px
+  leftImgSize = 75; // size in % of the total width
+  gridGap = 10; // grid gap in px
   therapyCount = 6;
+  effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
 
   ngOnInit(): void {
     this.populateTherapyList();
     this.setImgHeight();
   }
 
-  public mouseEnter(index: number, el: ElementRef) {
-    let translateX = '50%';
-    let translateY = '50%';
-    let scale = 2;
-    let row = Math.floor(index / 2);
-
-    if (index % 2 == 0) translateX = '-50%';
-    if (row != 0) translateY = '-50%';
-    if (this.therapies.length > this.therapyCount) scale = 2.5;
-
-    console.log(index);
-    this.renderer.setStyle(el, 'transform',`translate(${translateX}, ${translateY}) scale(${scale})`);
+  public mouseEnter(index: number, el: Element) {
+    this.renderer.setStyle(el, 'height', `${this.effectiveSize}px`);
     this.renderer.addClass(el, 'show-img');
   }
 
   public mouseLeave(therapy: ITherapy, el: ElementRef) {
-    this.renderer.removeStyle(el, 'transform');
+    this.renderer.setStyle(el, 'height', `${this.therapyImgHeight}px`);
     this.renderer.removeClass(el, 'show-img');
   }
 
   private setImgHeight() {
     // calculate therapy items height dynamically
     let rowCount = Math.ceil(this.therapies.length / 2);
-    this.therapyImgHeight = this.therapyGridHeight / rowCount * 0.9; // 0.9 to leave space in grid for margin/padding
+    this.effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
+    let gapToRemove = (this.gridGap * (rowCount - 1)) / rowCount;
+    this.therapyImgHeight = (this.effectiveSize / rowCount) - gapToRemove;
   }
 
   private populateTherapyList() {
@@ -91,18 +74,18 @@ export class TherapyComponent implements OnInit {
       description: 'Therapy, also called psychotherapy or counseling, is the process of meeting with a therapist to resolve problematic behaviors, beliefs, feelings, relationship issues, and/or somatic responses (sensations in the body)',
       bgImage: 'https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m5c.jpg',
     });
-    this.therapies.push({
-      url: '#',
-      title: 'Therapy F',
-      description: 'Therapy, also called psychotherapy or counseling, is the process of meeting with a therapist to resolve problematic behaviors, beliefs, feelings, relationship issues, and/or somatic responses (sensations in the body)',
-      bgImage: 'https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m3.jpg'
-    });
-    this.therapies.push({
-      url: '#',
-      title: 'Therapy G',
-      description: 'Therapy, also called psychotherapy or counseling, is the process of meeting with a therapist to resolve problematic behaviors, beliefs, feelings, relationship issues, and/or somatic responses (sensations in the body)',
-      bgImage: 'https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m2.jpg'
-    });
+    // this.therapies.push({
+    //   url: '#',
+    //   title: 'Therapy F',
+    //   description: 'Therapy, also called psychotherapy or counseling, is the process of meeting with a therapist to resolve problematic behaviors, beliefs, feelings, relationship issues, and/or somatic responses (sensations in the body)',
+    //   bgImage: 'https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m3.jpg'
+    // });
+    // this.therapies.push({
+    //   url: '#',
+    //   title: 'Therapy G',
+    //   description: 'Therapy, also called psychotherapy or counseling, is the process of meeting with a therapist to resolve problematic behaviors, beliefs, feelings, relationship issues, and/or somatic responses (sensations in the body)',
+    //   bgImage: 'https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m2.jpg'
+    // });
     // this.therapies.push({
     //   url: '#',
     //   title: 'Therapy H',

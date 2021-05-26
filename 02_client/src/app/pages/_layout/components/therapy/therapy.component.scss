@@ -2,13 +2,11 @@
 a {
     text-decoration: none;
     color: inherit;
-    transition: all 0.2s ease;
     width: 100%;
     position: relative;
 }
 a:hover {
     color: blue;
-    transition: all 0.8s ease;
 }
 img {
     width: 100%;
@@ -20,25 +18,19 @@ img {
     gap: 5px;
 }
 .therapy-right-wrapper {
-    position: relative;
+    position: sticky;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px 5px;
+    // gap: 10px;
 
     & > div {
         box-shadow: 0 0 20px 1px rgb(0 0 0 / 20%);
-        transition: 0.6s;
     }
-    & > div:hover {
-        box-shadow: 0 0 15px 5px rgb(0 0 0 / 40%);
-        cursor: pointer;
-    }
-    gap: 10px;
 }
 
 .bg {
     background-size: cover;
-    transition: all 0.4s ease-out;
+    // transition: all 0.4s ease-out;
     height: inherit;
 }
 .bg-overlay {
@@ -49,13 +41,9 @@ img {
     height: -webkit-fill-available;
     transition: all 0.7s ease-in;
 }
-.bg-overlay:hover {
-    transition: all 1.2s ease-in;
-    background-color: rgba(0,0,0,.4);
-}
 .therapy-title {
     position: absolute;
-    top: 80%;
+    top: 75%;
     width: 100%;
     color: white;
     text-align: center;
@@ -65,16 +53,18 @@ img {
 }
 .bg-5 {
     background-image: url("../../../../../assets/media/stock-600x400/img-1.jpg");
-    height: 70%;
 }
 .sale-wrapper {
     padding: 20px 50px;
 }
+
 .show-img {
-    width: 95%;
     z-index: 200;
     transition: 800ms;
-    box-shadow: 0 0 10px 15px rgba(0, 0, 0, 0.685);
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.685);
+    position: absolute;
+    top: 0;
+    left: 0;
     }
 
 
