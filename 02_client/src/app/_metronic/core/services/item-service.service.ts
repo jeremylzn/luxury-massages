@@ -20,10 +20,12 @@ export class ItemServiceService {
   serviceActifChanged = new BehaviorSubject<Service[]>([]);
   readonly serviceActif = this.serviceActifChanged.asObservable();
 
+  actifLength = 0
 
   getAllServicesActif(){
     return this.http.get(ROOT_URL + 'services/actif').subscribe((services:Service[]) => 
-    {
+    { 
+      this.actifLength = services.length;
       this.serviceActifStore = services;
         this.serviceActifChanged.next(this.serviceActifStore);
     });
