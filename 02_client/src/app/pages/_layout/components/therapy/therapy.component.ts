@@ -25,12 +25,29 @@ export class TherapyComponent implements OnInit {
   effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
   allData: any = []
 
+  // mobile settings
+  screenWidth = 768; // default to mobile
+  mobileBreakpoint = 768; // mobile breakpoint in px
+  therapyImgHeightForMobile = 250;
+
   ngOnInit(): void {
     this.allServices = this.itemServiceService.serviceActif; // subscribe to entire collection
     this.itemServiceService.getAllServicesActif();
 
-    this.populateTherapyList();
-    this.setImgHeight();
+    this.screenWidth = window.innerWidth;
+    console.log(this.screenWidth);
+
+    // this.populateTherapyList();
+    if (this.screenWidth > this.mobileBreakpoint)
+      this.setImgHeight();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth > this.mobileBreakpoint)
+      this.setImgHeight();
+    else this.therapyImgHeight = this.therapyImgHeightForMobile;
   }
 
   public mouseEnter(index: number, el: Element) {
