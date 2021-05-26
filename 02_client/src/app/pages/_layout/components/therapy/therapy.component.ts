@@ -45,10 +45,14 @@ export class TherapyComponent implements OnInit {
 
   private setImgHeight() {
     // calculate therapy items height dynamically
-    let rowCount = Math.ceil(this.therapies.length / 2);
-    this.effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
-    let gapToRemove = (this.gridGap * (rowCount - 1)) / rowCount;
-    this.therapyImgHeight = (this.effectiveSize / rowCount) - gapToRemove;
+    this.allServices.subscribe(
+      result => {
+        let rowCount = Math.ceil(result.length / 2);
+        this.effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
+        let gapToRemove = (this.gridGap * (rowCount - 1)) / rowCount;
+        this.therapyImgHeight = (this.effectiveSize / rowCount) - gapToRemove;
+      }
+    )
   }
 
   
