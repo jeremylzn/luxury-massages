@@ -24,6 +24,10 @@ const usersSubSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    createAt: {
+        type: String,
+        default: new Date()
+    }
 }, { _id: false });
 
 const distributorSchema = new mongoose.Schema({

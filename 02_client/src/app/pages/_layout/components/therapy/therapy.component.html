@@ -1,7 +1,8 @@
 <div class="therapy-wrapper">
-    <div class="therapy-right-wrapper" [ngStyle]="{'grid-template-rows.px': therapyImgHeight, 'grid-auto-rows.px': therapyImgHeight, 'height.px': therapyGridHeight}">
-        <div class="d-flex justify-content-center align-items-end" *ngFor="let therapy of therapies; let i = index" 
-            (mouseenter) ="mouseEnter(i, therapyEl) "  (mouseleave) ="mouseLeave(therapy, therapyEl)">
+    <div class="therapy-right-wrapper"
+        [ngStyle]="{'grid-template-rows.px': therapyImgHeight, 'grid-auto-rows.px': therapyImgHeight, 'height.px': therapyGridHeight}">
+        <div class="d-flex justify-content-center align-items-end" *ngFor="let therapy of therapies; let i = index"
+            (mouseenter)="mouseEnter(i, therapyEl) " (mouseleave)="mouseLeave(therapy, therapyEl)">
             <a href="#" [ngStyle]="{'height.px': therapyImgHeight}" #therapyEl>
                 <div class="bg" [ngStyle]="{'background-image': 'url(' + therapy.bgImage + ')'}"></div>
                 <div class="bg-overlay"></div>

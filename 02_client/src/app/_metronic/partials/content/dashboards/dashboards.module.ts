@@ -21,6 +21,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { FeaturedCarouselComponent } from 'src/app/pages/_layout/components/featured-carousel/featured-carousel.component';
 import { ArticleCardComponent } from 'src/app/pages/_layout/components/article-card/article-card.component';
 import { TherapyComponent } from 'src/app/pages/_layout/components/therapy/therapy.component';
+import { DistributorGestionComponent } from '../general/distributor-gestion/distributor-gestion.component'; 
+import { ArticleGestionComponent } from '../general/article-gestion/article-gestion.component';
 
 
 const routes: Routes = [
@@ -33,10 +35,9 @@ const routes: Routes = [
   { path: 'admin/ads', component: AdvertisingGestionComponent},
   { path: 'admin/scheduler', component: SchedulerWidget3Component},
   { path: 'availabilities', component: SchedulerWidgetWeekComponent},
-  { path: 'admin/worker', component: WorkerGestionComponent}
-
-
-
+  { path: 'admin/worker', component: WorkerGestionComponent},
+  { path: 'admin/distributor', component: DistributorGestionComponent},
+  { path: 'admin/article', component: ArticleGestionComponent}
 ];
 
 @NgModule({

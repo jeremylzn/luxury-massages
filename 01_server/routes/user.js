@@ -171,8 +171,18 @@ router.post('/distributor/:name', async(req, res) => {
         console.log(req.params.name)
         const userData = {userID: req.body.id, fullname: req.body.fullname, email:req.body.email, telephone:req.body.telephone, address:req.body.address}
         const distributor = await Distributor.findOneAndUpdate({name: req.params.name}, {$push: {usersList : userData } }, {upsert: true})
-        console.log(distributor)
         res.send(distributor)
+    } catch (err) {
+        console.log(err)
+        res.status(500).send()
+    }
+})
+
+// ADMIN - Get all distributors
+router.get('/admin/distributor', async(req, res) => {
+    try {
+        const distributors = await Distributor.find({})
+        res.send(distributors)
     } catch (err) {
         console.log(err)
         res.status(500).send()

@@ -1,10 +1,21 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-therapy',
   templateUrl: './therapy.component.html',
   styleUrls: ['./therapy.component.scss'],
+  animations: [
+    trigger('dialog', [
+      transition('void => *', [
+        style({ opacity: 0}),
+        animate(100, style({opacity: 1}))
+      ]),
+      transition('* => void', [
+        animate(200, style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class TherapyComponent implements OnInit {
 
