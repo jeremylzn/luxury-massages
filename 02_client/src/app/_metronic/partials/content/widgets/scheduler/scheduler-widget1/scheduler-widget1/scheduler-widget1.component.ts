@@ -10,6 +10,7 @@ import { BookingService } from 'src/app/_metronic/core/services/booking.service'
 import { UsersService } from 'src/app/_metronic/core/services/users.service';
 import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 
@@ -31,13 +32,14 @@ export class SchedulerWidget1Component implements OnInit {
   Events = []
   public current_event;
   public alertMessage=false;
-  ads = []
+  adsIdsList: Observable<string[]>;
+  pattern = 'https://luxury-massages.com/ads/'
   public current_req; // value to the modal
   public all_availables_workers: Observable<any>; // value to the modal
   public all_urls_profile = [];
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
   calendarOptions: CalendarOptions;
-  constructor(private modalService: NgbModal, private cd: ChangeDetectorRef, private bookingService: BookingService, private usersService: UsersService, private advertisingService: AdvertisingService) { }
+  constructor(private modalService: NgbModal, private cd: ChangeDetectorRef, private bookingService: BookingService, private usersService: UsersService, private advertisingService: AdvertisingService, private router: Router) { }
 
   ngOnInit(): void {
     this.calendarOptions = {
@@ -52,14 +54,8 @@ export class SchedulerWidget1Component implements OnInit {
       eventContent: this.eventContent.bind(this)
     };
 
-    this.advertisingService.getAdsIds().subscribe((res) => {
-      for (let index in res) {
-        this.advertisingService.getAdsImage(res[index]).subscribe(x => {
-          this.ads.push(x)
-          this.refresh()
-        })
-      }
-    })
+    this.adsIdsList = this.advertisingService.adsIds; // subscribe to entire collection
+    this.advertisingService.getAdsIds();
   }
 
   eventClick(info) {
@@ -74,6 +70,7 @@ export class SchedulerWidget1Component implements OnInit {
       confirmButtonText: `סגור`,
     })
   }
+
 
   eventContent(info, createElement) {
     let titleEl = document.createElement('b')
@@ -116,9 +113,17 @@ export class SchedulerWidget1Component implements OnInit {
       this.current_req['timeStr'] = this.selectedTime
       this.current_req['workerDetails'] = {workerID: worker._id, fullname:worker.fullname, telephone:worker.telephone, email:worker.email}
       this.current_req['approved'] = true
-      this.bookingService.addAppoitment(this.current_req).subscribe((res) => { this.modalReference.close();})
-      this.alertMessage = false
+      localStorage.setItem(data.user._id, JSON.stringify(this.current_req))
       this.selectedTime = ''
+      this.alertMessage = false
+      this.bookingService.payment(serviceDetails.price, data.user.fullname, data.user.telephone,data.user.email, serviceDetails.name).subscribe((res:any)=>{
+        console.log('here')
+        console.log(res)
+        window.location.href = res.data.url;
+      })
+    //   this.bookingService.addAppoitment(this.current_req).subscribe((res) => { this.modalReference.close();})
+    //   this.alertMessage = false
+    //   this.selectedTime = ''
     } else this.alertMessage = true
 
   }

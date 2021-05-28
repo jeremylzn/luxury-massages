@@ -37,7 +37,9 @@ const routes: Routes = [
   { path: 'availabilities', component: SchedulerWidgetWeekComponent},
   { path: 'admin/worker', component: WorkerGestionComponent},
   { path: 'admin/distributor', component: DistributorGestionComponent},
-  { path: 'admin/article', component: ArticleGestionComponent}
+  { path: 'admin/article', component: ArticleGestionComponent},
+  { path: 'therapy', component: TherapyComponent}
+
 ];
 
 @NgModule({

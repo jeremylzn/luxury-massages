@@ -11,7 +11,7 @@ img {
 
 .imgProfile {
   height: 80px!important;
-  width: 70%!important;
+  width: 100%!important;
 }
 @media only screen and (max-width: 600px) {
   .imgProfile {
@@ -60,3 +60,45 @@ img {
 
 
 
+// --------------------------------------------------------------------------------------
+
+@media screen and (max-width: 768px) {
+  .left-side {
+    width: 80%!important;
+    margin-top: 10%!important;
+  }
+  .right-side {
+    width: 80%!important;
+    height: 50%!important;
+    float: left;
+  }
+
+  .ads {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .rounded-circle {
+    width: 40%!important;
+  }
+  
+}
+
+.right-side {
+  width: 30%;
+  float: right;
+}
+.left-side {
+  width: 65%;
+  display: inline-block;
+}
+
+.item{
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.item:hover {opacity: 1}

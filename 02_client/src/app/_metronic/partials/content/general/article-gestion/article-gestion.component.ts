@@ -31,9 +31,15 @@ export class ArticleGestionComponent implements OnInit {
         },
         {
           title: 'טקסט',
-          input: 'textarea',
-          inputValidator: (value) => {
-            return !value && 'חסר נתון'
+          html:this.textareaCreation(),
+          preConfirm: function() {
+            if ((<HTMLInputElement>document.getElementById('swal-body')).innerHTML){
+              var text = (<HTMLInputElement>document.getElementById('swal-body')).innerHTML
+              // if (text.indexOf('<img') != -1){
+              //   text = text.slice(0, text.indexOf('<img') + 4) + ' style="width: 80%;" ' + text.slice(text.indexOf('<img') + 4);
+              // }
+              return text
+            } else return ''
           }
         },
         {
@@ -73,6 +79,18 @@ export class ArticleGestionComponent implements OnInit {
 
   onChangeActif(value, id){
     this.advertisingService.updateActifArticle(id, value.target.checked).subscribe(res=>{})
+  }
 
+  textareaCreation(){
+    return `<div id="swal-body" dir="rtl" style="border: 3px inset grey; height: 100px; width: 100%; text-align: right; overflow-x: hidden; overflow-y: auto;" contenteditable="true">`+
+            `</div>`+
+            `<fieldset style="margin: 2px auto 15px;  width: 100%;">`+
+            `<button style="width: 5ex; text-align: center; padding: 1px 3px;" onclick="document.execCommand('italic',false,null);" title="Italicize Highlighted Text"><i>I</i>`+
+            `</button>`+
+            `<button style="width: 5ex; text-align: center; padding: 1px 3px;" onclick="document.execCommand( 'bold',false,null);" title="Bold Highlighted Text"><b>B</b>`+
+            `</button>`+
+            `<button style="width: 5ex; text-align: center; padding: 1px 3px;" onclick="document.execCommand( 'underline',false,null);"><u>U</u>`+
+            `</button>`+
+            `</fieldset>`
   }
 }

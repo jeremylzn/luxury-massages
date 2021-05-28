@@ -1,12 +1,12 @@
 <div class="therapy-wrapper">
     <div class="therapy-right-wrapper"
         [ngStyle]="{'grid-template-rows.px': therapyImgHeight, 'grid-auto-rows.px': therapyImgHeight, 'height.px': therapyGridHeight, 'gap.px': gridGap}">
-        <div class="d-flex justify-content-center align-items-end cursor-pointer" *ngFor="let therapy of allServices | async; let i = index"
-            (click)="mouseEnter(i, therapyEl)" (mouseleave)="mouseLeave(therapy, therapyEl)">
+        <div  (click)="mouseEnter(i, therapyEl, therapy)" class="d-flex justify-content-center align-items-end cursor-pointer" *ngFor="let therapy of allServices | async; let i = index"
+             (mouseleave)="mouseLeave(therapy, therapyEl)">
             <a [ngStyle]="{'height.px': therapyImgHeight}" #therapyEl>
-                <div class="bg" [ngStyle]="{'background-image': 'url(https://www.hotelbtlv.co.il/wp-content/uploads/2019/04/m5c.jpg)'}"></div>
+                <div class="bg" [ngStyle]="{'background-image': 'url(' + pattern + therapy._id + ')'}"></div>
                 <div class="bg-overlay"></div>
-                <p class="therapy-title">{{therapy.name}}</p>
+                <p class="therapy-title" dir="rtl"><span *ngIf='!details'>{{therapy.name}}</span> <b *ngIf='details'><h1>{{therapy.name}}</h1></b> <span *ngIf='details'><h5><br><br> {{therapy.description}} <br><br> מחיר : {{therapy.price}} ₪ <br><br>  זמן : {{therapy.minutes}} דק</h5> </span><span *ngIf='details'><br> <button type="button" class="btn btn-light" (click)='onClickService(therapy)'>בחירה</button></span> </p>
             </a>
         </div>
     </div>
@@ -15,10 +15,8 @@
 
         </div>
         <div class="sale-wrapper">
-            <h2>חבילת ספא מפנקת שלנו</h2>
-            <p>חוגגים אירוע מיוחד? מחפשים סיבה לחופשה? רוצים ליהנות מיום שכולו פינוקים וחוויות? כאן תוכלו להתעדכן
-                במבחר
-                חבילות ספא מפנקות בתל אביב, חוויה בלתי נשכחות לאמצע שבוע וסוף שבוע.
+            <h2>חבילות מסאג' מפנקות שלנו</h2>
+            <p>  מתנה לבת/בן זוג? מחפשים סיבה לנוח? רוצים ליהנות מיום שכולו פינוקים ? כאן תוכלו לקבל שירות מסאג' הכי טוב בארץ, חוויה בלתי נשכחות לאמצע שבוע וסוף שבוע.
             </p>
         </div>
     </div>

@@ -29,7 +29,7 @@
 				</time>
 			</div>
 			<div class="postcard__bar"></div>
-			<div class="postcard__preview-txt" style="white-space: pre-line">{{article.body}}</div>
+			<div class="postcard__preview-txt" dir="rtl" [innerHTML]="article.body"></div>
             <input type="checkbox" class="custom-control-input">
             <div class="d-flex flex-column w-100 mr-2 custom-control custom-switch">
                 <input type="checkbox" checked class="custom-control-input" id="customSwitch{{article._id}}" *ngIf='article.actif' (change)="onChangeActif($event, article._id)">

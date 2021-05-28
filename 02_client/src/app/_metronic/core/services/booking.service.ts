@@ -73,4 +73,24 @@ export class BookingService {
       );
   }
 
+  
+  public payment(price, name, telephone, email, nametherapy) {
+    const formData = {
+      'pageCode': 'ed828b5b2e08',
+      'userId': '7434be4be4c601cd',
+      'sum': price,
+      'successUrl': 'http://localhost:4200/dashboard',
+      'cancelUrl': 'http://localhost:4200/dashboard/therapy',
+      'description': nametherapy,
+      'pageField[fullName]': name,
+      'pageField[phone]': '0' + telephone,
+      'pageField[email]': email,
+      'saveCardToken': '1',
+      'chargeType': '1',
+      'product_data[0][price]': price,
+      'product_data[0][item_description]': nametherapy
+    }
+    return this.http.post(ROOT_URL + 'payment/booking', formData)
+  }
+
 }

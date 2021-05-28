@@ -9,6 +9,8 @@ import { Article } from '../models/article.model';
 
 // const ROOT_URL = 'http://161.97.157.17:3000/';
 const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
+// const ROOT_URL = 'https://luxury-massages.com:3000/';
+
 // const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
 // const ROOT_URL = 'http://localhost:3000/';
 // const ROOT_URL = 'http://127.0.0.1:3000/';
@@ -30,13 +32,21 @@ export class AdvertisingService {
 
   articlesActifStore:Article[] = [];
   articlesActifChanged = new BehaviorSubject<Article[]>([]);
-  readonly articlesActif = this.articlesActifChanged.asObservable();
+  readonly articlesActif = this.articlesActifChanged.asObservable();c
+
+  adsIdsStore:string[] = [];
+  adsIdsChanged = new BehaviorSubject<string[]>([]);
+  readonly adsIds = this.adsIdsChanged.asObservable();
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
 
   public getAdsIds(){
-    return this.http.get(ROOT_URL + `ids/ads`)
+    return this.http.get(ROOT_URL +`ids/ads`).subscribe((id:string[]) => 
+    {
+      this.adsIdsStore = id;
+        this.adsIdsChanged.next(this.adsIdsStore);
+    });
   }
 
   public getAdsImage(id): Observable<SafeResourceUrl> {

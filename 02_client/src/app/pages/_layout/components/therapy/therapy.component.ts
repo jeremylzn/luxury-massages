@@ -1,8 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Service } from 'src/app/_metronic/core/models/service.model';
 import { ItemServiceService } from 'src/app/_metronic/core/services/item-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-therapy',
@@ -12,10 +14,11 @@ import { ItemServiceService } from 'src/app/_metronic/core/services/item-service
 export class TherapyComponent implements OnInit {
 
   constructor(
-    private renderer: Renderer2, private itemServiceService: ItemServiceService
+    private renderer: Renderer2, private itemServiceService: ItemServiceService, private router: Router
   ) { }
   
   public allServices:Observable<Service[]>;
+  private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
   therapies: ITherapy[] = [];
   therapyGridHeight = 850;  // therapy grid height in px
   therapyImgHeight = 250;   // init value. changes dynamically. in px
@@ -24,6 +27,8 @@ export class TherapyComponent implements OnInit {
   therapyCount = 6;
   effectiveSize = this.therapyGridHeight * (this.leftImgSize / 100);
   allData: any = []
+  pattern = 'https://luxury-massages.com/services/image/'
+  details = false;
 
   // mobile settings
   screenWidth = 768; // default to mobile
@@ -50,14 +55,32 @@ export class TherapyComponent implements OnInit {
     else this.therapyImgHeight = this.therapyImgHeightForMobile;
   }
 
-  public mouseEnter(index: number, el: Element) {
-    this.renderer.setStyle(el, 'height', `${this.effectiveSize}px`);
-    this.renderer.addClass(el, 'show-img');
+  public mouseEnter(index: number, el: Element, item:any) {
+    if (!this.details){
+      this.renderer.setStyle(el, 'height', `${this.effectiveSize}px`);
+      this.renderer.addClass(el, 'show-img');
+      this.details = true;
+    } else {
+      if (localStorage.getItem(this.authLocalStorageToken)){
+        localStorage.setItem('_id_service', JSON.stringify({name:item.name, price:item.price, minutes: item.minutes}));
+        return this.router.navigate(['/dashboard/booking']);
+      } else this.router.navigate(['/auth/login']);
+    }
+
   }
 
   public mouseLeave(therapy: ITherapy, el: ElementRef) {
     this.renderer.setStyle(el, 'height', `${this.therapyImgHeight}px`);
     this.renderer.removeClass(el, 'show-img');
+    this.details = false;
+  }
+
+  public onClickService(item){
+    console.log('IN ON CLICK')
+    if (localStorage.getItem(this.authLocalStorageToken)){
+      localStorage.setItem('_id_service', JSON.stringify({name:item.name, price:item.price, minutes: item.minutes}));
+      return this.router.navigate(['/dashboard/booking']);
+    } else this.router.navigate(['/auth/login']);
   }
 
   private setImgHeight() {

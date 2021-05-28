@@ -5,8 +5,8 @@
 <!-- <app-featured-carousel></app-featured-carousel> -->
 <div class="left-side ml-md-3">
   <div class="ads">
-    <div class="ads-item" *ngFor="let ad of featuredAds">
-      <img src={{ad.img}}>
+    <div class="ads-item" *ngFor="let ad of adsIdsList | async">
+      <img [src]="pattern + ad">
       <p>{{ad.title}}</p>
     </div>
   </div>

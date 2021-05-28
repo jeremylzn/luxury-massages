@@ -16,9 +16,9 @@
         <div class="col-md-8">
             <a href="#">
                 <div class="card-body">
-                    <h4 class="card-title">{{article.title}}</h4>
-                    <p class="card-text">{{article.body}}</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <h1 class="card-title">{{article.title}}</h1>
+                    <p class="card-text" [innerHTML]="article.body"></p>
+                    <p class="card-text"><small class="text-muted">{{article.createAt | date}}</small></p>
                 </div>
             </a>
         </div>

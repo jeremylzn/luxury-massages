@@ -4,7 +4,7 @@
   <div class="card-header border-0 py-5">
     <h3 class="card-title align-items-start flex-column">
       <span class="card-label font-weight-bolder text-dark">רשימת טיפולים</span>
-      <span class="text-muted mt-3 font-weight-bold font-size-sm" dir="rtl"> {{allServices.length}} טיפולים כרגע </span>
+      <span class="text-muted mt-3 font-weight-bold font-size-sm" dir="rtl"> {{(allServices | async).length}} טיפולים כרגע </span>
     </h3>
     <div class="card-toolbar">
       <a class="btn btn-danger font-weight-bolder font-size-sm cursor-pointer" (click)="onClickCreate()">טיפול חדש</a>
@@ -33,7 +33,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let service of allServices">
+            <tr *ngFor="let service of allServices | async">
               <td class="pl-0 py-8">
                 <div class="d-flex align-items-center">
                   <div>

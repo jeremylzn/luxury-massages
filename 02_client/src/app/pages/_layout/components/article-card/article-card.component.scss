@@ -3,16 +3,17 @@ a {
     color: inherit;
     transition: all 0.4s ease;
 }
-a:hover {
-    color: blue;
-    transition: all 0.8s ease;
-}
+// a:hover {
+//     color: blue;
+//     transition: all 0.8s ease;
+// }
 .card {
     border: none;
 }
+
 .card-title {
-    font-size: 1.5rem;
-    color: red;
+    font-size: 2rem;
+    color: black;
     font-weight: 600;
 }
 // .card-text {
@@ -31,9 +32,17 @@ img {
         align-items: center;
     }
     .card-title {
-        font-size: 1.2rem;
+        font-size: 2rem;
     }
     .card-text {
         font-size: 1.3rem;
     }
 }
+
+// .content { 
+//     margin-bottom: 5%;
+//     text-align: center;
+//     background-color: red;
+//     padding: 10px 25px 10px 25px;  text-transform:uppercase;
+//     // border: 1px solid #000; 
+// }

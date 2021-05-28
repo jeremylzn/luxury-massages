@@ -24,14 +24,14 @@ export class MassagesListComponent implements OnInit {
   constructor(private itemServiceService:ItemServiceService, private cd: ChangeDetectorRef, private route: ActivatedRoute, private router: Router, private bookingService: BookingService, private usersService: UsersService, private advertisingService:AdvertisingService) { }
 
   ngOnInit(): void {
-    this.advertisingService.getAdsIds().subscribe((res)=>{
-      for (let index in res){
-        this.advertisingService.getAdsImage(res[index]).subscribe(x => {
-          this.ads.push(x)
-          this.refresh()
-        })
-      }
-    })
+    // this.advertisingService.getAdsIds().subscribe((res)=>{
+    //   for (let index in res){
+    //     this.advertisingService.getAdsImage(res[index]).subscribe(x => {
+    //       this.ads.push(x)
+    //       this.refresh()
+    //     })
+    //   }
+    // })
 
 
     // this.itemServiceService.getAllServicesActif().subscribe((res) => {

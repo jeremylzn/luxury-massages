@@ -16,26 +16,29 @@ export class Dashboard3Component implements OnInit {
   allData: any = []
   isList: boolean = false;
   adsList: Observable<Advertising[]>;
+  adsIdsList: Observable<string[]>;
   public allArticles:Observable<Article[]>;
   featuredArticles: IFeaturedArticle[] = [];
   featuredAds: IAds[] = [];
+  pattern = 'https://luxury-massages.com/ads/'
   constructor(private itemServiceService: ItemServiceService, private cd: ChangeDetectorRef, private advertisingService: AdvertisingService) { }
 
   ngOnInit(): void {
     this.allArticles = this.advertisingService.articlesActif; // subscribe to entire collection
     this.advertisingService.getAllArticleActif();
-    // this.populateFeaturedArticles();
     this.adsList = this.advertisingService.adsList; // subscribe to entire collection
 
-    this.advertisingService.getAdsIds().subscribe((res: string[]) => {
-      res.forEach(el => {
-        this.featuredAds.push({
-          title: '',
-          img: `https://luxury-massages.com/ads/${el}`
-        })
-      })
-      // this.refresh();
-    })
+    this.adsIdsList = this.advertisingService.adsIds; // subscribe to entire collection
+    this.advertisingService.getAdsIds();
+    // this.advertisingService.getAdsIds().subscribe((res: string[]) => {
+    //   res.forEach(el => {
+    //     this.featuredAds.push({
+    //       title: '',
+    //       img: `https://luxury-massages.com/ads/${el}`
+    //     })
+    //   })
+    //   // this.refresh();
+    // })
   }
 
   // use this to populate article details from server

@@ -1,17 +1,17 @@
-<div class="container-fluid">
-  <div class="row">
-    <!-- <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Large modal</button> -->
-
-    <div class="col-md-8 mb-12 mt-12">
+<div class="left-side ml-5 mb-5">
+  <div>
+    <div class="mb-5">
       <full-calendar #fullcalendar [options]="calendarOptions"></full-calendar>
     </div>
+  </div>
+</div>
 
-    <div class="col-md-4" *ngIf="ads.length">
-      <div *ngFor="let ad of ads; let i = index" class="d-flex flex-column align-items-center text-center mb-5">
-        <img [src]="ad" alt="ad">
-      </div>
+<div class="right-side ml-2">
+  <div class="ads">
+    <div class="ads-item" *ngFor="let ad of adsIdsList | async">
+      <img [src]="pattern + ad">
+      <p>{{ad.title}}</p>
     </div>
-
   </div>
 </div>
 
@@ -32,7 +32,22 @@
       </div>
     </div>
     <div class="card-body pt-0 pb-3">
-      <div class="tab-content">
+
+
+      <div class="row people text-center">
+
+
+        <div class="col-md-6 col-lg-4 item cursor-pointer" (click)="ConfirmAppointment(worker)" *ngFor="let worker of all_availables_workers; let i = index">
+          <div class="box"><img class="rounded-circle" [src]="worker.img">
+              <h3 class="name">{{worker.fullname}}</h3>
+              <p class="title">{{worker.gender}}</p>
+          </div>
+      </div>
+
+      </div>
+
+
+      <!-- <div class="tab-content">
         <div class="table-responsive">
           <table class="table table-head-custom table-vertical-center table-head-bg table-borderless">
             <thead>
@@ -46,7 +61,6 @@
             <tbody>
               <tr *ngFor="let worker of all_availables_workers; let i = index">
                 <td class="">
-                  <!-- <a class="btn btn-light-success font-weight-bolder font-size-sm">תמונת עובד</a> -->
                   <img [src]="worker.img" class="imgProfile">
                 </td>
                 <td><span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{worker.fullname}}</span></td>
@@ -56,7 +70,7 @@
             </tbody>
           </table>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="modal-footer">
