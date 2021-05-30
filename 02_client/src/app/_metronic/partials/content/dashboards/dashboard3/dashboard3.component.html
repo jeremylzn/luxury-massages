@@ -3,21 +3,24 @@
 <app-carousel></app-carousel>
 
 <!-- <app-featured-carousel></app-featured-carousel> -->
-<div class="left-side ml-md-3">
-  <div class="ads">
-    <div class="ads-item" *ngFor="let ad of adsIdsList | async">
-      <img [src]="pattern + ad">
-      <p>{{ad.title}}</p>
+<div class="d-flex flex-wrap">
+  <div class="left-side ml-md-3 order-1 order-md-0">
+    <div class="ads">
+      <div class="ads-item" *ngFor="let ad of adsIdsList | async">
+        <img [src]="pattern + ad">
+        <p>{{ad.title}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="right-side">
+    <div class="rtl">
+      <div class="mb-5" *ngFor="let article of allArticles | async; let i = index">
+        <app-article-card [article]="article"></app-article-card>
+      </div>
     </div>
   </div>
 </div>
-<div class="right-side">
-  <div class="rtl">
-    <div class="mb-5" *ngFor="let article of allArticles | async; let i = index">
-      <app-article-card [article]="article"></app-article-card>
-    </div>
-  </div>
-</div>
+
 <div class="m-md-5 mx-2 rtl clear-both">
   <app-therapy></app-therapy>
 </div>
