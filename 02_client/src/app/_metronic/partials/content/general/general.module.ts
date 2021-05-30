@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe  } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { FormsModule } from '@angular/forms';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { InlineSVGModule } from 'ng-inline-svg';
@@ -29,6 +30,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
   imports: [
     CommonModule,
     CoreModule,
+    FormsModule,
     HighlightModule,
     PerfectScrollbarModule,
     TranslationModule,

@@ -1,0 +1,19 @@
+<div class="left-side ml-md-3">
+    <div class="ads">
+        <div class="ads-item" *ngFor="let ad of adsIdsList | async">
+            <img [src]="pattern + ad">
+            <p>{{ad.title}}</p>
+        </div>
+    </div>
+</div>
+<div class="right-side">
+    <div class="rtl">
+        <h1 class="card-title">{{(article | async).title}}</h1>
+        <p class="card-text"><small class="text-muted">{{(article | async).createAt | date}}</small></p>
+        <div class="col-md-9 img-card-wrapper" *ngIf='(article | async).img'>
+            <img [src]="patternArticle + (article | async)._id" width="100%" class="card-img-top" alt="...">
+        </div>
+        <br>
+        <p class="card-text" [innerHTML]="(article | async).body"></p>
+    </div>
+</div>

@@ -4,6 +4,7 @@ const auth = require('../middleware/auth.js')
 const admin = require('../middleware/admin')
 const worker = require('../middleware/worker')
 const Appointment = require('../../00_db/models/appointment')
+var request = require('request');
 // const mailer = require('../middleware/send-email')
 
 // Add appointment
@@ -82,6 +83,23 @@ router.put('/admin/booking/:id', admin, async(req, res) => {
     } catch (err) {
         res.status(500).send()
     }
+})
+
+// Payment for booking
+router.post('/payment/booking', async(req, res) => {
+    console.log(req.body)
+    var options = {
+        'method': 'POST',
+        'url': 'https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess',
+        'headers': {
+        },
+        formData: req.body
+      };
+      request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(JSON.parse(response.body));
+      });
+      
 })
 
 module.exports = router

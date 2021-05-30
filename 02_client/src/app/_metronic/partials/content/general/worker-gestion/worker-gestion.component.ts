@@ -18,8 +18,10 @@ export class WorkerGestionComponent implements OnInit {
   public allWorkers:Observable<customerDetails[]>;
   public dataNotCompleted:Observable<Appointment[]>;
   public dataCompleted:Observable<Appointment[]>;
-  public currentWorker:customerDetails;
+  // public currentWorker:customerDetails;
   public urlProfile:string;
+  public option='';
+  public currentWorker:Observable<customerDetails>;
   calendarOptions: CalendarOptions;
   title = 'luxury-massage';
   Events = []
@@ -31,20 +33,24 @@ export class WorkerGestionComponent implements OnInit {
     console.log(this.allWorkers)
   }
 
-  onChangeCurrentWorker(worker){
-    this.currentWorker = worker;
-    this.urlProfile = 'https://luxury-massages.com/profile/' + worker._id
+  onChangeCurrentWorker(){
+    var worker = this.option;
+
+    this.currentWorker = this.usersService.worker; // subscribe to entire collection
+    this.usersService.getworkerById(worker);
+
+    this.urlProfile = 'https://luxury-massages.com/profile/' + worker
     console.log(this.urlProfile)
     this.dataNotCompleted = this.bookingService.currentNotCompleted; // subscribe to entire collection
-    this.bookingService.getAppointmentByWorkerIDNotCompleted(worker._id);
+    this.bookingService.getAppointmentByWorkerIDNotCompleted(worker);
 
     this.dataCompleted = this.bookingService.currentCompleted; // subscribe to entire collection
-    this.bookingService.getAppointmentByWorkerIDCompleted(worker._id);
-
-    this.usersService.getAvailability(worker._id).subscribe((res:any[]) => {
+    this.bookingService.getAppointmentByWorkerIDCompleted(worker);
+  
+    this.usersService.getAvailability(worker).subscribe((res:any[]) => {
       this.Events = res
       for (let event of res)
-        this.calendarComponent.getApi().addEvent({dateStr:event.dateStr, date:event.date, id:event.dateStr + '-' + worker._id})
+        this.calendarComponent.getApi().addEvent({dateStr:event.dateStr, date:event.date, id:event.dateStr + '-' + worker})
     });
     this.calendarOptions = {
       initialView: 'dayGridWeek',

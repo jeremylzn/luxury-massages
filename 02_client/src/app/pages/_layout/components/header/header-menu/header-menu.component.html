@@ -62,6 +62,25 @@
     </a>
   </li>
 
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==3 || !role">
+    <a class="menu-link" routerLinkActive="active">
+      <span class="menu-text svg-icon svg-icon-md svg-icon-primary">צור קשר</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+
+  <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==3 || !role">
+    <a class="menu-link" routerLinkActive="active">
+      <span class="menu-text svg-icon svg-icon-md svg-icon-primary">אודות</span>
+      <ng-container *ngIf="rootArrowEnabled">
+        <i class="menu-arrow"></i>
+      </ng-container>
+    </a>
+  </li>
+
+
   <li class="menu-item menu-item-rel" routerLinkActive="menu-item-active" *ngIf="role==2">
     <a class="menu-link" routerLink="/dashboard/availabilities" routerLinkActive="active">
       <span class="menu-text">שליחת אילוצים</span>

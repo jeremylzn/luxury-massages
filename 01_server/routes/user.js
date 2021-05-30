@@ -110,6 +110,16 @@ router.get('/admin/workers', admin, async(req, res) => {
     }
 })
 
+// ADMIN - Get specific worker
+router.get('/admin/workers/:id', admin, async(req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        res.send(user)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
 // WORKER - Get profile picture
 router.get('/profile/:id', async(req, res) => {
     const user = await User.findById({_id: req.params.id}, {_id:false, img:true})

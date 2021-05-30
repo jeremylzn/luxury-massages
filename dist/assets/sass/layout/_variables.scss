@@ -22,19 +22,18 @@ $page-padding: (
 	tablet-and-mobile: 15px // Padding for tablet and mobile modes
 ) !default;
 
-// HERE TO CHANGE
 // Header
 $header-config: (
 	// Desktop Mode
 	desktop: (
 		// Default Mode
 		default: (
-			height: 0px
+			height: 65px
 		),
 		// Fixed Mode
 		fixed: (
 			zindex: 97,
-			height: 0px
+			height: 65px
 		)
 	),
 

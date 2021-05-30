@@ -7,13 +7,7 @@ import { Advertising } from '../models/advertising.model';
 import { Article } from '../models/article.model';
 
 
-// const ROOT_URL = 'http://161.97.157.17:3000/';
 const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'https://luxury-massages.com:3000/';
-
-// const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://localhost:3000/';
-// const ROOT_URL = 'http://127.0.0.1:3000/';
 
 
 
@@ -37,6 +31,11 @@ export class AdvertisingService {
   adsIdsStore:string[] = [];
   adsIdsChanged = new BehaviorSubject<string[]>([]);
   readonly adsIds = this.adsIdsChanged.asObservable();
+
+  currentArticleReadMoreStore:Article;
+  currentArticleReadMoreChanged = new BehaviorSubject<Article>(null);
+  readonly currentArticleReadMore = this.currentArticleReadMoreChanged.asObservable();
+
 
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 

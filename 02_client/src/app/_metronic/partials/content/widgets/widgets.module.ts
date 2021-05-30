@@ -121,10 +121,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Widget4DropdownComponent,
     Widget3DropdownComponent,
     MassagesListComponent,
-    TruncatePipe,
     CarouselComponent,
     SchedulerWidget3Component,
     SchedulerWidgetWeekComponent,
+    TruncatePipe
   ],
   imports: [
     CommonModule,

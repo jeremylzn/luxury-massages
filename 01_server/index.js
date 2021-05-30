@@ -3,6 +3,7 @@ require('../00_db/mongoose.js') // Establishes the connection to the database
 const cors = require('cors') // Allows our server to receive requests from clients on a different origins
 const https = require('https');
 const fs = require('fs');
+const logger = require('./middleware/logger').logger;
 // const dotenv = require('dotenv') 
 // dotenv.config() // Makes environment variables available
 
@@ -17,6 +18,7 @@ const Service = require('../00_db/models/service')
 const Advertising = require('../00_db/models/advertising')
 const Distributor = require('../00_db/models/distributor')
 const Article = require('../00_db/models/articles')
+const Payment = require('../00_db/models/payment')
 
 
 
@@ -48,6 +50,13 @@ app.use(advertisingRouter)
 
 // serve angular front end files from root path
 app.use('/', express.static(process.cwd() + "/dist"));
+
+app.post('/update', (req, res) => {
+    logger.info('------------------------')
+    logger.info(req.body);
+    logger.info(req.body.data);
+    logger.info('------------------------')
+});
 
 // rewrite virtual urls to angular app to enable refreshing of internal pages
 app.get('*', function (req, res, next) {

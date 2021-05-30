@@ -23,6 +23,10 @@ import { ArticleCardComponent } from 'src/app/pages/_layout/components/article-c
 import { TherapyComponent } from 'src/app/pages/_layout/components/therapy/therapy.component';
 import { DistributorGestionComponent } from '../general/distributor-gestion/distributor-gestion.component'; 
 import { ArticleGestionComponent } from '../general/article-gestion/article-gestion.component';
+import {  TruncatePipeSecond}   from './pipe-limit';
+import { ArticleMoreComponent } from 'src/app/pages/_layout/components/article-more/article-more.component';
+
+
 
 
 const routes: Routes = [
@@ -38,13 +42,14 @@ const routes: Routes = [
   { path: 'admin/worker', component: WorkerGestionComponent},
   { path: 'admin/distributor', component: DistributorGestionComponent},
   { path: 'admin/article', component: ArticleGestionComponent},
+  { path: 'article/more', component: ArticleMoreComponent},
   { path: 'therapy', component: TherapyComponent}
 
 ];
 
 @NgModule({
   declarations: [Dashboard1Component, Dashboard2Component, DashboardWrapperComponent, Dashboard3Component, WorkerCardComponent, 
-    FeaturedCarouselComponent, ArticleCardComponent, TherapyComponent],
+    FeaturedCarouselComponent, ArticleCardComponent, TherapyComponent, TruncatePipeSecond, ArticleMoreComponent],
   imports: [CommonModule, WidgetsModule, TranslationModule, RouterModule.forChild(routes)],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptorService, multi: true }],
   exports: [DashboardWrapperComponent, WorkerCardComponent, Dashboard3Component],

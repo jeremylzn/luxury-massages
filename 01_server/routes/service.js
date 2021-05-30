@@ -3,8 +3,23 @@ const router = new express.Router()
 const auth = require('../middleware/auth.js')
 const admin = require('../middleware/admin')
 const Service = require('../../00_db/models/service')
+var fs = require('fs');
+const path = require('path');
+const uploadImage = require('../middleware/upload')
+var multer  = require('multer')
 // const mailer = require('../middleware/send-email')
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, "../service"))
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname.toLowerCase())
+    }
+})
+const upload = multer({
+    storage: storage
+})
 
 // Get all services actif
 router.get('/services/actif', async(req, res) => {
@@ -59,6 +74,23 @@ router.post('/admin/services', admin, async(req, res) => {
         console.log(err)
         res.status(400).send(err)
     }
+})
+
+// Add service Image
+router.post('/admin/services/:id/:name', upload.single('newServicePicture'), async(req, res, next) => {
+    const service = await Service.findByIdAndUpdate({_id: req.params.id},  { $set: {img: req.params.name} })
+    res.send(service)
+})
+
+// Get service image
+router.get('/services/image/:id', async(req, res) => {
+    const service = await Service.findById({_id: req.params.id},  {_id:false, img:true})
+    const imageName = service.img.toString()
+    const imagePath = path.join(__dirname, "../service", imageName);
+    fs.exists(imagePath, exists => {
+        if (exists) res.sendFile(imagePath);
+        else res.status(400).send('Error: Image does not exists');
+    });
 })
 
 module.exports = router

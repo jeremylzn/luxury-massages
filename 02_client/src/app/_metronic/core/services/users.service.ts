@@ -21,6 +21,10 @@ export class UsersService {
   readonly workers = this.workersListChanged.asObservable();
   workerStore:customerDetails[] = [];
 
+  workerChanged = new BehaviorSubject<customerDetails>(null);
+  readonly worker = this.workerChanged.asObservable();
+  workerIdStore:customerDetails;
+
   userFromDistListChanged = new BehaviorSubject<customerDetails[]>([]);
   readonly userFromDist = this.userFromDistListChanged.asObservable();
   userFromDistStore:customerDetails[] = [];
@@ -46,6 +50,15 @@ export class UsersService {
       workers => {
         this.workerStore = workers;
         this.workersListChanged.next(this.workerStore);
+      },
+    );
+  }
+
+  getworkerById(id){
+    return this.http.get<customerDetails>(ROOT_URL + `admin/workers/${id}`).subscribe(
+      worker => {
+        this.workerIdStore = worker;
+        this.workerChanged.next(this.workerIdStore);
       },
     );
   }

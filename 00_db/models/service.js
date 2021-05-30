@@ -23,8 +23,11 @@ const itemServiceSchema = new mongoose.Schema({
     actif: {
         type: Boolean,
         default: true
+    },
+    img: {
+        type: String,
+        default: ''
     }
-
 });
 
 const Service = mongoose.model("services", itemServiceSchema);

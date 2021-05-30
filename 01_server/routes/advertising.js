@@ -60,9 +60,7 @@ router.get('/ads', async(req, res) => {
 
 // Get ads
 router.get('/ads/:id', async(req, res) => {
-    console.log(req.params.id)
     const ads = await Advertising.findById({_id: req.params.id},  {_id:false, nameFile:true})
-    console.log(ads)
     const imageName = ads.nameFile.toString()
     const imagePath = path.join(__dirname, "../ads", imageName);
     fs.exists(imagePath, exists => {
@@ -75,11 +73,8 @@ router.get('/ads/:id', async(req, res) => {
 router.post('/update/ads/:id', upload.single('newAdsPicture'), async(req, res, next) => {
     const filename = req.file.filename;
     const last_image = await Advertising.findById({_id: req.params.id}, {_id:false, nameFile:true})
-    console.log(last_image)
-    console.log(last_image.nameFile)
     if (!last_image.nameFile.includes('default-ads')){
         var lastFilePath = path.join(__dirname, "../ads", (last_image.nameFile).toString())
-        console.log(lastFilePath)
         fs.unlinkSync(lastFilePath);
     }
     ads = await Advertising.findByIdAndUpdate({_id: req.params.id},  { $set: {nameFile:filename} })
@@ -111,7 +106,6 @@ router.delete('/ads/:id', async(req, res) => {
 
 // Add article
 router.post('/admin/article', async(req, res) => {
-    console.log(req.body)
     const article = new Article(req.body)
     try {
         await article.save()
@@ -162,9 +156,7 @@ router.put('/admin/article/actif/:id', async(req, res) => {
 // Get all article actif
 router.get('/articles/actif', async(req, res) => {
     try {
-        console.log('IN TRY')
         const articles = await Article.find({ actif: true })
-        console.log(articles)
         res.send(articles)
     } catch (err) {
         res.status(500).send()
