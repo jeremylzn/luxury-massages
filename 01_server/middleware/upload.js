@@ -2,7 +2,6 @@ var multer = require('multer');
 
 
 uploadImage = () => {
-    console.log('LA')
     const imageStorage = multer.diskStorage({
         dest: (req, file, cb) => { cb(null, path.join(__dirname, "../profile")); },
         filename: (req, file, cb) => { cb(null, file.originalname); }

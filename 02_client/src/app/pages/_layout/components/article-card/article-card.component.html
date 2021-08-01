@@ -7,8 +7,9 @@
             <a>
                 <div class="card-body">
                     <h1 class="card-title">{{article.title}}</h1>
-                    <p class="card-text" [innerHTML]="article.body | slice:0:300"></p><h5 class="cursor-pointer" *ngIf="(article.body).length > 300" (click)="onClickMore()"><span class="badge badge-pill badge-secondary">קרא עוד...</span></h5>
+                    <p class="card-text" [innerHTML]="article.body | slice:0:300"></p><h5 class="cursor-pointer" *ngIf="(article.body).length > 300" (click)="onClickMore(article._id)"><span class="badge badge-pill badge-secondary">קרא עוד...</span></h5>
                     <p class="card-text"><small class="text-muted">{{article.createAt | date}}</small></p>
+                    <share-buttons [theme]="'material-dark'" [include]="['facebook','whatsapp','twitter','email','copy']" [show]="5" [size]="-5" [url]="patternShare + article._id" [autoSetMeta]="false"></share-buttons>
                 </div>
             </a>
         </div>

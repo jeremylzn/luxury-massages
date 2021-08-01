@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Article } from 'src/app/_metronic/core/models/article.model';
 import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
@@ -14,15 +14,12 @@ export class ArticleMoreComponent implements OnInit {
   article:Observable<Article>;
   pattern = 'https://luxury-massages.com/ads/'
   patternArticle = 'https://luxury-massages.com/article/'
-  constructor(private advertisingService:AdvertisingService, private router:Router) { }
+  public patternShare = 'https://luxury-massages.com/dashboard/article/more/'
+  constructor(private advertisingService:AdvertisingService, private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    if(this.advertisingService.currentArticleReadMoreStore){
-      this.article = this.advertisingService.currentArticleReadMore
-    }
-    else{
-      this.router.navigate(['/dashboard']);
-    }
+    this.article = this.advertisingService.currentArticleReadMore; // subscribe to entire collection
+    this.advertisingService.getArticleById(this.route.snapshot.paramMap.get('id'));
 
     this.adsIdsList = this.advertisingService.adsIds; // subscribe to entire collection
     this.advertisingService.getAdsIds();

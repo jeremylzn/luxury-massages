@@ -34,7 +34,7 @@ import { HeaderMenuDynamicComponent } from './_layout/components/header/header-m
     TopbarComponent,
     LanguageSelectorComponent,
     AsideDynamicComponent,
-    HeaderMenuDynamicComponent,
+    HeaderMenuDynamicComponent
   ],
   imports: [
     CommonModule,

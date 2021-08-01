@@ -4,7 +4,11 @@ const auth = require('../middleware/auth.js')
 const admin = require('../middleware/admin')
 const worker = require('../middleware/worker')
 const Appointment = require('../../00_db/models/appointment')
+const Payment = require('../../00_db/models/payment')
 var request = require('request');
+const formData = require('form-data');
+const fetch = require("node-fetch");
+const logger = require('../middleware/logger').logger;
 // const mailer = require('../middleware/send-email')
 
 // Add appointment
@@ -85,21 +89,140 @@ router.put('/admin/booking/:id', admin, async(req, res) => {
     }
 })
 
-// Payment for booking
-router.post('/payment/booking', async(req, res) => {
-    console.log(req.body)
-    var options = {
-        'method': 'POST',
-        'url': 'https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess',
-        'headers': {
-        },
-        formData: req.body
-      };
-      request(options, function (error, response) {
-        if (error) throw new Error(error);
-        res.send(JSON.parse(response.body));
-      });
-      
+// set appointment as completed
+router.put('/booking/completed', async(req, res) => {
+    try {
+        const appointments = await Appointment.findByIdAndUpdate({_id: req.body.id}, { $set: { completed: true } })
+        res.send(appointments)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// get data payement
+router.post('/update', async (req, res) => {
+    try {
+        const values = req.body.data
+        logger.info(values)
+        console.log(values)
+        values['customerDetails'] = {customerID: values.customFields.cField1, email:values.payerEmail, fullname:values.fullName, telephone:values.payerPhone, address:values.customFields.cField2, distributor:values.customFields.cField3}
+        logger.info('AFTER ADD IN CUSTOM DETAILS')
+        let form_data = new formData(values)
+        form_data.append("pageCode", values.customFields.cField4);
+        form_data.append("transactionId", values.transactionId);
+        form_data.append("transactionToken", values.transactionToken);
+        form_data.append("transactionTypeId", values.transactionTypeId);
+        form_data.append("paymentType", values. paymentType);
+        form_data.append("sum", values.sum);
+        form_data.append("firstPaymentSum", values.firstPaymentSum);
+        form_data.append("periodicalPaymentSum", values.periodicalPaymentSum);
+        form_data.append("paymentsNum", values.paymentsNum);
+        form_data.append("allPaymentsNum", values.allPaymentsNum);
+        form_data.append("paymentDate", values.paymentDate);
+        form_data.append("asmachta", values.asmachta);
+        form_data.append("description", values.description);
+        form_data.append("fullName", values.fullName);
+        form_data.append("payerPhone", values.payerPhone);
+        form_data.append("payerEmail", values.payerEmail);
+        form_data.append("cardSuffix", values.cardSuffix);
+        form_data.append("cardType", values.cardType);
+        form_data.append("cardTypeCode", values.cardTypeCode);
+        form_data.append("cardBrand", values.cardBrand);
+        form_data.append("cardBrandCode", values.cardBrandCode);
+        form_data.append("cardExp", values.cardExp);
+        form_data.append("processId", values.processId);
+        form_data.append("processToken", values.processToken);
+        console.log(form_data);
+        logger.info('after append')
+        const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/approveTransaction";
+        const response = await fetch(url, {
+            method: 'POST',
+            body: form_data
+        });
+        const data = await response.json();
+        logger.info('AFTER FETCH APPROVE')
+        try {
+                const payment = new Payment(values)
+                await payment.save()
+        } catch (err) {
+                console.log(err)
+                res.status(400).send(err)
+        }
+        logger.info('AFTER SAVE PAYMENT')
+        logger.info(data)
+        console.log(data)
+        res.json(data);
+
+    }
+    catch (err){
+        console.log('--------------------')
+        console.log('IN CATCH OF TRY AND CATCH')
+        console.log(err)
+        logger.info(err)
+        console.log('-----------------------')
+    }
+});
+
+// Payment for booking by credit card
+router.post('/payment/booking/card', async(req, res) => {
+    try {
+
+        const values = req.body
+        let form_data = new formData();
+        form_data.append("sum", values.sum);
+        form_data.append("pageField[fullName]", values.fullname);
+        form_data.append("pageField[email]", values.email);
+        form_data.append("pageField[phone]", values.phone);
+        form_data.append("paymentNum", '1');
+        form_data.append("saveCardToken", '1');
+        form_data.append("chargeType", '1');
+        form_data.append("description", values.description);
+        form_data.append("pageCode", "ed828b5b2e08");
+        form_data.append("userId", "7434be4be4c601cd");
+        form_data.append("cField1", values._id)
+        form_data.append("cField2", values.address)
+        form_data.append("cField3", values.distributor)
+        form_data.append("cField4", "ed828b5b2e08")
+        form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
+        form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
+        const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
+        const response = await fetch(url, { method: 'POST', body: form_data });
+        const data = await response.json();
+        res.json(data.data.url);
+    }catch (err) {
+        console.log(err);
+    }
+})
+
+// Payment for booking by bit
+router.post('/payment/booking/bit', async(req, res) => {
+    try {
+
+        const values = req.body
+        let form_data = new formData();
+        form_data.append("sum", values.sum);
+        form_data.append("pageField[fullName]", values.fullname);
+        form_data.append("pageField[email]", values.email);
+        form_data.append("pageField[phone]", values.phone);
+        form_data.append("paymentNum", '1');
+        form_data.append("saveCardToken", '1');
+        form_data.append("chargeType", '1');
+        form_data.append("description", values.description);
+        form_data.append("pageCode", "24a8304a9845");
+        form_data.append("userId", "7434be4be4c601cd");
+        form_data.append("cField1", values._id)
+        form_data.append("cField2", values.address)
+        form_data.append("cField3", values.distributor)
+        form_data.append("cField4", "24a8304a9845")
+        form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
+        form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
+        const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
+        const response = await fetch(url, { method: 'POST', body: form_data });
+        const data = await response.json();
+        res.json(data.data.url);
+    }catch (err) {
+        console.log(err);
+    }
 })
 
 module.exports = router

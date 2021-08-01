@@ -20,29 +20,31 @@ export class ShedulerWidget2Component implements OnInit {
   date:string;
   selectedTime = '00:00:00';
   Events = []
-  @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
+  @ViewChild('fullcalendar') calendarComponent: FullCalendarComponent;
   calendarOptions: CalendarOptions;
   constructor(private bookingService: BookingService) { }
 
   ngOnInit(): void {
+    this.bookingService.getAppointmentByWorkerID(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id).subscribe((res:any) => {
+      for (let event of res){
+        this.Events.push({title:' טיפול ' + event.serviceDetails[0].name, date:event.dateStr, datetime: event.dateStr + ' - ' + event.timeStr, minutes :event.serviceDetails[0].minutes, fullname :event.customerDetails.fullname, address :event.customerDetails.address})
+        this.calendarComponent.getApi().addEvent({title:' טיפול ' + event.serviceDetails[0].name, date:event.dateStr, datetime: event.dateStr + ' - ' + event.timeStr, minutes :event.serviceDetails[0].minutes, fullname :event.customerDetails.fullname, address :event.customerDetails.address, id:event.dateStr + '-' + JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id})
+      }
+    })
+
     this.calendarOptions = {
       initialView: 'dayGridMonth',
       locale: heLocale,
-      dateClick: this.dateClick.bind(this), // bind is important!
       eventClick: this.eventClick.bind(this), // bind is important!
       eventBackgroundColor: "rgb(180, 180, 180)",
       eventBorderColor: "rgb(180, 180, 180)",
       eventColor: "rgb(0, 0, 0)",
-      events: JSON.parse(localStorage.getItem('Events')),
+      events: this.Events,
       eventContent : this.eventContent.bind(this)
     };
   }
 
   eventClick(info) {
-    console.log(info.event.title)
-    console.log(info.event.extendedProps.datetime)
-    console.log(info.event.extendedProps.minutes)
- 
     Swal.fire({
       title: `פרטי משמרת`,
       html: '<h4>'+ info.event.title+'</h4><br />' + 
@@ -54,10 +56,6 @@ export class ShedulerWidget2Component implements OnInit {
       confirmButtonText: `סגור`,
     })
     
-  }
-
-  dateClick(event) {
-    console.log(event)
   }
 
   eventContent(info, createElement) {

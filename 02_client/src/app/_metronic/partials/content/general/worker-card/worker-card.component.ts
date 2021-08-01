@@ -54,5 +54,15 @@ export class WorkerCardComponent implements OnInit {
     }
   }
 
+  toCompleted(id) {
+    this.bookingService.setAppointmentCompleted(id).subscribe((res)=>{
+      this.dataNotCompleted = this.bookingService.currentNotCompleted; // subscribe to entire collection
+      this.bookingService.getAppointmentByWorkerIDNotCompleted(this.currentUser._id);
+  
+      this.dataCompleted = this.bookingService.currentCompleted; // subscribe to entire collection
+      this.bookingService.getAppointmentByWorkerIDCompleted(this.currentUser._id);
+    })
+  }
+
 
 }

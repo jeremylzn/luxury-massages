@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../_models/user.model';
 import { first } from 'rxjs/operators';
+import { saveAs } from "file-saver";
 import { UsersService } from 'src/app/_metronic/core/services/users.service';
 
 @Component({
@@ -119,10 +120,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe((user: any) => {
         if (user) {
-          console.log(user)
           if (user.user.distributor != ''){
             this.usersService.addDistributor({id:user.user._id, fullname:user.user.fullname, email:user.user.email, telephone:user.user.telephone, address:user.user.address}, user.user.distributor).subscribe((res) =>{
-              console.log(res)
             })
           }
           this.router.navigate(['/']);
@@ -135,5 +134,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
+
+
+  goToLink(){
+    console.log('click')
+    this.usersService.getPdfConfidential().subscribe((res:any)=>{
+      console.log(res)
+      saveAs(res, 'תקנון')
+      // window.open(res, '_blank', '', true);
+    })
+    // this.router.navigate(['/auth/confidential']);
   }
 }

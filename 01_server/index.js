@@ -4,6 +4,10 @@ const cors = require('cors') // Allows our server to receive requests from clien
 const https = require('https');
 const fs = require('fs');
 const logger = require('./middleware/logger').logger;
+const formData = require('form-data');
+const fetch = require("node-fetch");
+var cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 // const dotenv = require('dotenv') 
 // dotenv.config() // Makes environment variables available
 
@@ -19,6 +23,9 @@ const Advertising = require('../00_db/models/advertising')
 const Distributor = require('../00_db/models/distributor')
 const Article = require('../00_db/models/articles')
 const Payment = require('../00_db/models/payment')
+const Gallery = require('../00_db/models/gallery')
+const Sms = require('../00_db/models/sms')
+
 
 
 
@@ -27,12 +34,18 @@ const userRouter = require('./routes/user')
 const appointmentRouter = require('./routes/appointment')
 const serviceRouter = require('./routes/service')
 const advertisingRouter = require('./routes/advertising')
+const galleryRouter = require('./routes/gallery')
+const smsRouter = require('./routes/sms')
+
 
 
 
 
 // Initialize server
 const app = express()
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 app.use(cors())
 // app.use(express.static(process.cwd() + "/02_client/src/app/"));
 app.use(express.static(process.cwd() + "/dist"));
@@ -46,17 +59,13 @@ app.use(userRouter)
 app.use(appointmentRouter)
 app.use(serviceRouter)
 app.use(advertisingRouter)
+app.use(galleryRouter)
+app.use(smsRouter)
+
 
 
 // serve angular front end files from root path
 app.use('/', express.static(process.cwd() + "/dist"));
-
-app.post('/update', (req, res) => {
-    logger.info('------------------------')
-    logger.info(req.body);
-    logger.info(req.body.data);
-    logger.info('------------------------')
-});
 
 // rewrite virtual urls to angular app to enable refreshing of internal pages
 app.get('*', function (req, res, next) {

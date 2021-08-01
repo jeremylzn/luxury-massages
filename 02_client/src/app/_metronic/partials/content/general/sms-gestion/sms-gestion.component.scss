@@ -1,0 +1,17 @@
+.list-group-item.select:hover{
+    background-color: rgb(187, 183, 183);
+    opacity: 0.5;
+}
+
+.badge.badge-outlined {
+    background-color: transparent;
+}
+
+.badge.badge-outlined.badge-primary {
+    border : 1px solid #2196F3;
+    color: #2196F3;
+}
+
+.badge.badge-primary {
+    background-color: transparent;
+}

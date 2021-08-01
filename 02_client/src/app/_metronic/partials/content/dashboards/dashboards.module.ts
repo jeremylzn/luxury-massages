@@ -25,6 +25,16 @@ import { DistributorGestionComponent } from '../general/distributor-gestion/dist
 import { ArticleGestionComponent } from '../general/article-gestion/article-gestion.component';
 import {  TruncatePipeSecond}   from './pipe-limit';
 import { ArticleMoreComponent } from 'src/app/pages/_layout/components/article-more/article-more.component';
+import { GalleryComponent } from '../general/gallery/gallery.component';
+import { GalleryGestionComponent } from '../general/gallery-gestion/gallery-gestion.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { SmsGestionComponent } from '../general/sms-gestion/sms-gestion.component';
+import { LuzGestionComponent } from '../general/luz-gestion/luz-gestion.component';
+import { AboutComponent } from '../general/about/about.component'; // ->  imported directive
+
+
+
 
 
 
@@ -42,15 +52,19 @@ const routes: Routes = [
   { path: 'admin/worker', component: WorkerGestionComponent},
   { path: 'admin/distributor', component: DistributorGestionComponent},
   { path: 'admin/article', component: ArticleGestionComponent},
-  { path: 'article/more', component: ArticleMoreComponent},
-  { path: 'therapy', component: TherapyComponent}
-
+  { path: 'article/more/:id', component: ArticleMoreComponent},
+  { path: 'therapy', component: TherapyComponent},
+  { path: 'gallery', component: GalleryComponent},
+  { path: 'admin/gallery', component: GalleryGestionComponent},
+  { path: 'admin/sms', component: SmsGestionComponent},
+  { path: 'admin/luz', component: LuzGestionComponent},
+  { path: 'about', component: AboutComponent}
 ];
 
 @NgModule({
   declarations: [Dashboard1Component, Dashboard2Component, DashboardWrapperComponent, Dashboard3Component, WorkerCardComponent, 
     FeaturedCarouselComponent, ArticleCardComponent, TherapyComponent, TruncatePipeSecond, ArticleMoreComponent],
-  imports: [CommonModule, WidgetsModule, TranslationModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, WidgetsModule, ShareButtonsModule.withConfig({debug: true}), ShareIconsModule, TranslationModule, RouterModule.forChild(routes)],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: SendTokenInterceptorService, multi: true }],
   exports: [DashboardWrapperComponent, WorkerCardComponent, Dashboard3Component],
 })

@@ -18,8 +18,6 @@ export class Dashboard3Component implements OnInit {
   adsList: Observable<Advertising[]>;
   adsIdsList: Observable<string[]>;
   public allArticles:Observable<Article[]>;
-  featuredArticles: IFeaturedArticle[] = [];
-  featuredAds: IAds[] = [];
   pattern = 'https://luxury-massages.com/ads/'
   constructor(private itemServiceService: ItemServiceService, private cd: ChangeDetectorRef, private advertisingService: AdvertisingService) { }
 
@@ -41,81 +39,9 @@ export class Dashboard3Component implements OnInit {
     // })
   }
 
-  // use this to populate article details from server
-  private populateFeaturedArticles() {
-    this.featuredArticles.push({
-      title: 'המהומות בערים הערביות',
-      body: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-      img: '../../../../../assets/media/stock-600x400/img-1.jpg'
-    });
-    this.featuredArticles.push({
-      title: 'מכריזים נצחון',
-      body: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-      img: '../../../../../assets/media/stock-600x400/img-2.jpg'
-    });
-    this.featuredArticles.push({
-      title: 'Title for Article 3',
-      body: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-      img: '../../../../../assets/media/stock-600x400/img-3.jpg'
-    });
-    this.featuredArticles.push({
-      title: 'Title for Article 4',
-      body: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-      img: '../../../../../assets/media/stock-600x400/img-4.jpg'
-    });
-    this.featuredArticles.push({
-      title: 'Title for Article 5',
-      body: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-      img: '../../../../../assets/media/stock-600x400/img-5.jpg'
-    });
-    this.featuredArticles.push({
-      title: 'Title for Article 6',
-      body: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-      img: '../../../../../assets/media/stock-600x400/img-6.jpg'
-    });
-  }
-
-  private populateAds() {
-    this.featuredAds.push({
-      title: 'Ad 1 from the server...',
-      img: '../../../../../assets/media/stock-600x400/img-25.jpg'
-    });
-    this.featuredAds.push({
-      title: 'Ad 2 from the server...',
-      img: '../../../../../assets/media/stock-600x400/img-26.jpg'
-    });
-    this.featuredAds.push({
-      title: 'Ad 3 from the server...',
-      img: '../../../../../assets/media/stock-600x400/img-27.jpg'
-    });
-    this.featuredAds.push({
-      title: 'Ad 4 from the server...',
-      img: '../../../../../assets/media/stock-600x400/img-28.jpg'
-    });
-    this.featuredAds.push({
-      title: 'Ad 5 from the server...',
-      img: '../../../../../assets/media/stock-600x400/img-29.jpg'
-    });
-    this.featuredAds.push({
-      title: 'Ad 6 from the server...',
-      img: '../../../../../assets/media/stock-600x400/img-30.jpg'
-    });
-
-  }
-
-
   refresh() {
     this.cd.detectChanges();
   }
 
 }
 
-export interface IFeaturedArticle {
-  title: string;
-  body: string;
-  img: string;
-}
-export interface IAds {
-  title: string;
-  img: string;
-}

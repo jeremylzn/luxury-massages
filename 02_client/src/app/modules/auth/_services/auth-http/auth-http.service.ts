@@ -37,7 +37,6 @@ export class AuthHTTPService {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${JSON.parse(localStorage.getItem(this.authLocalStorageToken)).accessToken}`)
     }
-    console.log(header)
     return this.http.post(ROOT_URL + 'tkn/logout', {}, header).subscribe();
   }
 

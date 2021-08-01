@@ -61,6 +61,10 @@ export class AdvanceTablesWidget1Component {
         input: 'text' 
       },
       {
+        title: 'קישור אתר',
+        input: 'text' 
+      },
+      {
         title: 'תמונת פרסום',
         input: 'file'
       }
@@ -71,14 +75,13 @@ export class AdvanceTablesWidget1Component {
         return !value && 'חסר נתון'
       },
       showCancelButton: true,
-      progressSteps: ['1', '2']
+      progressSteps: ['1', '2', '3']
     }).queue(steps).then((result) => {
       if (result.value) {
-        console.log(result)
-        this.newPhoto = <File>result.value[1];
+        this.newPhoto = <File>result.value[2];
         let fd = new FormData();
         fd.append('newAdsPicture', this.newPhoto, this.newPhoto.name);
-        this.advertisingService.addAdsImage(fd, result.value[0], this.newPhoto.name).subscribe((res)=>{
+        this.advertisingService.addAdsImage(fd, result.value[0], this.newPhoto.name, result.value[1]).subscribe((res)=>{
           this.adsList = this.advertisingService.adsList; // subscribe to entire collection
           this.advertisingService.getAdsList();
         })

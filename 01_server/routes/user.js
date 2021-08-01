@@ -8,6 +8,7 @@ var multer  = require('multer')
 const User = require('../../00_db/models/user');
 const Appointment = require('../../00_db/models/appointment');
 const Distributor = require('../../00_db/models/distributor');
+const Disabled = require('../../00_db/models/disabled');
 const momentTz = require('moment-timezone');
 const moment = require("moment");
 var fs = require('fs');
@@ -110,6 +111,16 @@ router.get('/admin/workers', admin, async(req, res) => {
     }
 })
 
+// ADMIN - Get all customers
+router.get('/admin/customers', async(req, res) => {
+    try {
+        const users = await User.find({role: 3})
+        res.send(users)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
 // ADMIN - Get specific worker
 router.get('/admin/workers/:id', admin, async(req, res) => {
     try {
@@ -140,10 +151,14 @@ router.get('/availability/:id', async(req, res) => {
 // WORKER - Add availiblity
 router.post('/availability/:id', async(req, res) => {
     console.log(req.body.events)
-    for (let event of req.body.events) {
-        var mydate = new Date(event.dateStr);
-        event.date = mydate.toISOString()
-    }
+    // for (let event of req.body.events) {
+    //     var mydate = new Date(event.dateStr);
+    //     event.date = mydate.toISOString()
+    // }
+    req.body.events.forEach((data) => {
+        data.start = moment.tz(data.start, "Asia/Jerusalem").toISOString()
+        data.end = moment.tz(data.end, "Asia/Jerusalem").toISOString()
+    });
     user = await User.findByIdAndUpdate({_id: req.params.id},  { $set: {availability:req.body.events} })
     res.send(user)
 })
@@ -198,103 +213,44 @@ router.get('/admin/distributor', async(req, res) => {
         res.status(500).send()
     }
 })
-// ADMIN - Get all users
-// router.get('/admin/users', authAsAdmin, async(req, res) => {
-//     try {
-//         const users = await User.find({})
-//         res.send(users)
-//     } catch (err) {
-//         res.status(500).send()
-//     }
-// })
 
-// ADMIN - Get specific user by id
-// router.get('/admin/user/:id', authAsAdmin, async(req, res) => {
-//     try {
-//         const user = await User.findById(req.params.id)
-//         if (user)
-//             res.status(200).send(user)
-//         else
-//             res.status(404).send({ 'error': 'User not found!' })
-//     } catch (err) {
-//         res.status(500).send(err)
-//     }
-// })
-
-// ADMIN - Delete a user by id
-// router.delete('/admin/users/:id', authAsAdmin, async(req, res) => {
-//     try {
-//         const user = await User.findByIdAndRemove(req.params.id)
-
-//         if (user)
-//             res.status(200).send(user)
-//         else
-//             res.status(404).send({ 'error': 'User not found!' })
-//     } catch (err) {
-//         res.status(500).send(err)
-//     }
-// })
-
-// Get currently logged in user
-router.get('/users/home', auth, async(req, res) => {
-    res.send(req.user)
+// ADMIN - Add disabled
+router.post('/disabled', async(req, res) => {
+    var list_date = req.body.dates
+    list_date.forEach((data) => {
+        data.start = moment.tz(data.start, "Asia/Jerusalem")
+        data.end = moment.tz(data.end, "Asia/Jerusalem")
+    });
+    await Disabled.deleteMany({})
+    await Disabled.insertMany(list_date)
+    res.send({message: 'OK'})
 })
 
-// Add a new notification to the user
-// router.post('/notification', auth, async(req, res) => {
-//     try {
-//         req.user.notifications.unshift(req.body) // unshift inserts the notification to the beginning of the array
-//         await req.user.save()
+// get disabled
+router.get('/disabled', async(req, res) => {
+    disabled = await Disabled.find({})
+    res.send(disabled)
+})
 
-//         res.status(200).send(req.body)
-//     } catch (err) {
-//         res.status(500).send()
-//     }
-// })
+// Send confidential pdf
+router.get('/confidential', async(req, res) => {
+    try {
+        // ./01_server/confidential.pdf
+        const src = fs.createReadStream('./01_server/confidential.pdf');
 
-// ADMIN - Add a new notification to another user
-// router.post('/notification/:id', authAsAdmin, async(req, res) => {
-//     try {
-//         const user = await User.findById(req.params.id)
+        res.writeHead(200, {
+          'Content-Type': 'application/pdf',
+          'Content-Disposition': 'attachment; filename=confidential.pdf',
+          'Content-Transfer-Encoding': 'Binary'
+        });
+      
+        src.pipe(res);
+        
+    } catch (err) {
+        console.log(err)
+        res.status(400).send(err)
+    }
+})
 
-//         user.notifications.unshift(req.body) // unshift inserts the notification to the beginning of the array
-//         await user.save()
-//         res.status(200).send(req.body)
-//     } catch (err) {
-//         res.status(500).send()
-//     }
-// })
-
-// Get all user's notifications
-// router.get('/notification', auth, async(req, res) => {
-//     try {
-//         res.status(200).send(req.user.notifications)
-//     } catch (err) {
-//         res.status(500).send()
-//     }
-// })
-
-// Mark all user's notifications as seen
-// router.post('/notifications/read', auth, async(req, res) => {
-//     try {
-//         req.user.notifications.forEach((notification) => { notification.seen = true })
-
-//         await User.findByIdAndUpdate(req.user.id, { notifications: req.user.notifications })
-
-//         await req.user.save()
-
-//         res.status(200).send(req.user.notifications)
-//     } catch (err) {
-//         res.status(500).send()
-//     }
-// })
-
-// ADMIN - Update user
-// router.put('/admin/user/update/:id', authAsAdmin, async(req, res) => {
-//     var id = req.params.id;
-//     var item = req.body;
-//     const result = await User.updateOne({ _id: id }, item)
-//     res.send(result);
-// });
 
 module.exports = router

@@ -6,10 +6,18 @@
         </div>
     </div>
 </div>
-<div class="right-side">
+<div class="right-side" *ngIf="(article | async)">
     <div class="rtl">
         <h1 class="card-title">{{(article | async).title}}</h1>
-        <p class="card-text"><small class="text-muted">{{(article | async).createAt | date}}</small></p>
+        <p class="card-text"><small class="text-muted">{{(article | async).createAt | date}}</small>
+            <share-buttons [theme]="'material-dark'"
+            [include]="['facebook','whatsapp','twitter','email','copy']"
+            [show]="5"
+            [size]="1"
+            [url]="patternShare + (article | async)._id"
+            [autoSetMeta]="false"
+           ></share-buttons>
+        </p>
         <div class="col-md-9 img-card-wrapper" *ngIf='(article | async).img'>
             <img [src]="patternArticle + (article | async)._id" width="100%" class="card-img-top" alt="...">
         </div>

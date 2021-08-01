@@ -9,7 +9,7 @@
 <div class="right-side ml-2">
   <div class="ads">
     <div class="ads-item" *ngFor="let ad of adsIdsList | async">
-      <img [src]="pattern + ad">
+      <a [href]="ad.url"><img [src]="pattern + ad"></a>
       <p>{{ad.title}}</p>
     </div>
   </div>
@@ -26,8 +26,11 @@
     <div class="form-group row" dir="rtl"> <label for="example-time-input" class="col-2 col-form-label">שעה</label>
       <div class="col-10">
         <div class="alert alert-danger" role="alert" *ngIf="alertMessage">
-          לא בחרת שעה
+           לא בחרת שעה או מטפל
         </div>
+        <div class="alert alert-danger" role="alert" *ngIf="alertMessageDisable">
+          אנחנו סגורים בטווח שעה הזה
+       </div>
         <input class="form-control" name="time" [(ngModel)]="selectedTime" type="time" value="13:45" id="swal-time">
       </div>
     </div>
@@ -35,40 +38,15 @@
 
       <h3>בחירת מטפל</h3>
       <div class="row people text-center">
-        <div class="col-md-6 col-lg-4 item cursor-pointer" (click)="ConfirmAppointment(worker)" *ngFor="let worker of all_availables_workers; let i = index">
-          <div class="box"><img class="rounded-circle" [src]="worker.img">
+        <div class="col-md-6 col-lg-4 item cursor-pointer" id="worker_{{worker._id}}" (click)="selectWorker(worker, $event)" *ngFor="let worker of all_availables_workers; let i = index">
+          <div class="box" ><img class="rounded-circle" [src]="worker.img">
               <h3 class="name">{{worker.fullname}}</h3>
               <p class="title">{{worker.gender}}</p>
           </div>
-      </div>
-
-      </div>
-
-
-      <!-- <div class="tab-content">
-        <div class="table-responsive">
-          <table class="table table-head-custom table-vertical-center table-head-bg table-borderless">
-            <thead>
-              <tr class="text-left">
-                <th style="min-width: 50px"><span class="text-dark-75">תמונה</span></th>
-                <th style="min-width: 200px">שם מלא</th>
-                <th style="min-width: 200px">מין</th>
-                <th style="min-width: 200px"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let worker of all_availables_workers; let i = index">
-                <td class="">
-                  <img [src]="worker.img" class="imgProfile">
-                </td>
-                <td><span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{worker.fullname}}</span></td>
-                <td><span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{worker.gender}}</span></td>
-                <td class=""><a class="btn btn-light-success font-weight-bolder font-size-sm" (click)="ConfirmAppointment(worker)">לבחור את העובד הזה</a></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-      </div> -->
+      </div>
+      <button type="button" class="btn btn-success" style="width: 48%; float:left;" (click)="ConfirmAppointmentCard()"><i class="fa fa-credit-card"></i> לתשלום דרך כרטיס אשראי</button>
+      <button type="button" class="btn btn-success" style="width: 48%; float:right;" (click)="ConfirmAppointmentBit()"><img src="https://upload.wikimedia.org/wikipedia/he/thumb/d/d6/Bit_logo.svg/1200px-Bit_logo.svg.png" style="width: 30px"> לתשלום דרך</button>
     </div>
   </div>
   <div class="modal-footer">

@@ -203,16 +203,17 @@
         class="btn btn-light-primary font-weight-bolder font-size-h6 px-8 py-4 my-3">
         {{ "AUTH.GENERAL.CANCEL_BUTTON" | translate }}
       </a>
-
       <ng-container *ngIf="isLoading$ | async">
         <span class="spinner spinner-primary ml-5"></span>
       </ng-container>
+
     </div>
     <!--end::Form group-->
   </form>
   <!--end::Form-->
 </div>
 <!--end::Signup-->
+<small><a style="color: blue;" class="cursor-pointer" (click)="goToLink()">תקנון, תנאי שימוש ומדיניות פרטיות</a></small>
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
   <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">

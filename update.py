@@ -62,4 +62,4 @@ for f in content:
 
     subprocess.run(commands)
 
-restartApp()
+# restartApp()

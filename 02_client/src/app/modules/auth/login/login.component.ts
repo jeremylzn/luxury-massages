@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { UserModel } from '../_models/user.model';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsersService } from 'src/app/_metronic/core/services/users.service';
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-login',
@@ -12,11 +14,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  // KeenThemes mock, change it to:
-  // defaultAuth = {
-  //   email: '',
-  //   password: '',
-  // };
   defaultAuth: any = {
     email: 'admin@demo.com',
     password: 'demo',
@@ -25,7 +22,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   hasError: boolean;
   returnUrl: string;
   isLoading$: Observable<boolean>;
-
   // private fields
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -33,7 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private usersService:UsersService
   ) {
     this.isLoading$ = this.authService.isLoading$;
     // redirect to home if already logged in
@@ -52,6 +49,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
+  }
+
+
+  goToLink(){
+    console.log('click')
+    this.usersService.getPdfConfidential().subscribe((res:any)=>{
+      console.log(res)
+      saveAs(res, 'תקנון')
+      // window.open(res, '_blank', '', true);
+    })
+    // this.router.navigate(['/auth/confidential']);
   }
 
   initForm() {

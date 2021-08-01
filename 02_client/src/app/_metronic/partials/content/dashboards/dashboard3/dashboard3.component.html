@@ -7,7 +7,7 @@
   <div class="left-side ml-md-3 order-1 order-md-0">
     <div class="ads">
       <div class="ads-item" *ngFor="let ad of adsIdsList | async">
-        <img [src]="pattern + ad">
+        <a [href]="ad.url"><img [src]="pattern + ad"></a>
         <p>{{ad.title}}</p>
       </div>
     </div>

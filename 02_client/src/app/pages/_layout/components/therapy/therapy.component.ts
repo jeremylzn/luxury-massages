@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Service } from 'src/app/_metronic/core/models/service.model';
 import { ItemServiceService } from 'src/app/_metronic/core/services/item-service.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
   selector: 'app-therapy',
@@ -40,7 +42,6 @@ export class TherapyComponent implements OnInit {
     this.itemServiceService.getAllServicesActif();
 
     this.screenWidth = window.innerWidth;
-    console.log(this.screenWidth);
 
     // this.populateTherapyList();
     if (this.screenWidth > this.mobileBreakpoint)
@@ -55,19 +56,40 @@ export class TherapyComponent implements OnInit {
     else this.therapyImgHeight = this.therapyImgHeightForMobile;
   }
 
-  public mouseEnter(index: number, el: Element, item:any) {
-    if (!this.details){
-      this.renderer.setStyle(el, 'height', `${this.effectiveSize}px`);
-      this.renderer.addClass(el, 'show-img');
-      this.details = true;
-    } else {
-      if (localStorage.getItem(this.authLocalStorageToken)){
-        localStorage.setItem('_id_service', JSON.stringify({name:item.name, price:item.price, minutes: item.minutes}));
-        return this.router.navigate(['/dashboard/booking']);
-      } else this.router.navigate(['/auth/login']);
-    }
+  public mouseEnter(name, description, price, minutes, id) {
+    // if (!this.details){
+    //   // this.renderer.setStyle(el, 'height', `${this.effectiveSize}px`);
+    //   // this.renderer.addClass(el, 'show-img');
+    //   this.details = true;
+    // } else {
+    //   if (localStorage.getItem(this.authLocalStorageToken)){
+    //     localStorage.setItem('_id_service', JSON.stringify({name:item.name, price:item.price, minutes: item.minutes}));
+    //     return this.router.navigate(['/dashboard/booking']);
+    //   } else this.router.navigate(['/auth/login']);
+    // }
+
+    Swal.fire({
+      title: name,
+      html:   '<p class="therapy-title" dir="rtl"><span><h5><br><br>' + description + ' <br><br> מחיר : ₪ ' + price + '  <br><br>  זמן : '+ minutes +' דק</h5> </span>',
+      imageUrl: this.pattern + id,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+      showCancelButton: true,
+      confirmButtonText: 'המשך',
+      cancelButtonText: 'ביטול',
+    }).then((result => {
+      if (result.isConfirmed){
+        if (localStorage.getItem(this.authLocalStorageToken)){
+            localStorage.setItem('_id_service', JSON.stringify({name:name, price:price, minutes: minutes}));
+          return this.router.navigate(['/dashboard/booking']);
+        } else this.router.navigate(['/auth/login']);
+      }
+    }))
 
   }
+
+
 
   public mouseLeave(therapy: ITherapy, el: ElementRef) {
     this.renderer.setStyle(el, 'height', `${this.therapyImgHeight}px`);
@@ -76,7 +98,6 @@ export class TherapyComponent implements OnInit {
   }
 
   public onClickService(item){
-    console.log('IN ON CLICK')
     if (localStorage.getItem(this.authLocalStorageToken)){
       localStorage.setItem('_id_service', JSON.stringify({name:item.name, price:item.price, minutes: item.minutes}));
       return this.router.navigate(['/dashboard/booking']);

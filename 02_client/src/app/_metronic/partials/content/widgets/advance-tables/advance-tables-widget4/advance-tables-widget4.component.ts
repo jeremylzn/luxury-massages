@@ -121,7 +121,6 @@ export class AdvanceTablesWidget4Component implements OnInit {
       progressSteps: ['1', '2', '3', '4', '5']
     }).queue(steps).then((result) => {
       if (result.value) {
-        console.log(result.value)
         const answers = {name:result.value[0], description:result.value[1], price:result.value[2], minutes:result.value[3]}
         this.itemServiceService.addService(answers).subscribe((res:any)=>{
           this.newPhoto = <File>result.value[4];

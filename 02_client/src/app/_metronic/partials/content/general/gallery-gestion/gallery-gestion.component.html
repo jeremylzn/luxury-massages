@@ -1,0 +1,16 @@
+<div class="grid-container">
+    <div class="wrapper" *ngFor='let photo of gallery | async; let index = i'>
+        <img class='grid-item grid-item-1' [src]='pattern + photo._id' alt=''>
+        <h5 class="text-center">{{photo.title}}</h5>
+        <p>{{photo.text}}</p>
+        <div class="d-flex flex-column w-100 mr-2 custom-control custom-switch">
+            <input type="checkbox" checked class="custom-control-input" id="customSwitch{{photo._id}}" *ngIf='photo.actif' (change)="onChangeActif($event, photo._id)">
+            <input type="checkbox" class="custom-control-input" id="customSwitch{{photo._id}}" *ngIf='!photo.actif' (change)="onChangeActif($event, photo._id)">
+            <label class="custom-control-label" for="customSwitch{{photo._id}}"></label>
+          </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="child"><button (click)=onClickPlus() class="plus-button plus-button--large grid-item"></button></div>
+</div>

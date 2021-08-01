@@ -36,6 +36,7 @@
                 <input type="checkbox" class="custom-control-input" id="customSwitch{{article._id}}" *ngIf='!article.actif' (change)="onChangeActif($event, article._id)">
                 <label class="custom-control-label" for="customSwitch{{article._id}}">פעיל</label>
               </div>
+            <button style="width: 100%"  dir="rtl" class="btn btn-primary" (click)="onClickModif(article.title, article.body, article._id)">עריכה</button>
 		</div>
 	</article>
 </main>

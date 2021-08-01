@@ -1,7 +1,7 @@
 <div class="therapy-wrapper">
     <div class="therapy-right-wrapper"
         [ngStyle]="{'grid-template-rows.px': therapyImgHeight, 'grid-auto-rows.px': therapyImgHeight, 'height.px': therapyGridHeight, 'gap.px': gridGap}">
-        <div  (click)="mouseEnter(i, therapyEl, therapy)" class="d-flex justify-content-center align-items-end cursor-pointer" *ngFor="let therapy of allServices | async; let i = index"
+        <div  (click)="mouseEnter(therapy.name, therapy.description, therapy.price, therapy.minutes, therapy._id)" class="d-flex justify-content-center align-items-end cursor-pointer" *ngFor="let therapy of allServices | async; let i = index"
              (mouseleave)="mouseLeave(therapy, therapyEl)">
             <a [ngStyle]="{'height.px': therapyImgHeight}" #therapyEl>
                 <div class="bg" [ngStyle]="{'background-image': 'url(' + pattern + therapy._id + ')'}"></div>

@@ -21,6 +21,7 @@
         <thead>
           <tr class="text-left">
             <th>שם חברה</th>
+            <th>קישור אתר</th>
             <th style="min-width: 150px">תמונת פרסום</th>
             <th>פעיל</th>
             <th>מחיקה</th>
@@ -31,7 +32,9 @@
             <td class="pl-0">
               <span class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ads.nameSociety}}</span>
             </td>
-
+            <td class="pl-0">
+              <span class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ads.url}}</span>
+            </td>
             <td>
               <label class="btn btn-default">
                 החלפה תמונת פירסום <input id="fileInput" type='file' (change)="onSelectFile($event, ads._id)" hidden>

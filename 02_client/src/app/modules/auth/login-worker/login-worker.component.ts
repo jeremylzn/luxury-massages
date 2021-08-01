@@ -76,15 +76,15 @@ export class LoginWorkerComponent implements OnInit {
       .login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe((user: UserModel) => {
-        this.bookingService.getAppointmentByWorkerID(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id).subscribe((res:any) => {
-          console.log(res)
-          var Events = []
-          for (var item of res) {
-            Events.push({title: 'טיפול' + item.serviceDetails[0].name, date: item.dateStr , datetime: item.dateStr + ' - ' + item.timeStr, minutes :item.serviceDetails[0].minutes, fullname :item.customerDetails.fullname, address :item.customerDetails.address})
-          }
-          localStorage.setItem('Events', JSON.stringify(Events))
-          this.router.navigate([this.returnUrl]);
-        })
+        // this.bookingService.getAppointmentByWorkerID(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id).subscribe((res:any) => {
+        //   var Events = []
+        //   for (var item of res) {
+        //     Events.push({title: 'טיפול' + item.serviceDetails[0].name, date: item.dateStr , datetime: item.dateStr + ' - ' + item.timeStr, minutes :item.serviceDetails[0].minutes, fullname :item.customerDetails.fullname, address :item.customerDetails.address})
+        //   }
+        //   localStorage.setItem('Events', JSON.stringify(Events))
+          
+        // })
+        this.router.navigate([this.returnUrl]);
       }, (err) => { this.hasError = true; });
     this.unsubscribe.push(loginSubscr);
   }

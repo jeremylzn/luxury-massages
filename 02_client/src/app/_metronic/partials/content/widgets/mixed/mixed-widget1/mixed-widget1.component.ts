@@ -61,11 +61,9 @@ export class MixedWidget1Component implements OnInit {
     })
     .then((result) => {
       if (result.isConfirmed && result.value){
-        console.log(result)
         this.usersService.createWorker(result.value).subscribe(res => 
           { 
             this.usersService.getAllWorkers();
-            console.log(res)
             Swal.fire('מעודכן', '', 'success')
           })
       } else {

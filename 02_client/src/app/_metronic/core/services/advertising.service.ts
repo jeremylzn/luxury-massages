@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Advertising } from '../models/advertising.model';
 import { Article } from '../models/article.model';
+import { Router } from '@angular/router';
 
 
 const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
@@ -37,7 +38,7 @@ export class AdvertisingService {
   readonly currentArticleReadMore = this.currentArticleReadMoreChanged.asObservable();
 
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer, private router:Router) { }
 
 
   public getAdsIds(){
@@ -63,8 +64,8 @@ export class AdvertisingService {
     return this.http.post(ROOT_URL + `update/ads/${id}`, image)
   }
 
-  public addAdsImage(image:any, nameSociety:string, nameFile:string){
-    return this.http.post(ROOT_URL + `add/ads/${nameSociety}/${nameFile}`, image)
+  public addAdsImage(image:any, nameSociety:string, nameFile:string, url:string){
+    return this.http.post(ROOT_URL + `add/ads/${nameSociety}/${nameFile}/${encodeURIComponent(url)}`, image)
   }
 
   public getAdsList(){
@@ -83,7 +84,6 @@ export class AdvertisingService {
   }
 
   public addArticle(item){
-    console.log(item)
     return this.http.post(ROOT_URL + `admin/article`, item)
   }
 
@@ -106,8 +106,22 @@ export class AdvertisingService {
     });
   }
 
+  public getArticleById(id){ 
+    return this.http.get(ROOT_URL + `article/get/${id}`).subscribe((article:Article) => 
+    {   
+        this.currentArticleReadMoreStore = article;
+        this.currentArticleReadMoreChanged.next(this.currentArticleReadMoreStore);
+    }, (error) => {
+      this.router.navigate(['/dashboard']);
+    });
+  }
+
   public updateActifArticle(id, actif){
     return this.http.put(ROOT_URL + `admin/article/actif/${id}`, {actif:actif})
+  }
+
+  public updateArticle(id, item){
+    return this.http.put(ROOT_URL + `admin/article/${id}`, item)
   }
 
 }

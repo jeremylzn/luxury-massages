@@ -82,8 +82,8 @@ router.post('/update/ads/:id', upload.single('newAdsPicture'), async(req, res, n
 })
 
 // Add ads Image
-router.post('/add/ads/:nameSociety/:nameFile', upload.single('newAdsPicture'), async(req, res, next) => {
-    const ads = new Advertising({nameSociety: req.params.nameSociety, nameFile: req.params.nameFile})
+router.post('/add/ads/:nameSociety/:nameFile/:url', upload.single('newAdsPicture'), async(req, res, next) => {
+    const ads = new Advertising({nameSociety: req.params.nameSociety, nameFile: req.params.nameFile, url: req.params.url})
     await ads.save()
     res.send(ads)
 })
@@ -153,11 +153,31 @@ router.put('/admin/article/actif/:id', async(req, res) => {
     }
 })
 
+// Update articles
+router.put('/admin/article/:id', async(req, res) => {
+    try {
+        const article = await Article.findByIdAndUpdate({_id: req.params.id},  { $set: req.body })
+        res.send(article)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
 // Get all article actif
 router.get('/articles/actif', async(req, res) => {
     try {
         const articles = await Article.find({ actif: true })
         res.send(articles)
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+// Get article by Id
+router.get('/article/get/:id', async(req, res) => {
+    try {
+        const article = await Article.findById(req.params.id)
+        res.send(article)
     } catch (err) {
         res.status(500).send()
     }

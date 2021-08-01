@@ -73,7 +73,6 @@ export class AuthService implements OnDestroy {
     this.isLoadingSubject.next(true);
     return this.authHttpService.login(email, password).pipe(
       tap((auth) => {
-        console.log(auth)
         this.currentAccessToken = auth.accessToken
         const result = this.setAuthFromLocalStorage(auth);
         this.isLoadingSubject.next(false)
@@ -141,7 +140,6 @@ export class AuthService implements OnDestroy {
   signup(user: UserModel){
     return this.authHttpService.createUser(user).pipe(
       tap((auth) => {
-        console.log(auth)
         this.currentAccessToken = auth.accessToken
         const result = this.setAuthFromLocalStorage(auth);
         this.isLoadingSubject.next(false)

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import {customerDetails} from '../models/customerDetails.model'
@@ -20,6 +20,10 @@ export class UsersService {
   workersListChanged = new BehaviorSubject<customerDetails[]>([]);
   readonly workers = this.workersListChanged.asObservable();
   workerStore:customerDetails[] = [];
+
+  customersListChanged = new BehaviorSubject<customerDetails[]>([]);
+  readonly customers = this.customersListChanged.asObservable();
+  customersStore:customerDetails[] = [];
 
   workerChanged = new BehaviorSubject<customerDetails>(null);
   readonly worker = this.workerChanged.asObservable();
@@ -50,6 +54,15 @@ export class UsersService {
       workers => {
         this.workerStore = workers;
         this.workersListChanged.next(this.workerStore);
+      },
+    );
+  }
+
+  getAllCustomers(){
+    return this.http.get<any[]>(ROOT_URL + `admin/customers`).subscribe(
+      customers => {
+        this.customersStore = customers;
+        this.customersListChanged.next(this.customersStore);
       },
     );
   }
@@ -100,5 +113,19 @@ export class UsersService {
     this.nameCurrentDistributorStore=name;
     this.nameCurrentDistributorChanged.next(this.nameCurrentDistributorStore)
   }
+
+  public insertDisabled(list){
+    return this.http.post(ROOT_URL + `disabled`, {dates:list});
+  }
+
+  public getDisabled(){
+    return this.http.get(ROOT_URL + `disabled`);
+  }
+
+  public getPdfConfidential(){
+    return this.http.get(ROOT_URL + `confidential`, { responseType: "blob", headers: new HttpHeaders().append("Content-Type", "application/json")})
+  }
+
+  
   
 }

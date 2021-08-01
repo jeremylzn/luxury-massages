@@ -12,6 +12,10 @@ const advertisingSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    url: {
+        type: String,
+        default: 'https://luxury-massages.com',
+    },
     actif: {
         type: Boolean,
         required: true,

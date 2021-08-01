@@ -3,12 +3,13 @@
     <label for="exampleFormControlSelect1" dir="rtl">תבחר עובד</label>
     <select [(ngModel)]="option" name="select-worker" class="form-control" id="exampleFormControlSelect1" 
       (change)="onChangeCurrentWorker()">
+      <option class='bolden'>עובדים</option>
       <option ngDefaultControl [value]="worker._id" *ngFor="let worker of allWorkers | async; let i = index">{{worker.fullname}}</option>
     </select>
   </div>
 
-  <div class="main-body" *ngIf="currentWorker">
-    <div class="row gutters-sm">
+  <div class="main-body">
+    <div class="row gutters-sm"  *ngIf="option && option!=''">
       <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">

@@ -13,7 +13,6 @@ export class ListsWidget1Component implements OnInit {
   ngOnInit(): void {
     this.usersService.getAllDistributor().subscribe((res:any[])=>{
       this.distributors = res
-      console.log(this.distributors)
       if (this.distributors.length)
         this.saveCurrentUsers(this.distributors[0].usersList, this.distributors[0].name)
       this.refresh()
@@ -26,8 +25,6 @@ export class ListsWidget1Component implements OnInit {
   }
 
   saveCurrentUsers(users, name){
-    // console.log(users)
     this.usersService.usersFromDistributor(users, name)
-    // console.log(this.usersService.userFromDist)
   }
 }

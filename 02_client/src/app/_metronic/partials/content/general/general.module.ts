@@ -20,13 +20,21 @@ import { AdvanceTablesWidget7Component } from '../widgets/advance-tables/advance
 import { ArticleGestionComponent } from './article-gestion/article-gestion.component';
 import { SendTokenInterceptorService } from 'src/app/modules/auth/_services/send-token-interceptor.service';
 import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { GalleryComponent } from './gallery/gallery.component';
+import { GalleryGestionComponent } from './gallery-gestion/gallery-gestion.component';
+import { SmsGestionComponent } from './sms-gestion/sms-gestion.component';
+import { FilterPipe } from './pipe-filter'; // -> imported filter pipe
+import { HighlightDirective } from './highlight.pipe';
+import { SearchFilterPipe } from './search-filter.pipe';
+import { LuzGestionComponent } from './luz-gestion/luz-gestion.component';
+
 
 
 
 // import { WorkerCardComponent } from './worker-card/worker-card.component';
 
 @NgModule({
-  declarations: [NoticeComponent, CodePreviewComponent, AdvertisingGestionComponent, AdvanceTablesWidget1Component, WorkerGestionComponent, DistributorGestionComponent, ListsWidget1Component, AdvanceTablesWidget7Component, ArticleGestionComponent],
+  declarations: [NoticeComponent, CodePreviewComponent, AdvertisingGestionComponent, AdvanceTablesWidget1Component, WorkerGestionComponent, DistributorGestionComponent, ListsWidget1Component, AdvanceTablesWidget7Component, ArticleGestionComponent, GalleryComponent, GalleryGestionComponent, SmsGestionComponent, FilterPipe, HighlightDirective, SearchFilterPipe, LuzGestionComponent],
   imports: [
     CommonModule,
     CoreModule,

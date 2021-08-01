@@ -1,0 +1,7 @@
+<div class="grid-container">
+    <div class="wrapper" *ngFor='let photo of gallery | async; let index = i'>
+        <img class='grid-item grid-item-1' [src]='pattern + photo._id' alt=''>
+        <h5 class="text-center">{{photo.title}}</h5>
+        <p>{{photo.text}}</p>
+    </div>
+</div>

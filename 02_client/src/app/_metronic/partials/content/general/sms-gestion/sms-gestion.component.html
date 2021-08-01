@@ -1,0 +1,50 @@
+<div class="container mt-5 mb-5">
+    <ul class="nav nav-tabs">
+        <li class="nav-item cursor-pointer" (click)="onClickTab(3, customerEl, workerEl, phoneEl)">
+          <a class="nav-link active"  #customerEl>סמס ללקוחות</a>
+        </li>
+        <li class="nav-item cursor-pointer" (click)="onClickTab(2, customerEl, workerEl, phoneEl)">
+          <a class="nav-link" #workerEl>סמס לעובדים</a>
+        </li>
+        <li class="nav-item cursor-pointer" (click)="onClickTab(4, customerEl, workerEl, phoneEl)">
+            <a class="nav-link" #phoneEl>מספר טלפון</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" #creditEl>{{(creditSms| async).credit}} : סמס יתרות </a>
+          </li>
+      </ul>
+    <div class="content" role="main">
+        <div class="form-group">
+            <input dir="rtl" type="email" class="form-control" id="search-text" aria-describedby="search-text"
+                [(ngModel)]="query" [placeholder]="displayCustomers || displayWorkers ? 'בחירת משתמש לקוח' : 'מספר טלפון'" autofocus>
+        </div>
+        <ul class="list-group list-group-flush" *ngIf="displayCustomers || displayWorkers">
+            <li class="list-group-item">
+                <div class="form-check" style="float: right;">
+                    <input #checkbox (click)="allSelectedCheckbox()" type="checkbox" class="form-check-input cursor-pointer" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">לשלוח לכולם</label>
+                </div>
+            </li>
+
+            <li (click)="addRecipient(c)" class="list-group-item select cursor-pointer" *ngFor="let c of allUsers | async | searchFilter: query">
+                <span style="float: right;">{{c.fullname}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="list-inline">
+        <li (click)="removeRecipient(recipient)" class="list-inline-item cursor-pointer" *ngFor="let recipient of allRecipients; let i = index">
+            <a class="badge badge-pill text-xs-center badge-primary badge-outlined" *ngIf="i<5">{{recipient.fullname}}</a>
+            <a class="badge badge-pill text-xs-center badge-primary badge-outlined" *ngIf="i==5">...</a>
+        </li>
+     </ul>
+
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1" style="float: right;">תוכן של הסמס</label>
+            <textarea dir="rtl" class="form-control" id="exampleFormControlTextarea1" rows="10" name="textarea" [(ngModel)]="textarea_message"></textarea>
+        </div>
+    </form>
+
+    <button (click)="sendMessage()" type="button" class="btn btn-outline-success mb-5" style="width: 100%;">שלח</button>
+</div>

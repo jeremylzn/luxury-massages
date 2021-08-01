@@ -40,7 +40,6 @@ export class MassagesListComponent implements OnInit {
     // })
     if (localStorage.getItem(this.authLocalStorageToken)){
       this.bookingService.getAppointmentByCustomerID(JSON.parse(localStorage.getItem(this.authLocalStorageToken)).user._id).subscribe((res:any) => {
-        console.log(res)
         var Events = []
         for (var item of res) {
           Events.push({title: ' טיפול ' + item.serviceDetails[0].name, date: item.dateStr, datetime: item.dateStr + ' - ' + item.timeStr, minutes: item.serviceDetails[0].minutes, fullname: item.customerDetails.fullname, address: item.customerDetails.address})

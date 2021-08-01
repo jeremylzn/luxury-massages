@@ -113,7 +113,6 @@ export class RegistrationWorkerComponent implements OnInit {
       .pipe(first())
       .subscribe((user: UserModel) => {
         if (user) {
-          console.log(user)
           this.router.navigate(['/']);
         } else {
           this.hasError = true;

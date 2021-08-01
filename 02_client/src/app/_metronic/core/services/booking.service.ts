@@ -4,12 +4,9 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Appointment } from '../models/appointment.model'
 import { environment } from 'src/environments/environment';
+import { CreditSms } from '../models/credit-sms.model';
 
 const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://161.97.157.17:3000/';
-// const ROOT_URL = 'http://localhost:3000/';
-// const ROOT_URL = 'http://127.0.0.1:3000/';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +15,19 @@ export class BookingService {
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
   appointNotCompletedChanged = new BehaviorSubject<Appointment[]>([]);
   readonly notCompleted = this.appointNotCompletedChanged.asObservable();
+
   notCompletedStore:Appointment[] = [];
   currentNotCompletedChanged = new BehaviorSubject<Appointment[]>([]);
   readonly currentNotCompleted = this.currentNotCompletedChanged.asObservable();
+  
   currentNotCompletedStore:Appointment[] = [];
   currentCompletedChanged = new BehaviorSubject<Appointment[]>([]);
   readonly currentCompleted = this.currentCompletedChanged.asObservable();
   currentCompletedStore:Appointment[] = [];
 
+  creditSmsStore:CreditSms = {credit:'0'};
+  creditSmsChanged = new BehaviorSubject<CreditSms>(null);
+  readonly creditSms = this.creditSmsChanged.asObservable();
 
 
 
@@ -33,12 +35,15 @@ export class BookingService {
 
 
   addAppoitment(item){
-    console.log(item)
     return this.http.post<any>(ROOT_URL + 'booking', item);
   }
 
   addWorkerToAppointment(appointmentId, worker){
     return this.http.put(ROOT_URL + `admin/booking/${appointmentId}`, worker)
+  }
+
+  setAppointmentCompleted(appointmentId){
+    return this.http.put(ROOT_URL + `booking/completed`, {id:appointmentId})
   }
 
   getAppointmentByCustomerID(customerID){
@@ -73,24 +78,28 @@ export class BookingService {
       );
   }
 
-  
-  public payment(price, name, telephone, email, nametherapy) {
-    const formData = {
-      'pageCode': 'ed828b5b2e08',
-      'userId': '7434be4be4c601cd',
-      'sum': price,
-      'successUrl': 'https://luxury-massages.com/dashboard/payement=true',
-      'cancelUrl': 'https://luxury-massages.com/dashboard/therapy',
-      'description': nametherapy,
-      'pageField[fullName]': name,
-      'pageField[phone]': '0' + telephone,
-      'pageField[email]': email,
-      'saveCardToken': '1',
-      'chargeType': '1',
-      'product_data[0][price]': price,
-      'product_data[0][item_description]': nametherapy
-    }
-    return this.http.post(ROOT_URL + 'payment/booking', formData)
+  public CBPayment(price, name, telephone, email, _id, address, distributor, nametherapy) {
+    const formData = {'sum': price, 'description': nametherapy, 'fullname': name, 'phone': '0' + telephone, 'email': email, '_id': _id,'address': address, 'distributor': distributor}
+    return this.http.post(ROOT_URL + 'payment/booking/card', formData)
   }
+
+  public BitPayment(price, name, telephone, email, _id, address, distributor, nametherapy) {
+    const formData = {'sum': price, 'description': nametherapy, 'fullname': name, 'phone': '0' + telephone, 'email': email, '_id': _id,'address': address, 'distributor': distributor}
+    return this.http.post(ROOT_URL + 'payment/booking/bit', formData)
+  }
+
+  public sendSms(message, users) {
+    return this.http.post(ROOT_URL + 'sms', {message:message, userDetails:users})
+  }
+
+
+  public getCreditSms() {
+    return this.http.get<CreditSms>(ROOT_URL + `sms/credit`, { responseType: 'json' }).subscribe(
+      credit => {  this.creditSmsStore = credit; this.creditSmsChanged.next(this.creditSmsStore);})
+    }
+
+  public sendSmstoNumber(message, number) {
+    return this.http.post(ROOT_URL + `sms/${number}`, {message:message})
+    }
 
 }

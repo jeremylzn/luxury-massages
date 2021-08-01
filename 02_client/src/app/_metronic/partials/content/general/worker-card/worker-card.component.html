@@ -74,6 +74,7 @@
                                 <th scope="col">שם טיפול</th>
                                 <th scope="col">זמן טיפול</th>
                                 <th scope="col">תאריך טיפול</th>
+                                <th scope="col">טיפול הושלם</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -85,6 +86,7 @@
                                 <td>{{ncompleted.serviceDetails[0].name}}</td>
                                 <td>{{ncompleted.serviceDetails[0].minutes}}</td>
                                 <td>{{ncompleted.dateStr}} - {{ncompleted.timeStr}}</td>
+                                <td><button (click)="toCompleted(ncompleted._id)" type="button" class="btn btn-outline-success">שלח</button></td>
                               </tr>
                             </tbody>
                           </table>

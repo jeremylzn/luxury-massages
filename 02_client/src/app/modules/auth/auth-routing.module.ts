@@ -7,6 +7,8 @@ import {ForgotPasswordComponent} from './forgot-password/forgot-password.compone
 import {LogoutComponent} from './logout/logout.component';
 import {RegistrationWorkerComponent} from './registration-worker/registration-worker.component'
 import {LoginWorkerComponent} from './login-worker/login-worker.component'
+import { ConfidentialComponent } from './confidential/confidential.component';
+
 
 
 
@@ -40,6 +42,10 @@ const routes: Routes = [
       {
         path: 'logout',
         component: LogoutComponent
+      },
+      {
+        path: 'confidential',
+        component: ConfidentialComponent
       },
       {path: '', redirectTo: 'login', pathMatch: 'full'},
       {path: '**', redirectTo: 'login', pathMatch: 'full'},

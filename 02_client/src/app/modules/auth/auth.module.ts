@@ -14,6 +14,8 @@ import {TranslationModule} from '../i18n/translation.module';
 import { SendTokenInterceptorService } from 'src/app/modules/auth/_services/send-token-interceptor.service';
 import { RegistrationWorkerComponent } from './registration-worker/registration-worker.component';
 import { LoginWorkerComponent } from './login-worker/login-worker.component';
+import { ConfidentialComponent } from './confidential/confidential.component';
+import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 
 
 // function appInitializer(authService: AuthService) {
@@ -33,6 +35,7 @@ import { LoginWorkerComponent } from './login-worker/login-worker.component';
     AuthComponent,
     RegistrationWorkerComponent,
     LoginWorkerComponent,
+    ConfidentialComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { LoginWorkerComponent } from './login-worker/login-worker.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PdfViewerModule
   ],
   providers: [AuthHTTPService,AuthService]
 })
