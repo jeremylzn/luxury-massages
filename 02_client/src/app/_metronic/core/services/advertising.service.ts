@@ -6,9 +6,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Advertising } from '../models/advertising.model';
 import { Article } from '../models/article.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
-const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
+const ROOT_URL = environment.apiUrl;
 
 
 
