@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { FormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 // Advanced Tables
 // import { AdvanceTablesWidget1Component } from './advance-tables/advance-tables-widget1/advance-tables-widget1.component';
@@ -63,6 +65,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CarouselComponent } from './carousel/carousel/carousel.component';
 import { SchedulerWidget3Component } from './scheduler/scheduler-widget3/scheduler-widget3.component';
 import { SchedulerWidgetWeekComponent } from './scheduler/scheduler-widget-week/scheduler-widget-week.component';
+import { AdvanceTablesWidget10Component } from './advance-tables/advance-tables-widget10/advance-tables-widget10.component';
 
 
 
@@ -124,7 +127,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CarouselComponent,
     SchedulerWidget3Component,
     SchedulerWidgetWeekComponent,
-    TruncatePipe
+    TruncatePipe,
+    AdvanceTablesWidget10Component
   ],
   imports: [
     CommonModule,
@@ -136,7 +140,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FontAwesomeModule,
     SlickCarouselModule,
     SwiperModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   exports: [
     // Advanced Tables

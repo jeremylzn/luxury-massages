@@ -1,0 +1,64 @@
+<!--begin::Advance Table Widget 9-->
+<div class="card card-custom">
+    <!--begin::Header-->
+    <div class="card-header border-0 py-5">
+      <h3 class="card-title align-items-start flex-column">
+        <span class="card-label font-weight-bolder text-dark">ממליצים</span>
+        <!-- <span class="text-muted mt-3 font-weight-bold font-size-sm">המלצות {{(allReviews | async).length}}</span> -->
+      </h3>
+      <!-- <div class="card-toolbar">
+        <a class="btn btn-danger font-weight-bolder font-size-sm">Create</a>
+      </div> -->
+    </div>
+    <!--end::Header-->
+  
+    <!--begin::Body-->
+    <div class="card-body pt-0 pb-3">
+      <div class="tab-content">
+        <!--begin::Table-->
+        <div class="table-responsive">
+          <table class="table table-head-custom table-vertical-center table-head-bg table-borderless">
+            <thead>
+              <tr class="text-left">
+                <th>
+                  <span class="text-dark-75">שם</span>
+                </th>
+                <th>המלצה</th>
+                <th>ציון</th>
+                <th>פעיל</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let review of allReviews | async">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <a class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">{{review.name}}</a>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{review.body}}</span>
+                </td>
+                <td>
+                  <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
+                    <ngb-rating [max]="5" [(rate)]="review.rating" [readonly]="true"></ngb-rating>
+                  </span>
+                </td>
+                <td>
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" checked class="custom-control-input" id="customSwitch{{review._id}}" *ngIf='review.actif' (change)="onChangeActif($event.target.checked, review._id)">
+                      <input type="checkbox" class="custom-control-input" id="customSwitch{{review._id}}" *ngIf='!review.actif' (change)="onChangeActif($event.target.checked, review._id)">
+                      <label class="custom-control-label" for="customSwitch{{review._id}}"></label>
+                    </div>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--end::Table-->
+      </div>
+    </div>
+    <!--end::Body-->
+  </div>
+  <!--end::Advance Table Widget 9-->

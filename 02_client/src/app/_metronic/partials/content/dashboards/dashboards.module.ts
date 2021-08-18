@@ -32,6 +32,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { SmsGestionComponent } from '../general/sms-gestion/sms-gestion.component';
 import { LuzGestionComponent } from '../general/luz-gestion/luz-gestion.component';
 import { AboutComponent } from '../general/about/about.component'; // ->  imported directive
+import { AdvanceTablesWidget9Component } from '../widgets/advance-tables/advance-tables-widget9/advance-tables-widget9.component';
+import { AdvanceTablesWidget10Component } from '../widgets/advance-tables/advance-tables-widget10/advance-tables-widget10.component';
 
 
 
@@ -58,7 +60,9 @@ const routes: Routes = [
   { path: 'admin/gallery', component: GalleryGestionComponent},
   { path: 'admin/sms', component: SmsGestionComponent},
   { path: 'admin/luz', component: LuzGestionComponent},
-  { path: 'about', component: AboutComponent}
+  { path: 'about', component: AboutComponent},
+  {path: 'reviews', component: AdvanceTablesWidget9Component},
+  {path: 'admin/reviews', component: AdvanceTablesWidget10Component}
 ];
 
 @NgModule({

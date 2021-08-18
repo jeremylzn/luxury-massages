@@ -1,65 +1,45 @@
-import paramiko, os, pathlib, subprocess, zipfile, time
+import subprocess
+import sys
+import os.path
+import os
+import time
+from config import *
 
 
-def restartApp():
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname=HOST, username=USERNAME, password=PASSWORD, port=PORT)
-        commands = ["unzip /var/www/luxury-massages.com/html/dist.zip -d /var/www/luxury-massages.com/html", "pm2 restart index"]
-        for command in commands:
-            print("=" * 50, command, "=" * 50)
-            stdin, stdout, stderr = client.exec_command(command)
-            print(stdout.read().decode())
-            err = stderr.read().decode()
-            if err:
-                print(err)
-
-def before_update():
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname=HOST, username=USERNAME, password=PASSWORD, port=PORT)
-        commands = ["rm -r /var/www/luxury-massages.com/html/dist", "rm /var/www/luxury-massages.com/html/dist.zip"]
-        for command in commands:
-            print("=" * 50, command, "=" * 50)
-            stdin, stdout, stderr = client.exec_command(command)
-            print(stdout.read().decode())
-            err = stderr.read().decode()
-            if err:
-                print(err)
-
-def zipdir(path, ziph):
-    # ziph is zipfile handle
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            ziph.write(os.path.join(root, file), 
-                       os.path.relpath(os.path.join(root, file), 
-                                       os.path.join(path, '..')))
-
-content = [f for f in os.listdir(str(pathlib.Path(__file__).parent.absolute())) if not f == 'node_modules' and not f == '02_client' and not f == '.git']
+def build():
+    CURRENT_DIRECTORY = os.getcwd()
+    print(CURRENT_DIRECTORY)
+    ANGULAR_PROJECT_PATH = os.path.join(CURRENT_DIRECTORY, '02_client')
+    print("cd " + ANGULAR_PROJECT_PATH + " && ng build --prod")
+    builder = subprocess.check_output(["cd " + ANGULAR_PROJECT_PATH, "ng build --prod"])
+    print(builder)
 
 
-target_path = '/var/www/luxury-massages.com/html/'
-source_path = str(pathlib.Path(__file__).parent.absolute()) + '/'
+def git_push():
+    try:
+        gitadd = subprocess.check_output(["git", "add", "."])
+        print(gitadd)
+        gitcommit = subprocess.check_output(["git", "commit", "-m", '"update to server"'])
+        print(gitcommit)
+        gitpush = subprocess.check_output(["git", "push", "https://" + get_git_data()["user"] + ":" + get_git_data()["password"] + "@github.com/" + get_git_data()["user"] + "/" + get_git_data()["repo"] + ".git"])
+        print(gitpush)
+    except Exception as e:
+        print(e)
 
-HOST = '161.97.157.17'
-PORT = 22
-USERNAME = 'root'
-PASSWORD = 'JHBKJ64smqixefbN'
 
-before_update()
+def ssh_update():
+    ssh = connection_ssh_server()
+    commands = ["cd /var/www/luxury-massages.com/html  ; git pull https://" + get_git_data()["user"] + ":" + get_git_data()["password"] + "@github.com/" + get_git_data()["user"] + "/" + get_git_data(
+    )["repo"] + ".git", "pm2 restart index"]
+    for command in commands:
+        print("=" * 50, command, "=" * 50)
+        stdin, stdout, stderr = ssh.exec_command(command)
+        print(stdout.read().decode())
+        err = stderr.read().decode()
+        if err:
+            print(err)
 
-for f in content:
-    if os.path.isfile(f):
-        print("scp", source_path + f, USERNAME + '@' + HOST + ':' + target_path)
-        commands = ["scp", source_path + f, USERNAME + '@' + HOST + ':' + target_path]
-    else:
-        print('zip and send')
-        zipf = zipfile.ZipFile(f + '.zip', 'w', zipfile.ZIP_DEFLATED)
-        zipdir(source_path + f + '/', zipf)
-        zipf.close()
-        commands = ["scp ", source_path + f  + '.zip', USERNAME + '@' + HOST + ':' + target_path + ';']
-        time.sleep(1)
 
-    subprocess.run(commands)
-
-# restartApp()
+# build()
+git_push()
+# ssh_update()

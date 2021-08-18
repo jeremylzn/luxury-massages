@@ -21,6 +21,14 @@ export class ItemServiceService {
   serviceActifChanged = new BehaviorSubject<Service[]>([]);
   readonly serviceActif = this.serviceActifChanged.asObservable();
 
+  reviewActifStore:any[] = [];
+  reviewActifChanged = new BehaviorSubject<any[]>([]);
+  readonly reviewActif = this.reviewActifChanged.asObservable();
+
+  reviewStore:any[] = [];
+  reviewChanged = new BehaviorSubject<any[]>([]);
+  readonly review = this.reviewChanged.asObservable();
+
   serviceStore:Service[] = [];
   serviceChanged = new BehaviorSubject<Service[]>([]);
   readonly service = this.serviceChanged.asObservable();
@@ -30,6 +38,23 @@ export class ItemServiceService {
     { 
       this.serviceActifStore = services;
       this.serviceActifChanged.next(this.serviceActifStore);
+    });
+  }
+
+  getAllReviewsActif(){
+    return this.http.get(ROOT_URL + 'review').subscribe((reviews:Service[]) => 
+    { 
+      this.reviewActifStore = reviews;
+      this.reviewActifChanged.next(this.reviewActifStore);
+    });
+  }
+
+  getAllReviewsAdmin(){
+    return this.http.get(ROOT_URL + 'admin/review').subscribe((reviews:Service[]) => 
+    { 
+      console.log(reviews)
+      this.reviewStore = reviews;
+      this.reviewChanged.next(this.reviewStore);
     });
   }
 
@@ -63,6 +88,14 @@ export class ItemServiceService {
           return this.sanitizer.bypassSecurityTrustResourceUrl(urlToBlob); // tell Anuglar to trust this value
         }),
       );
+  }
+
+  addReview(data){
+    return this.http.post(ROOT_URL + `review`, data)
+  }
+
+  putActifReview(item, id){
+    return this.http.put(ROOT_URL + `admin/review/actif/${id}`, item)
   }
 
 }

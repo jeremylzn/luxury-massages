@@ -11,9 +11,9 @@ const bodyParser = require('body-parser');
 // const dotenv = require('dotenv') 
 // dotenv.config() // Makes environment variables available
 
-// var privateKey  = fs.readFileSync('/etc/letsencrypt/live/luxury-massages.com/privkey.pem', 'utf8');
-// var certificate = fs.readFileSync('/etc/letsencrypt/live/luxury-massages.com/fullchain.pem', 'utf8');
-// var credentials = {key: privateKey, cert: certificate};
+var privateKey  = fs.readFileSync('/etc/letsencrypt/live/luxury-massages.com/privkey.pem', 'utf8');
+var certificate = fs.readFileSync('/etc/letsencrypt/live/luxury-massages.com/fullchain.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
 // Import mongoose models
 const User = require('../00_db/models/user')
@@ -25,6 +25,7 @@ const Article = require('../00_db/models/articles')
 const Payment = require('../00_db/models/payment')
 const Gallery = require('../00_db/models/gallery')
 const Sms = require('../00_db/models/sms')
+const Review = require('../00_db/models/review')
 
 
 
@@ -36,6 +37,7 @@ const serviceRouter = require('./routes/service')
 const advertisingRouter = require('./routes/advertising')
 const galleryRouter = require('./routes/gallery')
 const smsRouter = require('./routes/sms')
+const reviewRouter = require('./routes/review')
 
 
 
@@ -51,7 +53,7 @@ app.use(cors())
 app.use(express.static(process.cwd() + "/dist"));
 app.use(express.json())
 
-// var httpsServer = https.createServer(credentials, app);
+var httpsServer = https.createServer(credentials, app);
 const port = process.env.PORT || 3000
 
 // Use routes
@@ -61,7 +63,7 @@ app.use(serviceRouter)
 app.use(advertisingRouter)
 app.use(galleryRouter)
 app.use(smsRouter)
-
+app.use(reviewRouter)
 
 
 // serve angular front end files from root path
@@ -73,10 +75,10 @@ app.get('*', function (req, res, next) {
 });
 
 // Listening for incoming connections
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
-})
-
-// httpsServer.listen(port, () => {
+// app.listen(port, () => {
 //     console.log(`Listening on port ${port}`)
 // })
+
+httpsServer.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+})

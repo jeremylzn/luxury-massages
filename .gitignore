@@ -1,1 +1,4 @@
 node_modules
+config.py
+update.py
+update_copy.py

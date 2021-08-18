@@ -82,7 +82,7 @@ export class SmsGestionComponent implements OnInit {
       this.bookingService.sendSms(this.textarea_message, this.allRecipients).subscribe((res)=>{
         Swal.fire({
           icon: 'success',
-          title: 'הודאה נשלח בהצלחה',
+          title: 'הודעה נשלח בהצלחה',
           showConfirmButton: false,
           timer: 1500
         })
