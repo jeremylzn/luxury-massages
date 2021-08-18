@@ -29,7 +29,7 @@ def git_push():
 
 def ssh_update():
     ssh = connection_ssh_server()
-    commands = ["cd /var/www/luxury-massages.com/html  ; git pull https://" + get_git_data()["user"] + ":" + get_git_data()["password"] + "@github.com/" + get_git_data()["user"] + "/" + get_git_data(
+    commands = ["cd /var/www/luxury-massages.com  ; git pull https://" + get_git_data()["user"] + ":" + get_git_data()["password"] + "@github.com/" + get_git_data()["user"] + "/" + get_git_data(
     )["repo"] + ".git", "pm2 restart 1"]
     for command in commands:
         print("=" * 50, command, "=" * 50)
