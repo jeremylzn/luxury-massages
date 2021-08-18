@@ -7,10 +7,7 @@ import { AuthModel } from '../../_models/auth.model';
 
 const API_USERS_URL = `${environment.apiUrl}/users`;
 
-const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://161.97.157.17:3000/';
-// const ROOT_URL = 'http://127.0.0.1:3000/';
-// const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
+const ROOT_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',

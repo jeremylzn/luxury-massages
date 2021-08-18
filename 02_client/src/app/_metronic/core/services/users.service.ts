@@ -4,12 +4,9 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import {customerDetails} from '../models/customerDetails.model'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
-const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://161.97.157.17:3000/';
-// const ROOT_URL = 'http://localhost:3000/';
-// const ROOT_URL = 'http://127.0.0.1:3000/';
-// const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
+const ROOT_URL = environment.apiUrl;
 
 
 @Injectable({

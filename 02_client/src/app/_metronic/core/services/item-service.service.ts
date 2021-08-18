@@ -4,8 +4,9 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Service } from '../models/service.model'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
-const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
+const ROOT_URL = environment.apiUrl;
 
 
 @Injectable({

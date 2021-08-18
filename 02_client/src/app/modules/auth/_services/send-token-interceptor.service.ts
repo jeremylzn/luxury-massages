@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { AuthHTTPService } from './auth-http/auth-http.service';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class SendTokenInterceptorService implements HttpInterceptor {
-  private ROOT_URL = 'http://localhost:3000/';
+  private ROOT_URL = environment.apiUrl;
 
   constructor(private authService: AuthService) { }
 

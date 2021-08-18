@@ -6,7 +6,7 @@ import { Appointment } from '../models/appointment.model'
 import { environment } from 'src/environments/environment';
 import { CreditSms } from '../models/credit-sms.model';
 
-const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
+const ROOT_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
