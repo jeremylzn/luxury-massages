@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 import { UserModel } from '../_models/user.model';
 import { first } from 'rxjs/operators';
-import { saveAs } from "file-saver";
+import { saveAs } from "file-saver-es";
 import { UsersService } from 'src/app/_metronic/core/services/users.service';
 
 @Component({

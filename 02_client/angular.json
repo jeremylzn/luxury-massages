@@ -24,12 +24,7 @@
               "apexcharts",
               "clipboard.js",
               "highlight.js",
-              "hammerjs",
-              "ng2-pdf-viewer",
-              "pdfjs-dist/build/pdf",
-              "pdfjs-dist/web/pdf_viewer",
-              "pdfjs-dist/es5/web/pdf_viewer",
-              "pdfjs-dist/es5/build/pdf"
+              "hammerjs"
             ],
             "index": "src/index.html",
             "main": "src/main.ts",

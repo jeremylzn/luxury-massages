@@ -6,7 +6,7 @@ import { UserModel } from '../_models/user.model';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/_metronic/core/services/users.service';
-import { saveAs } from "file-saver";
+import { saveAs } from "file-saver-es";
 
 @Component({
   selector: 'app-login',
