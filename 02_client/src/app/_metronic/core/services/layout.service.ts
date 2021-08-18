@@ -5,11 +5,7 @@ import { DefaultLayoutConfig } from '../../configs/default-layout.config';
 import * as objectPath from 'object-path';
 
 const LAYOUT_CONFIG_LOCAL_STORAGE_KEY = `${environment.appVersion}-layoutConfig`;
-const ROOT_URL = window.location.protocol + '//' + window.location.hostname + ':3000/';
-// const ROOT_URL = 'http://161.97.157.17:3000/';
-// const ROOT_URL = 'http://localhost:3000/';
-// const ROOT_URL = 'http://127.0.0.1:3000/';
-// const ROOT_URL = 'http://' + window.location.hostname + ':3000/';
+const ROOT_URL = environment.apiUrl;
 
 
 @Injectable({
