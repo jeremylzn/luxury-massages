@@ -28,6 +28,9 @@
         <div class="alert alert-danger" role="alert" *ngIf="alertMessage">
            לא בחרת שעה או מטפל
         </div>
+        <div class="alert alert-danger" role="alert" *ngIf="messageAlertTerm">
+          לא הסכמת את התקנון
+       </div>
         <div class="alert alert-danger" role="alert" *ngIf="alertMessageDisable">
           אנחנו סגורים בטווח שעה הזה
        </div>
@@ -45,6 +48,14 @@
           </div>
         </div>
       </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="checkingTerm()">
+        <label class="form-check-label" for="flexCheckDefault">
+          קראתי את  <a [href]="patternTerms">התקנון </a> ואני מסכים
+        </label>
+      </div>
+      
       <button type="button" class="btn btn-success" style="width: 48%; float:left;" (click)="ConfirmAppointmentCard()"><i class="fa fa-credit-card"></i> לתשלום דרך כרטיס אשראי</button>
       <button type="button" class="btn btn-success" style="width: 48%; float:right;" (click)="ConfirmAppointmentBit()"><img src="https://upload.wikimedia.org/wikipedia/he/thumb/d/d6/Bit_logo.svg/1200px-Bit_logo.svg.png" style="width: 30px"> לתשלום דרך</button>
     </div>

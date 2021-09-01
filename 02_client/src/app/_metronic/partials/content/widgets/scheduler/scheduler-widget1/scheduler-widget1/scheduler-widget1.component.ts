@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/_metronic/core/services/users.service';
 import { AdvertisingService } from 'src/app/_metronic/core/services/advertising.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -26,6 +27,8 @@ export class SchedulerWidget1Component implements OnInit {
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
   name: string;
   date: string;
+  termChecked = false;
+  messageAlertTerm = false;
   closeResult: string;
   selectedTime;
   selectedWorker;
@@ -38,6 +41,7 @@ export class SchedulerWidget1Component implements OnInit {
   public alertMessageDisable=false;
   adsIdsList: Observable<string[]>;
   pattern = 'https://luxury-massages.com/ads/'
+  patternTerms = 'https://luxury-massages.com/dashboard/terms'
   public current_req; // value to the modal
   public all_availables_workers: Observable<any>; // value to the modal
   public all_urls_profile = [];
@@ -139,7 +143,14 @@ export class SchedulerWidget1Component implements OnInit {
   }
 
   ConfirmAppointmentCard(){
-    if (this.selectedTime && this.selectedWorker){
+    console.log('test')
+    console.log(this.termChecked)
+    if (!this.termChecked){
+      this.messageAlertTerm = !this.messageAlertTerm
+      console.log('IN IF')
+      console.log(this.messageAlertTerm)
+    }
+    else if (this.selectedTime && this.selectedWorker){
       let hours = this.selectedTime.split(":")[0];
       let minutes = this.selectedTime.split(":")[1];
       let now = this.current_event.date
@@ -149,6 +160,7 @@ export class SchedulerWidget1Component implements OnInit {
         if (now >= event.start && now <= this.addHours(event.start, 1)){
           this.alertMessageDisable = true
           this.alertMessage = false
+          this.messageAlertTerm = false
           return
         }
       }
@@ -164,14 +176,19 @@ export class SchedulerWidget1Component implements OnInit {
       this.selectedTime = ''
       this.alertMessage = false
       this.alertMessageDisable = false
+      this.termChecked = false
       this.bookingService.CBPayment(serviceDetails.price, data.user.fullname, data.user.telephone,data.user.email, data.user._id, data.user.address, data.user.distributor, serviceDetails.name).subscribe((res:any)=>{ window.location.href = res; })
-    } else this.alertMessage = true; this.alertMessageDisable = false
+    } else this.alertMessage = true; this.alertMessageDisable = false ;
+
 
   }
 
 
   ConfirmAppointmentBit(){
-    if (this.selectedTime && this.selectedWorker){
+    if (!this.termChecked){
+      this.messageAlertTerm = !this.messageAlertTerm
+    }
+    else if (this.selectedTime && this.selectedWorker){
       let hours = this.selectedTime.split(":")[0];
       let minutes = this.selectedTime.split(":")[1];
       let now = this.current_event.date
@@ -181,6 +198,7 @@ export class SchedulerWidget1Component implements OnInit {
         if (now >= event.start && now <= this.addHours(event.start, 1)){
           this.alertMessageDisable = true
           this.alertMessage = false
+          this.messageAlertTerm = false
           return
         }
       }
@@ -197,13 +215,18 @@ export class SchedulerWidget1Component implements OnInit {
       this.alertMessage = false
       this.alertMessageDisable = false
       this.bookingService.BitPayment(serviceDetails.price, data.user.fullname, data.user.telephone,data.user.email, data.user._id, data.user.address, data.user.distributor, serviceDetails.name).subscribe((res:any)=>{ window.location.href = res; })
-    } else this.alertMessage = true; this.alertMessageDisable = false
+    } else this.alertMessage = true; this.alertMessageDisable = false ; this.messageAlertTerm = false
+
 
   }
 
 
   addHours(date, hours) {
     return new Date(date.getTime() + hours*60000*60);
+  }
+
+  checkingTerm(){
+    this.termChecked = !this.termChecked
   }
 
 }

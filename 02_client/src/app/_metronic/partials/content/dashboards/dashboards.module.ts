@@ -34,6 +34,7 @@ import { LuzGestionComponent } from '../general/luz-gestion/luz-gestion.componen
 import { AboutComponent } from '../general/about/about.component'; // ->  imported directive
 import { AdvanceTablesWidget9Component } from '../widgets/advance-tables/advance-tables-widget9/advance-tables-widget9.component';
 import { AdvanceTablesWidget10Component } from '../widgets/advance-tables/advance-tables-widget10/advance-tables-widget10.component';
+import { TermsComponent } from '../general/terms/terms.component';
 
 
 
@@ -62,7 +63,8 @@ const routes: Routes = [
   { path: 'admin/luz', component: LuzGestionComponent},
   { path: 'about', component: AboutComponent},
   {path: 'reviews', component: AdvanceTablesWidget9Component},
-  {path: 'admin/reviews', component: AdvanceTablesWidget10Component}
+  {path: 'admin/reviews', component: AdvanceTablesWidget10Component},
+  {path: 'terms', component: TermsComponent}
 ];
 
 @NgModule({

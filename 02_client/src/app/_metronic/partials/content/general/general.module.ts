@@ -27,6 +27,7 @@ import { FilterPipe } from './pipe-filter'; // -> imported filter pipe
 import { HighlightDirective } from './highlight.pipe';
 import { SearchFilterPipe } from './search-filter.pipe';
 import { LuzGestionComponent } from './luz-gestion/luz-gestion.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 
@@ -34,7 +35,7 @@ import { LuzGestionComponent } from './luz-gestion/luz-gestion.component';
 // import { WorkerCardComponent } from './worker-card/worker-card.component';
 
 @NgModule({
-  declarations: [NoticeComponent, CodePreviewComponent, AdvertisingGestionComponent, AdvanceTablesWidget1Component, WorkerGestionComponent, DistributorGestionComponent, ListsWidget1Component, AdvanceTablesWidget7Component, ArticleGestionComponent, GalleryComponent, GalleryGestionComponent, SmsGestionComponent, FilterPipe, HighlightDirective, SearchFilterPipe, LuzGestionComponent],
+  declarations: [NoticeComponent, CodePreviewComponent, AdvertisingGestionComponent, AdvanceTablesWidget1Component, WorkerGestionComponent, DistributorGestionComponent, ListsWidget1Component, AdvanceTablesWidget7Component, ArticleGestionComponent, GalleryComponent, GalleryGestionComponent, SmsGestionComponent, FilterPipe, HighlightDirective, SearchFilterPipe, LuzGestionComponent, TermsComponent],
   imports: [
     CommonModule,
     CoreModule,

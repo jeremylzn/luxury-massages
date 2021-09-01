@@ -21,6 +21,7 @@ import { CoreModule } from '../_metronic/core';
 import { SubheaderModule } from '../_metronic/partials/layout/subheader/subheader.module';
 import { AsideDynamicComponent } from './_layout/components/aside-dynamic/aside-dynamic.component';
 import { HeaderMenuDynamicComponent } from './_layout/components/header/header-menu-dynamic/header-menu-dynamic.component';
+import { CustomFooterComponent } from './_layout/components/custom-footer/custom-footer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HeaderMenuDynamicComponent } from './_layout/components/header/header-m
     TopbarComponent,
     LanguageSelectorComponent,
     AsideDynamicComponent,
-    HeaderMenuDynamicComponent
+    HeaderMenuDynamicComponent,
+    CustomFooterComponent
   ],
   imports: [
     CommonModule,
