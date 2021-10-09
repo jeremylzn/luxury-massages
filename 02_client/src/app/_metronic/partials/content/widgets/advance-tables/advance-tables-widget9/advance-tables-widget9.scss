@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto|Sriracha&display=swap");
+
+#login-container {
+  height: 215px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  background: #fffffb;
+  position: relative;
+  margin: 50px 0px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+#login-container .profile-img img{
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: -36px;
+  left: -3px;
+  border-radius: 50%;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+#login-container h1 {
+  font-family: "Sriracha", arial, sans-serif !important;
+  text-align: right;
+  margin-bottom: 20px;
+  color: #222;
+}
+#login-container .description {
+  font-family: "Sriracha", arial, sans-serif !important;
+  margin-bottom: 20px;
+}

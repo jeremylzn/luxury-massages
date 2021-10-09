@@ -66,6 +66,7 @@ import { CarouselComponent } from './carousel/carousel/carousel.component';
 import { SchedulerWidget3Component } from './scheduler/scheduler-widget3/scheduler-widget3.component';
 import { SchedulerWidgetWeekComponent } from './scheduler/scheduler-widget-week/scheduler-widget-week.component';
 import { AdvanceTablesWidget10Component } from './advance-tables/advance-tables-widget10/advance-tables-widget10.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 
@@ -141,7 +142,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SlickCarouselModule,
     SwiperModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    CarouselModule
   ],
   exports: [
     // Advanced Tables
