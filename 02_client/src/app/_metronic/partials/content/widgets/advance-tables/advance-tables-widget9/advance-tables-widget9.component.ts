@@ -5,6 +5,12 @@ import { ItemServiceService } from 'src/app/_metronic/core/services/item-service
 import Swal from 'sweetalert2/dist/sweetalert2.js'; 
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
+interface Student {  
+  img: String;
+  name: String;  
+  text: String;  
+
+} 
 
 @Component({
   selector: 'app-advance-tables-widget9',
@@ -12,7 +18,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./advance-tables-widget9.scss']
 })
 export class AdvanceTablesWidget9Component {
-  students: any[] = studentsData;  
+  students: Student[] = studentsData;  
   public allReviews:Observable<any[]>;
   rating = 3;
   name = ''

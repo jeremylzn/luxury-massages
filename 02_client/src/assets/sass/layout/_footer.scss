@@ -1,0 +1,27 @@
+//
+// Content
+//
+
+// Mobile mode
+@include media-breakpoint-down(md) {
+	.footer {
+		display: none;
+	}
+}
+
+
+// Desktop Mode
+@include media-breakpoint-up(lg) {
+	.footer {
+		// Fixed Mode
+		.footer-fixed & {
+			position: fixed;
+			height: get($footer-config, fixed, height);
+			z-index: get($footer-config, fixed, zindex);
+			box-shadow: get($footer-config, fixed, shadow);
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+	}
+}
