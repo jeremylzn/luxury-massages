@@ -25,6 +25,10 @@
         <input dir="rtl" type="text" class="form-control" id="messageInput" name="message" [(ngModel)]="message" placeholder="המלצה">
       </div>
       <div class="form-group mx-sm-3 mb-2">
+        <!-- <label for="messageInput" class="mr-3">המלצה</label> -->
+        <input dir="rtl" type="file" class="form-control" id="imageInput" name="image" (change)="onFileChange($event)">
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
         <!-- <label for="rateInput" class="mr-3">ציון</label> -->
         <ngb-rating [max]="5" [(rate)]="rating" id="rateInput"></ngb-rating>
       </div>
@@ -33,51 +37,18 @@
 
 
     <div class="tab-content" style="margin-bottom: 10%;">
-      <!--begin::Table-->
-      <!-- <div class="table-responsive">
-        <table class="table table-head-custom table-vertical-center table-head-bg table-borderless">
-          <thead>
-            <tr>
-              <th>
-                <span class="text-dark-75">שם</span>
-              </th>
-              <th>המלצה</th>
-              <th>ציון</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let review of allReviews | async">
-              <td>
-                <div class="d-flex align-items-center">
-                  <div>
-                    <a class="text-dark-75 font-weight-bolder text-hover-primary font-size-lg">{{review.name}}</a>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">{{review.body}}</span>
-              </td>
-              <td>
-                <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                  <ngb-rating [max]="5" [(rate)]="review.rating" [readonly]="true"></ngb-rating>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div> -->
+      
       <owl-carousel-o [options]="customOptions">
-        <ng-template carouselSlide *ngFor="let student of students">
+        <ng-template carouselSlide *ngFor="let review of allReviews | async">
             <div id="login-container">
               <div class="profile-img">
-                <img src="{{student.img}}" alt="">
+                <img [src]="pattern + review._id" alt="">
               </div>
-              <h1><h1>{{student.name }}</h1></h1>
-              <div class="description">{{student.text }}</div>
+              <h1><h1>{{review.name }}</h1></h1>
+              <div class="description">{{review.body }}</div>
             </div>
         </ng-template>  
       </owl-carousel-o>
-      <!--end::Table-->
     </div>
   </div>
   <!--end::Body-->

@@ -95,6 +95,10 @@ export class ItemServiceService {
     return this.http.post(ROOT_URL + `review`, data)
   }
 
+  public addReviewImage(image:any, id:string, nameFile:string){
+    return this.http.post(ROOT_URL + `review/${id}/${nameFile}`, image)
+  }
+
   putActifReview(item, id){
     return this.http.put(ROOT_URL + `admin/review/actif/${id}`, item)
   }

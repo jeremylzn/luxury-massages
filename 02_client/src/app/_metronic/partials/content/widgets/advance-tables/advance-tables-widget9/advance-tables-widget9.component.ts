@@ -4,6 +4,7 @@ import studentsData from './review.json';
 import { ItemServiceService } from 'src/app/_metronic/core/services/item-service.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; 
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { environment } from 'src/environments/environment';
 
 interface Student {  
   img: String;
@@ -20,12 +21,16 @@ interface Student {
 export class AdvanceTablesWidget9Component {
   students: Student[] = studentsData;  
   public allReviews:Observable<any[]>;
-  rating = 3;
-  name = ''
-  message = ''
+  public rating = 3;
+  public name = ''
+  public  message = ''
+  public image;
+  public newPhoto;
+  public pattern = environment.apiUrl + 'review/image/';
   // Carouesl
   customOptions: OwlOptions = {
     loop: true,
+    rtl: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
@@ -64,20 +69,46 @@ export class AdvanceTablesWidget9Component {
     this.cd.detectChanges();
   }
 
+  onFileChange(event){
+    this.image = event.target.files;
+    console.log(event);
+  }
+
   onClick(){
-    this.itemServiceService.addReview({name:this.name, body:this.message, rating:this.rating}).subscribe((res)=>{
-      console.log(res)
-      this.name = ''
-      this.message = ''
-      this.rating = 3
-      this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
-      this.itemServiceService.getAllReviewsActif();
-      Swal.fire({
-        icon: 'success',
-        title: 'המלצה נשלח בהצלחה', 
-        showConfirmButton: false,
-        timer: 1500
-      })
+    this.itemServiceService.addReview({name:this.name, body:this.message, rating:this.rating}).subscribe((res:any)=>{
+      if (this.image) {
+        this.newPhoto = <File>this.image[0];
+        console.log(this.newPhoto)
+        console.log(typeof this.newPhoto)
+        let fd = new FormData();
+        fd.append('newReviewPicture', this.newPhoto, this.newPhoto.name);
+        this.itemServiceService.addReviewImage(fd, res._id, this.newPhoto.name).subscribe((res)=>{
+          this.name = ''
+          this.message = ''
+          this.rating = 3
+          this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
+          this.itemServiceService.getAllReviewsActif();
+          Swal.fire({
+            icon: 'success',
+            title: 'המלצה נשלח בהצלחה', 
+            showConfirmButton: false,
+            timer: 1500
+          })
+        })
+      } else {
+        this.name = ''
+        this.message = ''
+        this.rating = 3
+        this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
+        this.itemServiceService.getAllReviewsActif();
+        Swal.fire({
+          icon: 'success',
+          title: 'המלצה נשלח בהצלחה', 
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+
     })
 
   }
