@@ -727,6 +727,9 @@ MIT
 ngx-highlightjs
 MIT
 
+ngx-owl-carousel-o
+MIT
+
 ngx-perfect-scrollbar
 MIT
 
