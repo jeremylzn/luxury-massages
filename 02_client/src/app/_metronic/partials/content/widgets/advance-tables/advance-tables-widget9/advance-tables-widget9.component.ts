@@ -148,8 +148,9 @@ export class AdvanceTablesWidget9Component {
           if (result.value[2]) {
             this.newPhoto = <File>result.value[2];
             let fd = new FormData();
-            fd.append('newReviewPicture', this.newPhoto, this.newPhoto.name.split(' ').join('_'));
-            this.itemServiceService.addReviewImage(fd, res._id, this.newPhoto.name.split(' ').join('_')).subscribe((res)=>{
+            let nameImage = ((((this.newPhoto.name.split(' ').join('_')).split('-').join('')).split('(').join('')).split(')').join('')).split('1').join('')
+            fd.append('newReviewPicture', this.newPhoto, nameImage);
+            this.itemServiceService.addReviewImage(fd, res._id, nameImage).subscribe((res)=>{
               this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
               this.itemServiceService.getAllReviewsActif();
             })
