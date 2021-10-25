@@ -177,12 +177,12 @@ router.post('/payment/booking/card', async(req, res) => {
         form_data.append("saveCardToken", '1');
         form_data.append("chargeType", '1');
         form_data.append("description", values.description);
-        form_data.append("pageCode", "ed828b5b2e08");
-        form_data.append("userId", "7434be4be4c601cd");
+        form_data.append("pageCode", "d50c2702adc2");
+        form_data.append("userId", "5809763c55d933f9");
         form_data.append("cField1", values._id)
         form_data.append("cField2", values.address)
         form_data.append("cField3", values.distributor)
-        form_data.append("cField4", "ed828b5b2e08")
+        form_data.append("cField4", "d50c2702adc2")
         form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
         form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
         const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
@@ -208,12 +208,12 @@ router.post('/payment/booking/bit', async(req, res) => {
         form_data.append("saveCardToken", '1');
         form_data.append("chargeType", '1');
         form_data.append("description", values.description);
-        form_data.append("pageCode", "24a8304a9845");
-        form_data.append("userId", "7434be4be4c601cd");
+        form_data.append("pageCode", "1e0c4f265492");
+        form_data.append("userId", "5809763c55d933f9");
         form_data.append("cField1", values._id)
         form_data.append("cField2", values.address)
         form_data.append("cField3", values.distributor)
-        form_data.append("cField4", "24a8304a9845")
+        form_data.append("cField4", "1e0c4f265492")
         form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
         form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
         const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess";

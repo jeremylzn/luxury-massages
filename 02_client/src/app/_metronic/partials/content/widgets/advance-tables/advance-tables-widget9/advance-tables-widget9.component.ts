@@ -112,4 +112,68 @@ export class AdvanceTablesWidget9Component {
     })
 
   }
+
+
+  onClickCreate(){
+    var steps = [
+      {
+        title: 'שם מלא',
+        input: 'text',
+        inputValidator: (value) => {
+        return !value && 'חסר נתון'
+        }
+      },
+      {
+        title: 'טקסט',
+        html:this.textareaCreation(),
+        preConfirm: function() {
+          if ((<HTMLInputElement>document.getElementById('swal-body')).innerHTML){
+            var text = (<HTMLInputElement>document.getElementById('swal-body')).innerHTML
+            return text
+          } else return ''
+        }
+      },
+      {
+        title: 'תמונה',
+        input: 'file'
+      }
+    ];
+    Swal.mixin({
+      confirmButtonText: 'Next &rarr;',
+      showCancelButton: true,
+      progressSteps: ['1', '2', '3']
+    }).queue(steps).then((result) => {
+      if (result.value) {
+        this.itemServiceService.addReview({name:result.value[0], body:result.value[1], rating:this.rating}).subscribe((res:any)=>{
+          if (result.value[2]) {
+            this.newPhoto = <File>result.value[2];
+            let fd = new FormData();
+            fd.append('newReviewPicture', this.newPhoto, this.newPhoto.name);
+            this.itemServiceService.addReviewImage(fd, res._id, this.newPhoto.name).subscribe((res)=>{
+              this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
+              this.itemServiceService.getAllReviewsActif();
+            })
+          } else {
+            this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
+            this.itemServiceService.getAllReviewsActif();
+          }
+        })
+
+      }
+    })
+}
+
+textareaCreation(){
+  return `<div id="swal-body" dir="rtl" style="border: 3px inset grey; height: 100px; width: 100%; text-align: right; overflow-x: hidden; overflow-y: auto;" contenteditable="true">`+
+          `</div>`+
+          `<fieldset style="margin: 2px auto 15px;  width: 100%;">`+
+          `<button style="width: 5ex; text-align: center; padding: 1px 3px;" onclick="document.execCommand('italic',false,null);" title="Italicize Highlighted Text"><i>I</i>`+
+          `</button>`+
+          `<button style="width: 5ex; text-align: center; padding: 1px 3px;" onclick="document.execCommand( 'bold',false,null);" title="Bold Highlighted Text"><b>B</b>`+
+          `</button>`+
+          `<button style="width: 5ex; text-align: center; padding: 1px 3px;" onclick="document.execCommand( 'underline',false,null);"><u>U</u>`+
+          `</button>`+
+          `</fieldset>`
+}
+
 }

@@ -1,4 +1,4 @@
-<div class="therapy-wrapper">
+<div class="therapy-wrapper mb-5">
     <div class="therapy-right-wrapper"
         [ngStyle]="{'grid-template-rows.px': therapyImgHeight, 'grid-auto-rows.px': therapyImgHeight, 'height.px': therapyGridHeight, 'gap.px': gridGap}">
         <div  (click)="mouseEnter(therapy.name, therapy.description, therapy.price, therapy.minutes, therapy._id)" class="d-flex justify-content-center align-items-end cursor-pointer" *ngFor="let therapy of allServices | async; let i = index"
