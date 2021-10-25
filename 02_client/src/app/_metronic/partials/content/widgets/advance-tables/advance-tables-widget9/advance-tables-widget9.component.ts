@@ -153,10 +153,22 @@ export class AdvanceTablesWidget9Component {
             this.itemServiceService.addReviewImage(fd, res._id, nameImage).subscribe((res)=>{
               this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
               this.itemServiceService.getAllReviewsActif();
+              Swal.fire({
+                icon: 'success',
+                title: 'המלצה נשלח בהצלחה', 
+                showConfirmButton: false,
+                timer: 1500
+              })
             })
           } else {
             this.allReviews = this.itemServiceService.reviewActif; // subscribe to entire collection
             this.itemServiceService.getAllReviewsActif();
+            Swal.fire({
+              icon: 'success',
+              title: 'המלצה נשלח בהצלחה', 
+              showConfirmButton: false,
+              timer: 1500
+            })
           }
         })
 
