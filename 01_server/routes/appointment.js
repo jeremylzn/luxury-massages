@@ -134,7 +134,7 @@ router.post('/update', async (req, res) => {
         form_data.append("processToken", values.processToken);
         console.log(form_data);
         logger.info('after append')
-        const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/approveTransaction";
+        const url = "https://secure.meshulam.co.il/api/light/server/1.0/approveTransaction";
         const response = await fetch(url, {
             method: 'POST',
             body: form_data
@@ -185,9 +185,15 @@ router.post('/payment/booking/card', async(req, res) => {
         form_data.append("cField4", "d50c2702adc2")
         form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
         form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
-        const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
+        const url = "https://secure.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
         const response = await fetch(url, { method: 'POST', body: form_data });
+
+        console.log(response)
+
         const data = await response.json();
+
+        console.log(data)
+        
         res.json(data.data.url);
     }catch (err) {
         console.log(err);
@@ -216,7 +222,7 @@ router.post('/payment/booking/bit', async(req, res) => {
         form_data.append("cField4", "1e0c4f265492")
         form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
         form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
-        const url = "https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
+        const url = "https://secure.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
         const response = await fetch(url, { method: 'POST', body: form_data });
         const data = await response.json();
         res.json(data.data.url);

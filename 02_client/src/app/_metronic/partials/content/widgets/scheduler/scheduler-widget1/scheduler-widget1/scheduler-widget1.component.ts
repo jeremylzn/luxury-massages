@@ -177,7 +177,10 @@ export class SchedulerWidget1Component implements OnInit {
       this.alertMessage = false
       this.alertMessageDisable = false
       this.termChecked = false
-      this.bookingService.CBPayment(serviceDetails.price, data.user.fullname, data.user.telephone,data.user.email, data.user._id, data.user.address, data.user.distributor, serviceDetails.name).subscribe((res:any)=>{ window.location.href = res; })
+      this.bookingService.CBPayment(serviceDetails.price, data.user.fullname, data.user.telephone,data.user.email, data.user._id, data.user.address, data.user.distributor, serviceDetails.name).subscribe((res:any)=>{ 
+        console.log(res)
+        // window.location.href = res; 
+      })
     } else this.alertMessage = true; this.alertMessageDisable = false ;
 
 
