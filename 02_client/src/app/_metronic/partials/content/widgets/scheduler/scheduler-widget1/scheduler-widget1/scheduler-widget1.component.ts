@@ -143,12 +143,9 @@ export class SchedulerWidget1Component implements OnInit {
   }
 
   ConfirmAppointmentCard(){
-    console.log('test')
-    console.log(this.termChecked)
+    console.log(this.Disabled)
     if (!this.termChecked){
       this.messageAlertTerm = !this.messageAlertTerm
-      console.log('IN IF')
-      console.log(this.messageAlertTerm)
     }
     else if (this.selectedTime && this.selectedWorker){
       let hours = this.selectedTime.split(":")[0];
@@ -157,7 +154,12 @@ export class SchedulerWidget1Component implements OnInit {
       now.setHours(hours)
       now.setMinutes(minutes)
       for (let event of this.Disabled){
+        console.log(event)
+        console.log(now)
+        console.log(now >= event.start)
+        console.log(now <= this.addHours(event.start, 1))
         if (now >= event.start && now <= this.addHours(event.start, 1)){
+          console.log('IN IF RETURN ')
           this.alertMessageDisable = true
           this.alertMessage = false
           this.messageAlertTerm = false
@@ -177,9 +179,10 @@ export class SchedulerWidget1Component implements OnInit {
       this.alertMessage = false
       this.alertMessageDisable = false
       this.termChecked = false
+      // console.log('HERE')
       this.bookingService.CBPayment(serviceDetails.price, data.user.fullname, data.user.telephone,data.user.email, data.user._id, data.user.address, data.user.distributor, serviceDetails.name).subscribe((res:any)=>{ 
-        console.log(res)
-        // window.location.href = res; 
+        // console.log(res)
+        window.location.href = res; 
       })
     } else this.alertMessage = true; this.alertMessageDisable = false ;
 
