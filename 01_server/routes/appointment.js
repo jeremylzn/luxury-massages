@@ -115,56 +115,94 @@ router.post('/update', async (req, res) => {
 
         console.log(values)
 
-        var myHeaders = new fetch.Headers();
-        myHeaders.append("Cookie", "incap_ses_1052_2534411=gNNJOpC8YCf7YhEhEHWZDsEVf2EAAAAADqxKt0MG+Y8BL0YqktQecg==; visid_incap_2534411=KQOTNPN0RBeTU33iyTiZysEVf2EAAAAAQUIPAAAAAABS1lk6NLV+MlpfFq/ouAOO; PHPSESSID=h5if819p80i5cvafbj834b5ku0");
-
         values['customerDetails'] = {customerID: values.customFields.cField1, email:values.payerEmail, fullname:values.fullName, telephone:values.payerPhone, address:values.customFields.cField2, distributor:values.customFields.cField3}
         logger.info('AFTER ADD IN CUSTOM DETAILS')
-        let form_data = new formData(values)
-        form_data.append("pageCode", values.customFields.cField4);
-        form_data.append("transactionId", values.transactionId);
-        form_data.append("transactionToken", values.transactionToken);
-        form_data.append("transactionTypeId", values.transactionTypeId);
-        form_data.append("paymentType", values. paymentType);
-        form_data.append("sum", values.sum);
-        form_data.append("firstPaymentSum", values.firstPaymentSum);
-        form_data.append("periodicalPaymentSum", values.periodicalPaymentSum);
-        form_data.append("paymentsNum", values.paymentsNum);
-        form_data.append("allPaymentsNum", values.allPaymentsNum);
-        form_data.append("paymentDate", values.paymentDate);
-        form_data.append("asmachta", values.asmachta);
-        form_data.append("description", values.description);
-        form_data.append("fullName", values.fullName);
-        form_data.append("payerPhone", values.payerPhone);
-        form_data.append("payerEmail", values.payerEmail);
-        form_data.append("cardSuffix", values.cardSuffix);
-        form_data.append("cardType", values.cardType);
-        form_data.append("cardTypeCode", values.cardTypeCode);
-        form_data.append("cardBrand", values.cardBrand);
-        form_data.append("cardBrandCode", values.cardBrandCode);
-        form_data.append("cardExp", values.cardExp);
-        form_data.append("processId", values.processId);
-        form_data.append("processToken", values.processToken);
-        console.log(form_data);
-        logger.info('after append')
-        const url = "https://secure.meshulam.co.il/api/light/server/1.0/approveTransaction";
-        const response = await fetch(url, {
-            method: 'POST',
-            body: form_data
-        });
-        const data = await response.json();
-        logger.info('AFTER FETCH APPROVE')
-        try {
+        // let form_data = new formData(values)
+        // form_data.append("pageCode", values.customFields.cField4);
+        // form_data.append("transactionId", values.transactionId);
+        // form_data.append("transactionToken", values.transactionToken);
+        // form_data.append("transactionTypeId", values.transactionTypeId);
+        // form_data.append("paymentType", values. paymentType);
+        // form_data.append("sum", values.sum);
+        // form_data.append("firstPaymentSum", values.firstPaymentSum);
+        // form_data.append("periodicalPaymentSum", values.periodicalPaymentSum);
+        // form_data.append("paymentsNum", values.paymentsNum);
+        // form_data.append("allPaymentsNum", values.allPaymentsNum);
+        // form_data.append("paymentDate", values.paymentDate);
+        // form_data.append("asmachta", values.asmachta);
+        // form_data.append("description", values.description);
+        // form_data.append("fullName", values.fullName);
+        // form_data.append("payerPhone", values.payerPhone);
+        // form_data.append("payerEmail", values.payerEmail);
+        // form_data.append("cardSuffix", values.cardSuffix);
+        // form_data.append("cardType", values.cardType);
+        // form_data.append("cardTypeCode", values.cardTypeCode);
+        // form_data.append("cardBrand", values.cardBrand);
+        // form_data.append("cardBrandCode", values.cardBrandCode);
+        // form_data.append("cardExp", values.cardExp);
+        // form_data.append("processId", values.processId);
+        // form_data.append("processToken", values.processToken);
+
+        var options = {
+            'method': 'POST',
+            'url': 'https://sandbox.meshulam.co.il/api/light/server/1.0/approveTransaction',
+            formData: {
+                "pageCode": values.customFields.cField4,
+                "transactionId": values.transactionId,
+                "transactionToken": values.transactionToken,
+                "transactionTypeId": values.transactionTypeId,
+                "paymentType": values.paymentType,
+                "sum": values.sum,
+                "firstPaymentSum": values.firstPaymentSum,
+                "periodicalPaymentSum": values.periodicalPaymentSum,
+                "paymentsNum": values.paymentsNum,
+                "allPaymentsNum": values.allPaymentsNum,
+                "paymentDate": values.paymentDate,
+                "asmachta": values.asmachta,
+                "description": values.description,
+                "fullName": values.fullName,
+                "payerPhone": values.payerPhone,
+                "payerEmail": values.payerEmail,
+                "cardSuffix": values.cardSuffix,
+                "cardType": values.cardType,
+                "cardTypeCode": values.cardTypeCode,
+                "cardBrand": values.cardBrand,
+                "cardBrandCode": values.cardBrandCode,
+                "cardExp": values.cardExp,
+                "processId": values.processId,
+                "processToken": values.processToken
+            }
+          };
+          request(options, async function (error, response) {
+            if (error) throw new Error(error);
+            try {
                 const payment = new Payment(values)
                 await payment.save()
-        } catch (err) {
+
+                logger.info('AFTER SAVE PAYMENT')
+                logger.info(JSON.parse(response.body))
+                console.log(JSON.parse(response.body))
+                res.json(JSON.parse(response.body));
+            } catch (err) {
                 console.log(err)
                 res.status(400).send(err)
-        }
-        logger.info('AFTER SAVE PAYMENT')
-        logger.info(data)
-        console.log(data)
-        res.json(data);
+            }
+          });        
+
+        // console.log(form_data);
+        // logger.info('after append')
+        // const url = "https://secure.meshulam.co.il/api/light/server/1.0/approveTransaction";
+        // const response = await fetch(url, {
+        //     method: 'POST',
+        //     body: form_data
+        // });
+        // const data = await response.json();
+        // logger.info('AFTER FETCH APPROVE')
+        
+        // logger.info('AFTER SAVE PAYMENT')
+        // logger.info(data)
+        // console.log(data)
+        // res.json(data);
 
     }
     catch (err){
@@ -182,38 +220,35 @@ router.post('/payment/booking/card', async(req, res) => {
 
         const values = req.body
 
-        var myHeaders = new fetch.Headers();
-        myHeaders.append("Cookie", "incap_ses_1052_2534411=gNNJOpC8YCf7YhEhEHWZDsEVf2EAAAAADqxKt0MG+Y8BL0YqktQecg==; visid_incap_2534411=KQOTNPN0RBeTU33iyTiZysEVf2EAAAAAQUIPAAAAAABS1lk6NLV+MlpfFq/ouAOO; PHPSESSID=5721mpnbartjm6aqt5ijskk4f1");
+        var options = {
+            'method': 'POST',
+            'url': 'https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess',
+            formData: {
+              'pageCode': pageCodeCardTest,
+              'userId': userIdTest,
+              'sum': values.sum,
+              "pageField[fullName]":values.fullname,
+              "pageField[email]": values.email,
+              "pageField[phone]": values.phone,
+              "paymentNum": '1',
+              "saveCardToken": '1',
+              "chargeType": '1',
+              "description": values.description,
+              'successUrl': 'https://luxury-massages.com/payment/redirect=success',
+              'cancelUrl': 'https://luxury-massages.com/dashboard/therapy',
+              "cField1": values._id,
+              "cField2": values.address,
+              "cField3": values.distributor,
+              "cField4": pageCodeCardTest
+            }
+          };
+          request(options, function (error, response) {
+            if (error) throw new Error(error);
+            data = JSON.parse(response.body)
+            console.log(data)
 
-        let form_data = new formData();
-        form_data.append("sum", values.sum);
-        form_data.append("pageField[fullName]", values.fullname);
-        form_data.append("pageField[email]", values.email);
-        form_data.append("pageField[phone]", values.phone);
-        form_data.append("paymentNum", '1');
-        form_data.append("saveCardToken", '1');
-        form_data.append("chargeType", '1');
-        form_data.append("description", values.description);
-        form_data.append("pageCode", pageCodeCard);
-        form_data.append("userId", userId);
-        form_data.append("cField1", values._id)
-        form_data.append("cField2", values.address)
-        form_data.append("cField3", values.distributor)
-        form_data.append("cField4", pageCodeCard)
-        form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
-        form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
-
-        const url = "https://secure.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
-        console.log(form_data)
-        const response = await fetch(url, { method: 'POST', headers: myHeaders, body: form_data });
-
-        console.log(response)
-
-        const data = await response.json();
-
-        console.log(data)
-        
-        res.json(data.data.url);
+            res.json(data.data.url);
+          });        
     }catch (err) {
         console.log(err);
     }
@@ -223,32 +258,37 @@ router.post('/payment/booking/card', async(req, res) => {
 router.post('/payment/booking/bit', async(req, res) => {
     try {
 
-        
-        var myHeaders = new fetch.Headers();
-        myHeaders.append("Cookie", "incap_ses_1052_2534411=gNNJOpC8YCf7YhEhEHWZDsEVf2EAAAAADqxKt0MG+Y8BL0YqktQecg==; visid_incap_2534411=KQOTNPN0RBeTU33iyTiZysEVf2EAAAAAQUIPAAAAAABS1lk6NLV+MlpfFq/ouAOO; PHPSESSID=5721mpnbartjm6aqt5ijskk4f1");
-
         const values = req.body
-        let form_data = new formData();
-        form_data.append("sum", values.sum);
-        form_data.append("pageField[fullName]", values.fullname);
-        form_data.append("pageField[email]", values.email);
-        form_data.append("pageField[phone]", values.phone);
-        form_data.append("paymentNum", '1');
-        form_data.append("saveCardToken", '1');
-        form_data.append("chargeType", '1');
-        form_data.append("description", values.description);
-        form_data.append("pageCode", pageCodeBit);
-        form_data.append("userId", userId);
-        form_data.append("cField1", values._id)
-        form_data.append("cField2", values.address)
-        form_data.append("cField3", values.distributor)
-        form_data.append("cField4", pageCodeBit)
-        form_data.append("successUrl", 'https://luxury-massages.com/payment/redirect=success');
-        form_data.append("cancelUrl", 'https://luxury-massages.com/dashboard/therapy');
-        const url = "https://secure.meshulam.co.il/api/light/server/1.0/createPaymentProcess";
-        const response = await fetch(url, { method: 'POST', headers: myHeaders, body: form_data });
-        const data = await response.json();
-        res.json(data.data.url);
+
+        var options = {
+            'method': 'POST',
+            'url': 'https://secure.meshulam.co.il/api/light/server/1.0/createPaymentProcess',
+            formData: {
+              'pageCode': pageCodeBit,
+              'userId': userId,
+              'sum': values.sum,
+              "pageField[fullName]":values.fullname,
+              "pageField[email]": values.email,
+              "pageField[phone]": values.phone,
+              "paymentNum": '1',
+              "saveCardToken": '1',
+              "chargeType": '1',
+              "description": values.description,
+              'successUrl': 'https://luxury-massages.com/payment/redirect=success',
+              'cancelUrl': 'https://luxury-massages.com/dashboard/therapy',
+              "cField1": values._id,
+              "cField2": values.address,
+              "cField3": values.distributor,
+              "cField4": pageCodeBit
+            }
+          };
+          request(options, function (error, response) {
+            if (error) throw new Error(error);
+            data = JSON.parse(response.body)
+            console.log(data)
+
+            res.json(data.data.url);
+          });        
     }catch (err) {
         console.log(err);
     }
