@@ -145,7 +145,7 @@ router.post('/update', async (req, res) => {
 
         var options = {
             'method': 'POST',
-            'url': 'https://sandbox.meshulam.co.il/api/light/server/1.0/approveTransaction',
+            'url': 'https://secure.meshulam.co.il/api/light/server/1.0/approveTransaction',
             formData: {
                 "pageCode": values.customFields.cField4,
                 "transactionId": values.transactionId,
@@ -222,10 +222,10 @@ router.post('/payment/booking/card', async(req, res) => {
 
         var options = {
             'method': 'POST',
-            'url': 'https://sandbox.meshulam.co.il/api/light/server/1.0/createPaymentProcess',
+            'url': 'https://secure.meshulam.co.il/api/light/server/1.0/createPaymentProcess',
             formData: {
-              'pageCode': pageCodeCardTest,
-              'userId': userIdTest,
+              'pageCode': pageCodeCard,
+              'userId': userId,
               'sum': values.sum,
               "pageField[fullName]":values.fullname,
               "pageField[email]": values.email,
@@ -239,7 +239,7 @@ router.post('/payment/booking/card', async(req, res) => {
               "cField1": values._id,
               "cField2": values.address,
               "cField3": values.distributor,
-              "cField4": pageCodeCardTest
+              "cField4": pageCodeCard
             }
           };
           request(options, function (error, response) {
